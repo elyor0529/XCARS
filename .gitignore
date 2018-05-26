@@ -5,8 +5,7 @@ bin
 *.jfm
 *.pubxml
 .vs/config/applicationhost.config
-.vs/XCars/v14/.suo
-packages/
+.vs/XCars/v14/.suo 
 XCARS/XCars/App_Data/
 *.log
 *.*.dbmdl
