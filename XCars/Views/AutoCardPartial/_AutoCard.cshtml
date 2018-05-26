@@ -1,0 +1,91 @@
+﻿@model XCars.ViewModels.AutoShortInfoVM
+@using XCars.Resourses
+@using XCars.Common
+
+@{
+    string photoSrc = XCarsConfiguration.BucketEndpoint + XCarsConfiguration.BucketName + "/" + XCarsConfiguration.AutoPhotosUploadUrl + (Model.Photo.ID != 0 ? (Model.Photo.ID + "_272x179") : XCarsConfiguration.AutoNoPhotoName) + XCarsConfiguration.PhotoExtension;
+    string autoName = Model.Make + " " + Model.Model + (!string.IsNullOrWhiteSpace(Model.Modification) ? " " + Model.Modification : "")/* + " " + Model.YearOfIssue*/;
+}
+
+<div class="account_single_ads">
+    <a href="/Auto/Details/@Model.ID">
+        <div class="account_single_ads_foto new">
+            <img class="async" width="250" title="@autoName" alt="@autoName" src="@XCars.Common.XCarsConfiguration.ClearGif" finalSrc="@photoSrc">
+        </div>
+        <div class="account_single_ads_desc">
+            <div class="more_des_price_name">
+                <i class="icon-favorite"></i><span class="name">@autoName</span>
+                <span class="green">@Model.PriceUSDStr</span><span class="price_grn">/ @Model.PriceUAHStr</span>
+            </div>
+            <div class="more_des">
+                @{
+                    string timesAgo = "";
+                    if (Model.DateAppearance != null)
+                    {
+                        DateTime targetDT = Model.DateAppearance.Value;
+                        int passedDaysCount = (DateTime.Now - targetDT).Days;
+                        if (passedDaysCount > 0)
+                        {
+                            if (passedDaysCount < 10)
+                            {
+                                timesAgo = passedDaysCount + " " + Resource.DaysAgo;
+                            }
+                            else
+                            {
+                                timesAgo = Resource.LongAgo;
+                            }
+                        }
+                        else
+                        {
+                            int passedHoursCount = (DateTime.Now - targetDT).Hours;
+                            if (passedHoursCount > 0)
+                            {
+                                timesAgo = passedHoursCount + " " + Resource.HoursAgo;
+                            }
+                            else
+                            {
+                                int passedMinutesCount = (DateTime.Now - targetDT).Minutes;
+                                if (passedMinutesCount > 0)
+                                {
+                                    timesAgo = passedMinutesCount + " " + Resource.MinutesAgo;
+                                }
+                                else
+                                {
+                                    timesAgo = Resource.MomentAgo;
+                                }
+                            }
+                        }
+
+                        if (timesAgo != "")
+                        {
+                            <span><i class="icon-date_publication"></i>@timesAgo</span>
+                        }
+                    }
+                }
+
+                @if (!string.IsNullOrWhiteSpace(Model.Region))
+            {
+                    <span><i class="icon-region"></i>@Model.Region</span>
+                }
+                <span><i class="icon-race"></i>@Model.Probeg @Resource.DistanceShort</span>
+                @if (!string.IsNullOrWhiteSpace(Model.TransmissionType))
+            {
+                    <span><i class="icon-transmission"></i>@Model.TransmissionType</span>
+                }
+                @if (!string.IsNullOrWhiteSpace(Model.FuelType) && Model.EngineCapacity != null)
+            {
+                    <span><i class="icon-fuel"></i>@Model.FuelType, @Model.EngineCapacity @Resource.LitresShort</span>
+                }
+                <span><i class="icon-year"></i>@Model.YearOfIssue</span>
+                @if (!string.IsNullOrWhiteSpace(Model.TSRegistration))
+            {
+                    <span class="icon_additional">@Model.TSRegistration</span>
+                }
+            </div>
+            <div class="more_des_status">
+                @Model.Description
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </a>
+</div>

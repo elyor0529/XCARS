@@ -1,0 +1,476 @@
+﻿@model XCars.ViewModels.AutoExtraInfoVM
+@using XCars.Resourses
+@using XCars.Common
+
+@{
+    ViewBag.Title = Resource.ExtraInfo;
+
+    int descriptionLength = Model.Description?.Length ?? 0;
+    int maxdescriptionslength = ViewBag.autoDescriptionMaxLength;
+    int countOfSymbolsLeft = maxdescriptionslength - descriptionLength;
+    if (countOfSymbolsLeft < 0)
+    {
+        countOfSymbolsLeft = 0;
+    }
+}
+
+@Html.Partial("_BreadcrumbsPartial", ViewBag.breadcrumbs as Dictionary<string, string>)
+
+<div class="add_cars">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="add_cars_in step2">
+                    @Html.Partial("_AddInfoTab")
+
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.AutoID)
+
+                        <div class="add_cars_rows add_cars_rows3">
+                            <h2>@Resource.ViewPlace</h2>
+                            <div class="add_cars_map">
+                                @Html.HiddenFor(model => model.PlaceLat)
+                                @Html.HiddenFor(model => model.PlaceLng)
+                                <input id="pac-input" class="controls" type="text" placeholder="@Resource.PlaceForComfortView">
+                                <div id="map" style="width:100%;height:450px;"></div>
+                                <button type="button" class="but but_purple" onclick="deleteMarkers();">@Resource.RemovePlace</button>
+                            </div>
+                        </div>
+                        <div class="add_cars_rows add_cars_rows4">
+                            <div class="add_cars_rows4_inn">
+                                <h2>@Resource.AddPhoto</h2>
+                                <div id="fileuploader"></div>
+                            </div>
+                        </div>
+
+                        <div class="clearfix"></div>
+                        <div class="add_cars2_last_row">
+                            <div class="hide_cont_wrap">
+                                <a href="#statesCollapse" class="hide_cont_href_boot collapsed" data-toggle="collapse">@Html.DisplayNameFor(model => model.AutoStates)</a>
+                                <div id="statesCollapse" class="collapse hide_cont_sel">
+
+                                </div>
+                            </div>
+                            <div class="hide_cont_wrap">
+                                <a href="#securitiesCollapse" class="hide_cont_href_boot collapsed" data-toggle="collapse">@Html.DisplayNameFor(model => model.AutoSecurities)</a>
+                                <div id="securitiesCollapse" class="collapse hide_cont_sel">
+
+                                </div>
+                            </div>
+                            <div class="hide_cont_wrap">
+                                <a href="#comfortsCollapse" class="hide_cont_href_boot collapsed" data-toggle="collapse">@Html.DisplayNameFor(model => model.AutoComforts)</a>
+                                <div id="comfortsCollapse" class="collapse hide_cont_sel">
+                                </div>
+                            </div>
+                            <div class="hide_cont_wrap">
+                                <a href="#multimediasCollapse" class="hide_cont_href_boot collapsed" data-toggle="collapse">@Html.DisplayNameFor(model => model.AutoMultimedias)</a>
+                                <div id="multimediasCollapse" class="collapse hide_cont_sel">
+                                </div>
+                            </div>
+                            <div class="hide_cont_wrap">
+                                <a href="#miscsCollapse" class="hide_cont_href_boot collapsed" data-toggle="collapse">@Html.DisplayNameFor(model => model.AutoMiscs)</a>
+                                <div id="miscsCollapse" class="collapse hide_cont_sel">
+                                </div>
+                            </div>
+                            
+                            @*<div class="add_cars2_col1">
+                                <h5>@Html.DisplayNameFor(model => model.AutoSecurities)</h5>
+                                <dl class="column" id="securitiesCollapse">
+                                </dl>
+                            </div>
+                            <div class="add_cars2_col2">
+                                <h5>@Html.DisplayNameFor(model => model.AutoComforts)</h5>
+                                <dl class="column" id="comfortsCollapse">
+                                </dl>
+                            </div>
+
+                            <div class="add_cars2_col3">
+                                <h5>@Html.DisplayNameFor(model => model.AutoMultimedias)</h5>
+                                <dl class="column" id="multimediasCollapse"></dl>
+                                <h5>@Html.DisplayNameFor(model => model.AutoMiscs)</h5>
+                                <dl class="column" id="miscsCollapse"></dl>
+                            </div>
+                            <div class="add_cars2_col4">
+                                <h5>@Html.DisplayNameFor(model => model.AutoStates)</h5>
+                                <dl class="column" id="statesCollapse"></dl>
+                            </div>*@
+
+                            <div class="clearfix"></div>
+                        </div>
+
+                        <div class="add_cars2_more_des">
+                            <div class="add_cars2_more_des_left">
+                                <h2>@Html.DisplayNameFor(model => model.Description)</h2>
+                                <div class="add_cars2_more_des_textarea">
+                                    @Html.TextAreaFor(model => model.Description, new { @class = "description__addcars", @rows = "6", @maxlength = maxdescriptionslength })
+                                    @*<textarea name="description" id="description__addcars" rows="6" maxlength="2000"></textarea>*@
+                                    <div class="note">@Resource.SymbolsLeft <span id="maxdescriptionslength__addcars">@countOfSymbolsLeft</span></div>
+                                </div>
+                                <div class="note">
+                                    @Html.Raw(Server.HtmlDecode(Resource.AutoDescriptionHint))
+                                </div>
+                            </div>
+
+                            <div class="home_search_form_baner">
+                                <img height="250" width="300" src="~/Content/images/samples/ads-squere.jpg" alt="XCars">
+                            </div>
+
+                            <div class="clearfix"></div>
+                        </div>
+
+                        
+
+                        <div class="add_cars_foot step2">
+                            <button type="button" class="but_purple but" onclick="location.href='/MyAuto/AddMainInfo/@Model.AutoID'">@Resource.Back</button>
+                            <button type="submit" id="hiddenSubmitbtn" class="" style="display: none;"></button>
+                            <button type="submit" id="nextBtn" class="but_purple but">@Resource.Next</button>
+                            <button type="submit" id="saveAsDraftBtn" class="but_purple but">@Resource.SaveAsDraft</button>
+                            <div class="clearfix"></div>
+                        </div>
+                    }
+                    
+                    <div class="note note_right">@Resource.AddAutoExtraInfoPageBottomNote</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+@*@Html.Partial("_AddInfoTab")
+<br />
+
+<h2>@ViewBag.Title</h2>
+<hr />
+
+<h4>@Resource.Photo</h4>
+<div id="fileuploader">Upload</div>
+
+@using (Html.BeginForm())
+{
+    
+    <div class="form-horizontal">
+
+        
+
+
+        <div class="form-group">
+            <label class="control-label col-md-2">
+                @Resource.FuelConsumption
+            </label>
+            <div class="col-md-1">
+                @Html.EditorFor(model => model.FuelConsumptionCity, new { htmlAttributes = new { @class = "form-control", @placeholder = Html.DisplayNameFor(model => model.FuelConsumptionCity) } })
+                @Html.ValidationMessageFor(model => model.FuelConsumptionCity, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-1">
+                @Html.EditorFor(model => model.FuelConsumptionHighway, new { htmlAttributes = new { @class = "form-control", @placeholder = Html.DisplayNameFor(model => model.FuelConsumptionHighway) } })
+                @Html.ValidationMessageFor(model => model.FuelConsumptionHighway, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-1">
+                @Html.EditorFor(model => model.FuelConsumptionMixed, new { htmlAttributes = new { @class = "form-control", @placeholder = Html.DisplayNameFor(model => model.FuelConsumptionMixed) } })
+                @Html.ValidationMessageFor(model => model.FuelConsumptionMixed, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-1">
+                <span><i>@Resource.FuelConsumptionMeasurement</i></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EngineCapacity, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-2">
+                @Html.EditorFor(model => model.EngineCapacity, new { htmlAttributes = new { @class = "form-control", @placeholder = "в литрах" } })
+                @Html.ValidationMessageFor(model => model.EngineCapacity, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-1">
+                @Html.EditorFor(model => model.Power, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Power, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-1">
+                <span>@Resource.PowerMeasurement</span>
+            </div>
+        </div>
+    </div>
+}*@
+
+<link href="~/Scripts/jquery-upload-file/css/uploadfile.css" rel="stylesheet" />
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/jquery-upload-file/js/jquery.uploadfile.js"></script>
+
+<script>
+        var doNotPostTheMainForm = false;
+
+        var posLat = Number("@Model.PlaceLat");
+        var posLng = Number("@Model.PlaceLng");
+        var addDefaultMarker = false;
+
+        if (!isNaN(posLat) && posLat != 0  && !isNaN(posLng) && posLng != 0)
+            addDefaultMarker = true;
+
+        if (isNaN(posLat) || posLat == 0)
+            posLat = Number("@XCarsConfiguration.GoogleMapsDefaultPositionLat");
+        if (isNaN(posLng) || posLng == 0)
+            posLng = Number("@XCarsConfiguration.GoogleMapsDefaultPositionLng");
+
+        var autoPosition = {
+            lat: posLat,
+            lng: posLng
+        };
+
+        // This example adds a search box to a map, using the Google Place Autocomplete
+        // feature. People can enter geographical searches. The search box will return a
+        // pick list containing a mix of places and predicted search terms.
+
+        // This example requires the Places library. Include the libraries=places
+        // parameter when you first load the API. For example:
+        // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+        var markers = [];
+
+        function initAutocomplete()
+        {
+            var map = new google.maps.Map(document.getElementById('map'), {
+                center: autoPosition,
+                zoom: 13,
+                mapTypeId: 'roadmap'
+            });
+
+            // Create the search box and link it to the UI element.
+            var input = document.getElementById('pac-input');
+            var searchBox = new google.maps.places.SearchBox(input);
+            map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+            if (addDefaultMarker)
+            {
+                var defaultMarker = new google.maps.Marker({
+                    map: map,
+                    //icon: icon,
+                    //title: place.name,
+                    position: autoPosition,
+                    draggable: true
+                });
+
+                markers.push(defaultMarker);
+
+                google.maps.event.addListener(defaultMarker, 'position_changed', function () {
+                    var pos = defaultMarker.getPosition();
+
+                    $("#PlaceLat").val(pos.lat());
+                    $("#PlaceLng").val(pos.lng());
+                });
+            }
+
+            // Bias the SearchBox results towards current map's viewport.
+            map.addListener('bounds_changed', function() {
+                //alert("asdf");
+                searchBox.setBounds(map.getBounds());
+            });
+
+            // Listen for the event fired when the user selects a prediction and retrieve
+            // more details for that place.
+            searchBox.addListener('places_changed', function() {
+                var places = searchBox.getPlaces();
+                if (places.length == 0) {
+                    return;
+                }
+
+                deleteMarkers();
+
+                // For each place, get the icon, name and location.
+                var bounds = new google.maps.LatLngBounds();
+
+                var place = places[0];
+                if (!place.geometry) {
+                    console.log("Returned place contains no geometry");
+                    return;
+                }
+                var icon = {
+                    url: place.icon,
+                    size: new google.maps.Size(71, 71),
+                    origin: new google.maps.Point(0, 0),
+                    anchor: new google.maps.Point(17, 34),
+                    scaledSize: new google.maps.Size(25, 25)
+                };
+
+                // Create a marker
+                var marker = new google.maps.Marker({
+                    map: map,
+                    icon: icon,
+                    title: place.name,
+                    position: place.geometry.location,
+                    draggable: true
+                });
+
+                $("#PlaceLat").val(place.geometry.location.lat);
+                $("#PlaceLng").val(place.geometry.location.lng);
+
+                google.maps.event.addListener(marker, 'position_changed', function () {
+                    var pos = marker.getPosition();
+
+                    $("#PlaceLat").val(pos.lat());
+                    $("#PlaceLng").val(pos.lng());
+                });
+
+                markers.push(marker);
+
+                if (place.geometry.viewport) {
+                    // Only geocodes have viewport.
+                    bounds.union(place.geometry.viewport);
+                } else {
+                    bounds.extend(place.geometry.location);
+                }
+
+                map.fitBounds(bounds);
+            });
+        }
+
+        // Sets the map on all markers in the array.
+        function setMapOnAll(map) {
+            for (var i = 0; i < markers.length; i++) {
+                markers[i].setMap(map);
+            }
+        }
+
+        // Removes the markers from the map, but keeps them in the array.
+        function clearMarkers() {
+            setMapOnAll(null);
+        }
+
+        // Shows any markers currently in the array.
+        //function showMarkers() {
+        //    setMapOnAll(map);
+        //}
+
+        // Deletes all markers in the array by removing references to them.
+        function deleteMarkers() {
+            clearMarkers();
+            markers = [];
+
+            $("#PlaceLat").val("");
+            $("#PlaceLng").val("");
+        }
+
+        $(document).ready(function () {
+            $("#pac-input").keypress(function (e) {
+                if(e.which == 13) {
+                    //alert('You pressed enter!');
+                    doNotPostTheMainForm = true;
+                }
+            });
+
+            $("#saveAsDraftBtn, #nextBtn").click(function (){
+                //alert("submit button pressed");
+                doNotPostTheMainForm = false;
+            });
+        });
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRUSSHTN3Xz-nAfK9w6ZG6UeIN9BztycA&libraries=places&callback=initAutocomplete" async defer></script>
+    
+    <script>
+        var autoExtraInfoVM = @Html.Raw(Json.Encode(Model));
+
+        var maxdescriptionslength = Number("@maxdescriptionslength");
+
+        $(document).ready(function () {
+            MakeAjaxGetRequest("/AutoState/GetAllAsSelectList", { selected: autoExtraInfoVM.AutoStates }, "#statesCollapse", "checkboxForOthersInSearchForm", "AutoStates");
+            MakeAjaxGetRequest("/AutoSecurity/GetAllAsSelectList", { selected: autoExtraInfoVM.AutoSecurities }, "#securitiesCollapse", "checkboxForOthersInSearchForm", "AutoSecurities");
+            MakeAjaxGetRequest("/AutoComfort/GetAllAsSelectList", { selected: autoExtraInfoVM.AutoComforts }, "#comfortsCollapse", "checkboxForOthersInSearchForm", "AutoComforts");
+            MakeAjaxGetRequest("/AutoMultimedia/GetAllAsSelectList", { selected: autoExtraInfoVM.AutoMultimedias }, "#multimediasCollapse", "checkboxForOthersInSearchForm", "AutoMultimedias");
+            MakeAjaxGetRequest("/AutoMisc/GetAllAsSelectList", { selected: autoExtraInfoVM.AutoMiscs }, "#miscsCollapse", "checkboxForOthersInSearchForm", "AutoMiscs");
+
+            $("form").submit(function () {
+                //alert("posting...");
+                //alert(doNotPostTheMainForm);
+                if (doNotPostTheMainForm == true)
+                    return false;
+                var submitBtn = $("form button[type=submit][clicked=true]");
+                if ($(submitBtn).attr("id") == "saveAsDraftBtn" || $(submitBtn).attr("id") == "nextBtn")
+                {
+                    if ($(submitBtn).attr("id") == "saveAsDraftBtn") {
+                        var input = $("<input>")
+                            .attr("type", "hidden")
+                            .attr("name", "saveAsDraft")
+                            .attr("id", "saveAsDraft").val("1");
+                        $("form").append($(input));
+                    }
+
+                    return true;
+                }
+                
+                return false;
+            });
+
+            $("form button[type=submit]").click(function () {
+                //alert("submit clicked!");
+                $("form button[type=submit]").removeAttr("clicked");
+                $(this).attr("clicked", "true");
+            });
+
+            //control description length limit
+            $("#Description").keyup(function (e) {
+                SetDescriptionValue();
+            });
+        });
+
+        function SetDescriptionValue()
+        {
+            var descriptionVal = $("#Description").val();
+            var descriptionCurrentLength = descriptionVal.length;
+            var countOfSymbolsLeft = maxdescriptionslength - descriptionCurrentLength;
+            if (countOfSymbolsLeft < 0)
+                countOfSymbolsLeft = 0;
+
+            $("#maxdescriptionslength__addcars").text(countOfSymbolsLeft);
+        }
+
+        //work with existing photos
+        var objectID = "@Model.AutoID";
+        var existingPhotos = [];
+
+        var uploadPhotoUrl = "/MyAutoPhoto/UploadPhoto";
+        var deletePhotoUrl = "/MyAutoPhoto/DeletePhoto";
+        var makePhotoMainUrl = "/MyAutoPhoto/MakePhotoMain";
+
+        @if (Model.AutoPhotoes != null && Model.AutoPhotoes.Count > 0)
+        {
+            foreach (var item in Model.AutoPhotoes)
+            {
+                string photoSrc = XCarsConfiguration.BucketEndpoint + XCarsConfiguration.BucketName + "/" + XCarsConfiguration.AutoPhotosUploadUrl + item.ID + "_272x179" + XCarsConfiguration.PhotoExtension;
+                <text>
+                    var photo = {
+                        name: "@item.ID",
+                        path: "@photoSrc",
+                        isMain: "@item.IsMain",
+                        size: 0
+                    };
+                existingPhotos.push(photo);
+                </text>
+            }
+        }
+    </script>
+    <script>
+        var dropZoneInnerText = "@Html.Raw(Server.HtmlDecode(Resource.DropZoneInnerText))";
+        var photoRequirements = "@Resource.PhotoRequirements";
+        var photoMakingSuggestions = "@Resource.PhotoMakingSuggestions";
+        var selectMainPhotoHint = "@Resource.SelectMainPhoto";
+        var pageName = "AddAutoExtraInfo";
+    </script>
+    <script src="~/Scripts/custom/fileUploaderScript.js"></script>
+    <script src="~/Scripts/custom/MakeAjaxGetRequest.js"></script>
+
+    
+}
+
+<style>
+    label
+    {
+        font-weight: inherit;
+    }
+</style>

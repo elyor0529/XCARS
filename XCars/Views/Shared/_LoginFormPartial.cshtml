@@ -1,0 +1,36 @@
+﻿@using XCars.Models
+@model  LoginViewModel
+@using XCars.Resourses
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+    <h4 class="modal-title">Вход на сайт <img height="32" src="~/Content/images/logo.svg"></h4>
+</div>
+<div class="modal-left">
+    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <label>@Html.DisplayNameFor(m => m.EmailLogin)</label>
+        @Html.TextBoxFor(m => m.EmailLogin)
+        @Html.ValidationMessageFor(m => m.EmailLogin, "", new { @class = "text-danger" })
+
+        <label>@Html.DisplayNameFor(m => m.PasswordLogin)</label>
+        @Html.PasswordFor(m => m.PasswordLogin)
+        @Html.ValidationMessageFor(m => m.PasswordLogin, "", new { @class = "text-danger" })
+
+        <div class="checkbox">
+            @Html.CheckBoxFor(m => m.RememberMe)
+            <label>
+                @Html.DisplayNameFor(m => m.RememberMe)
+            </label>
+        </div>
+        <button type="submit" class="but_purple but">@Resource.LogIn</button>
+    }
+</div>
+<div class="modal-right">
+    <section id="socialLoginForm">
+        @Html.Partial("~/Views/Account/_ExternalLoginsListPartial.cshtml", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+    </section>
+</div>

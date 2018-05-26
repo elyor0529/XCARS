@@ -1,0 +1,203 @@
+﻿@model XCars.ViewModels.AuctionCreateVM
+@using XCars.ViewModels
+@using XCars.Resourses
+@using XCars.Common
+
+@{
+    ViewBag.Title = Resource.CreateAuction;
+    List<SelectListItem> currenciesSelectList = ViewBag.currencies;
+    SelectListItem currencyUSD = currenciesSelectList.FirstOrDefault(c => c.Value == "1");
+    SelectListItem currencyUAH = currenciesSelectList.FirstOrDefault(c => c.Value == "2");
+    Dictionary<int, int> recommendedPrice = ViewBag.recommendedPrice;
+
+    AutoDetailsVM autoVM = ViewBag.autoVM as AutoDetailsVM;
+
+    int descriptionLength = Model?.Description?.Length ?? 0;
+    int maxdescriptionslength = ViewBag.autoDescriptionMaxLength;
+    int countOfSymbolsLeft = maxdescriptionslength - descriptionLength;
+    if (countOfSymbolsLeft < 0)
+    {
+        countOfSymbolsLeft = 0;
+    }
+}
+
+@Html.Partial("_BreadcrumbsPartial", ViewBag.breadcrumbs as Dictionary<string, string>)
+
+<div class="create_auc_wrap">
+    <div class="container">
+        <div class="row back_white">
+            <div class="col-md-12">
+                <h1>@autoVM.Make @autoVM.Model @autoVM.Modification @autoVM.YearOfIssue</h1>
+                <span class="s14">@Resource.Auction № @Model.ID</span>
+            </div>
+            <div class="col-md-8">
+                <div class="create_auc">
+                    @using (Html.BeginForm("Create", "MyAuction", FormMethod.Post, new { id = "auctionCreateForm", enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.HiddenFor(model => model.ID, new { @Value = Model.ID })
+                        @Html.HiddenFor(model => model.AutoID)
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        <h2>@Resource.StartPriceForBet</h2>
+                        <div class="create_auc_bet">
+                            <div class="col-md-5 col-sm-5 nopadding">
+                                @Html.TextBoxFor(model => model.StartPrice, new { @class = "search_sel" })
+                                @Html.DropDownListFor(model => model.CurrencyID, currenciesSelectList, new { @class = "search_sel w68" })
+                                @Html.ValidationMessageFor(model => model.StartPrice, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-7 col-sm-7">
+                                <p id="recommendedPrice">@Resource.RecommendedPrice: <b id="usd">@recommendedPrice[int.Parse(currencyUSD.Value)] @currencyUSD.Text</b><b id="uah" style="display: none;">@recommendedPrice[int.Parse(currencyUAH.Value)] @currencyUAH.Text</b></p>
+                                <p><a href="#">@Resource.FindOutReasonOfRecommendedPriceValue</a></p>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="create_auc_time">
+                            <h2>@Resource.AuctionDuration</h2>
+                            <span>
+                                <select id="Days" name="Days" class="search_sel w74">
+                                    <option value="3">3</option>
+                                    <option value="6">6</option>
+                                    <option value="12">12</option>
+                                </select> <b>@Resource.DaysShort.</b>
+                            </span>
+                            <select id="Hours" name="Hours" class="search_sel w74">
+                                <option value="1">1</option>
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                            </select> <b>@Resource.HoursShort.</b>
+                            <p> @Resource.FInishesAfter: <span id="timeRemainsToFinish"></span></p>
+                        </div>
+                        <h2>@Resource.AuctionExtraDescription</h2>
+                        <div class="create_auc_textarea">
+                            @Html.TextAreaFor(model => model.Description, new { htmlAttributes = new { @class = "description__addcars", @rows = "6", @maxlength = maxdescriptionslength } })
+                            <div class="note">@Resource.SymbolsLeft <span id="maxdescriptionslength__addcars">@countOfSymbolsLeft</span></div>
+                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                        </div>
+                        <!------------------------------------>
+                        <h2>@Resource.AddPhoto</h2>
+                        <div id="fileuploader"></div>
+                        <!------------------------------------>
+                        <div class="create_auc_txt">
+                            @Html.Raw(Server.HtmlDecode(Resource.PaymentForAuctionWarning))
+                        </div>
+                        <input type="checkbox" value="1" id="agree" name="agree">
+                        <label class="create_auc_agreement" for="agree">@Html.Raw(Server.HtmlDecode(Resource.AuctionCreateAgreement))</label>
+                        <div class="clearfix"></div>
+                        <button type="submit" class="but_purple but pull-right disabled">@Resource.AuctionCreate</button>
+                        <div class="clearfix"></div>
+                    }
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="create_auc_more_desc">
+                    @{
+                        AutoPhotoVM mainPhoto = ViewBag.mainPhoto as AutoPhotoVM;
+                        string photoSrc = XCarsConfiguration.BucketEndpoint + XCarsConfiguration.BucketName + "/" + XCarsConfiguration.AutoPhotosUploadUrl + (mainPhoto != null ? (mainPhoto.ID + "_272x179") : XCarsConfiguration.AutoNoPhotoName) + XCarsConfiguration.PhotoExtension;
+                    }
+                    <img class="async" width="250" title="@autoVM.Make @autoVM.Model" alt="@autoVM.Make @autoVM.Model" src="@XCars.Common.XCarsConfiguration.ClearGif" finalSrc="@photoSrc">
+                    <p>@Resource.Region: <span>@autoVM.Region</span></p>
+                    <p>@Resource.TransportType: <span>@autoVM.TransportType</span></p>
+                    <p>@Resource.BodyType: <span>@autoVM.BodyType</span></p>
+                    <p>@Resource.Make:<span> @autoVM.Make</span></p>
+                    <p>@Resource.Model: <span>@autoVM.Model</span></p>
+                    <p>@Resource.Modification: <span>@autoVM.Modification</span></p>
+                    <p>@Resource.Color:<span>@autoVM.Color</span></p>
+                    <p>@Resource.Engine: <span>@autoVM.EngineCapacity @Resource.LitresShort, @autoVM.FuelType</span></p>
+                    <p>@Resource.TransmissionType:<span>@autoVM.TransmissionType</span></p>
+                    <p>@Resource.Drive:<span>@autoVM.DriveType</span></p>
+                    <p>@Resource.YearOfIssue: <span>@autoVM.YearOfIssue</span></p>
+                    <p>@Resource.Probeg: <span>@autoVM.Probeg @Resource.DistanceShort</span></p>
+                    <p>@Resource.Price: <span>@autoVM.PriceUSDStr</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<link href="~/Scripts/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />*@
+<link href="~/Scripts/jquery-upload-file/css/uploadfile.css" rel="stylesheet" />
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @*<script src="~/Scripts/bootstrap-datetimepicker/js/moment-with-locales.min.js"></script>
+    <script src="~/Scripts/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>*@
+    <script src="~/Scripts/jquery-upload-file/js/jquery.uploadfile.js"></script>
+
+    <script>
+        var maxdescriptionslength = Number("@maxdescriptionslength");
+
+        //work with existing photos
+        var objectID = "@Model.ID";
+        var existingPhotos = [];
+
+        var uploadPhotoUrl = "/MyAuctionPhoto/UploadPhoto";
+        var deletePhotoUrl = "/MyAuctionPhoto/DeletePhoto";
+        var makePhotoMainUrl = "/MyAuctionPhoto/MakePhotoMain";
+
+        @if (Model != null && Model.AuctionPhotoes != null && Model.AuctionPhotoes.Count > 0)
+        {
+            foreach (var item in Model.AuctionPhotoes)
+            {
+                string pSrc = XCarsConfiguration.BucketEndpoint + XCarsConfiguration.BucketName + "/" + XCarsConfiguration.AuctionPhotosUploadUrl + item.ID + "_272x179" + XCarsConfiguration.PhotoExtension;
+                <text>
+                    var photo = {
+                        name: "@item.ID",
+                        path: "@pSrc",
+                        isMain: "@item.IsMain",
+                        size: 0
+                    };
+                existingPhotos.push(photo);
+                </text>
+            }
+        }
+
+        $(document).ready(function () {
+            $("select#CurrencyID").change(function () {
+                //alert("asdf");
+                $("#recommendedPrice > b").css("display", "none");
+                if ($(this).val() == "1")
+                    $("#recommendedPrice > b#usd").css("display", "inline");
+                else
+                    $("#recommendedPrice > b#uah").css("display", "inline");
+            });
+
+            //control description length limit
+            $("#Description").keyup(function (e) {
+                SetDescriptionValue();
+            });
+
+            $("#agree").change(function () {
+                //$("form#auctionCreateForm button[type=submit]").toggleClass("disabled");
+                if ($(this).prop("checked"))
+                    $("form#auctionCreateForm button[type=submit]").removeClass("disabled");
+                else
+                    $("form#auctionCreateForm button[type=submit]").addClass("disabled");
+            });
+
+            $("#timeRemainsToFinish").text($("#Days").val() + " @Resource.DaysShort." + " " + $("#Hours").val() + " @Resource.HoursShort.");
+            $("#Days, #Hours").change(function () {
+                $("#timeRemainsToFinish").text($("#Days").val() + " @Resource.DaysShort." + " " + $("#Hours").val() + " @Resource.HoursShort.");
+            });
+        });
+
+        function SetDescriptionValue() {
+            var descriptionVal = $("#Description").val();
+            var descriptionCurrentLength = descriptionVal.length;
+            var countOfSymbolsLeft = maxdescriptionslength - descriptionCurrentLength;
+            if (countOfSymbolsLeft < 0)
+                countOfSymbolsLeft = 0;
+
+            $("#maxdescriptionslength__addcars").text(countOfSymbolsLeft);
+        }
+    </script>
+    <script>
+        var dropZoneInnerText = "@Html.Raw(Server.HtmlDecode(Resource.DropZoneInnerText))";
+        var photoRequirements = "@Resource.PhotoRequirements";
+        var photoMakingSuggestions = "@Resource.PhotoMakingSuggestions";
+        var selectMainPhotoHint = "@Resource.SelectMainPhoto";
+        var pageName = "CreateAuction";
+    </script>
+    <script src="~/Scripts/custom/fileUploaderScript.js"></script>
+}

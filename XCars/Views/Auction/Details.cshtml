@@ -1,0 +1,705 @@
+﻿@model XCars.ViewModels.AuctionDetailsVM
+@using XCars.ViewModels
+@using XCars.Resourses
+@using XCars.Common
+
+@helper CharacteristicsList(string title, string[] options)
+{
+    if (options != null && options.Length > 0)
+    {
+        <h5>@title</h5>
+        foreach (var item in options)
+        {
+            <p><span>@item</span><span>@Resource.Checked</span></p>
+        }
+    }
+}
+
+@{
+    string autoName = Model.Auto.Make + " " + Model.Auto.Model + (!string.IsNullOrWhiteSpace(Model.Auto.Modification) ? " " + Model.Auto.Modification : "") + " " + Model.Auto.YearOfIssue;
+    ViewBag.Title = Resource.Advertisement + " " + autoName;
+    string notDefined = Resource.NotDefined;
+
+    List<AuctionPhotoVM> orderedPhotos = ViewBag.orderedPhotos as List<AuctionPhotoVM>;
+    List<AutoPhotoVM> orderedAutoPhotos = ViewBag.orderedAutoPhotos as List<AutoPhotoVM>;
+
+    DateTime deadline = Model.Deadline;
+}
+
+@Html.Partial("_BreadcrumbsPartial", ViewBag.breadcrumbs as Dictionary<string, string>)
+
+<div class="car_page">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <h1>@autoName</h1>
+                <div class="car_page_price mobile">
+                    <p>@Resource.StartPrice</p>
+                    <span class="green s24">@Model.PriceUSDStr</span><span class="price_grn">/ @Model.PriceUAHStr</span>
+                    <p>@Resource.TimeRemaining: 
+                        @if (ViewBag.isActive)
+                        { <span class="timeRemainingBox"></span> }
+                        else
+                        { <span>@Resource.Finished</span> }
+                    </p>
+                    @if (User.Identity.IsAuthenticated && ViewBag.isActive && !ViewBag.currentUserIsOwner)
+                    {
+                        <div class="car_page_auc_bet">
+                            <div class="col-md-6 col-sm-6">
+                                <input class="myBid" id="myBid_1">
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <button type="button" class="but_lgreen but sendBidBtn" id="sendBidBtn_1">@Resource.SendBid</button>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    }
+                    else if (ViewBag.isActive && !User.Identity.IsAuthenticated)
+                    {
+                        <div class="car_page_auc_bet">
+                            <div class="col-md-6 col-sm-6">
+                                <input class="myBid">
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <button type="button" class="but_lgreen but" data-toggle="modal" data-target="#Modal_login" href="#">@Resource.SendBid</button>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    }
+                </div>
+                <div class="row back_white">
+                    <div class="col-md-8 nopadding">
+                        <div class="carosel_photo_prev">
+                            <ul class="prev_foto_second_ver">
+                                <!-- Первая большая фотография -->
+                                @{ 
+                                    string photoSrc = XCarsConfiguration.BucketEndpoint + XCarsConfiguration.BucketName + "/" + XCarsConfiguration.AutoPhotosUploadUrl + (orderedAutoPhotos[0].ID != 0 ? (orderedAutoPhotos[0].ID + "_1024x768") : XCarsConfiguration.AutoNoPhotoName) + XCarsConfiguration.PhotoExtension;
+                                }
+                                <li><a href="#myCarousel" data-toggle="modal" data-slide-to="0"><img class="async" title="@autoName" alt="@autoName" src="@XCars.Common.XCarsConfiguration.ClearGif" finalSrc="@photoSrc"></a></li>
+                            </ul>
+                        </div>
+                        <div class="carosel_photo_prev prev_foto_second_ver">
+                            <ol class="carousel-indica">
+                                @{
+                                    int i = 1;
+                                    for (; i < orderedAutoPhotos.Count; i++)
+                                    {
+                                        photoSrc = XCarsConfiguration.BucketEndpoint + XCarsConfiguration.BucketName + "/" + XCarsConfiguration.AutoPhotosUploadUrl + (orderedAutoPhotos[i].ID != 0 ? (orderedAutoPhotos[i].ID + "_400x300") : XCarsConfiguration.AutoNoPhotoName) + XCarsConfiguration.PhotoExtension;
+
+                                        <li><a href="#myCarousel" data-toggle="modal" data-slide-to="@i"><img height="64" class="async" title="@autoName" alt="@autoName" src="@XCars.Common.XCarsConfiguration.ClearGif" finalSrc="@photoSrc"></a></li>
+                                    }
+
+                                    <div>@Resource.Defects</div>
+                                    foreach (var item in orderedPhotos)
+                                    {
+                                        photoSrc = XCarsConfiguration.BucketEndpoint + XCarsConfiguration.BucketName + "/" + XCarsConfiguration.AuctionPhotosUploadUrl + (item.ID != 0 ? (item.ID + "_400x300") : XCarsConfiguration.AutoNoPhotoName) + XCarsConfiguration.PhotoExtension;
+
+                                        <li><a href="#myCarousel" data-toggle="modal" data-slide-to="@i"><img height="64" class="async" title="@autoName" alt="@autoName" src="@XCars.Common.XCarsConfiguration.ClearGif" finalSrc="@photoSrc"></a></li>
+
+                                        i++;
+                                    }
+                                }
+                            </ol>
+                            <a class="hide_foto" href="#"><span>@Resource.Show</span> <span>@Resource.Minimize</span> @Resource.PhotoSmall</a>
+                            <div class="clearfix"></div>
+                        </div>
+                        <!-- Карусель -->
+                        <div class="modal fade and carousel slide" id="myCarousel" data-interval="false" data-ride="carousel">
+                            <div class="modal-content modal-slider-content">
+                                <div class="numslide"></div> <button type="button" class="close" data-dismiss="modal">×</button>
+                                <div class="carousel_big_photo_in">
+                                    <!-- Индикаторы для карусели -->
+                                    <button type="button" class="close" data-dismiss="modal">×</button>
+                                    <!-- Слайды карусели -->
+                                    <div class="carousel-inner">
+                                        <!-- Слайды создаются с помощью контейнера с классом item, внутри которого помещается содержимое слайда -->
+                                        @{
+                                            int j = 0;
+                                            foreach (var item in orderedAutoPhotos)
+                                            {
+                                                string active = "";
+                                                if (j == 0)
+                                                { active = "active"; }
+
+                                                photoSrc = XCarsConfiguration.BucketEndpoint + XCarsConfiguration.BucketName + "/" + XCarsConfiguration.AutoPhotosUploadUrl + (item.ID != 0 ? (item.ID + "_1024x768") : XCarsConfiguration.AutoNoPhotoName) + XCarsConfiguration.PhotoExtension;
+
+                                                <div class="@active item">
+                                                    <img class="async" title="@autoName" alt="@autoName" src="@XCars.Common.XCarsConfiguration.ClearGif" finalSrc="@photoSrc">
+                                                </div>
+
+                                                j++;
+                                            }
+
+                                            foreach (var item in orderedPhotos)
+                                            {
+                                                photoSrc = XCarsConfiguration.BucketEndpoint + XCarsConfiguration.BucketName + "/" + XCarsConfiguration.AuctionPhotosUploadUrl + (item.ID != 0 ? (item.ID + "_1024x768") : XCarsConfiguration.AutoNoPhotoName) + XCarsConfiguration.PhotoExtension;
+
+                                                <div class="item">
+                                                    <img class="async" title="@autoName" alt="@autoName" src="@XCars.Common.XCarsConfiguration.ClearGif" finalSrc="@photoSrc">
+                                                </div>
+                                            }
+                                        }
+                                    </div>
+                                    <!-- Навигация для карусели -->
+                                    <!-- Кнопка, осуществляющая переход на предыдущий слайд с помощью атрибута data-slide="prev" -->
+                                    <a class="carousel-control left" href="#myCarousel" data-slide="prev">
+                                        <span class="chevron-left"></span>
+                                    </a>
+                                    <!-- Кнопка, осуществляющая переход на следующий слайд с помощью атрибута data-slide="next" -->
+                                    <a class="carousel-control right" href="#myCarousel" data-slide="next">
+                                        <span class="chevron-right"></span>
+                                    </a>
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                        string active = "";
+                                        if (ViewBag.isInFavorite == true)
+                                        {
+                                            active = "active";
+                                        }
+                                        <i class="icon-favorite @active" data-auctionid="@Model.ID" onclick="MarkAsFavorite(this)"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="icon-favorite" data-toggle="modal" data-target="#Modal_login"></i>
+                                    }
+                                </div>
+                                <div class="carosel_photo_prev">
+                                    <ol class="carousel-indica">
+                                        @{
+                                            j = 0;
+                                            foreach (var item in orderedAutoPhotos)
+                                            {
+                                                string active = "";
+                                                if (j == 0)
+                                                { active = "active"; }
+
+                                                photoSrc = XCarsConfiguration.BucketEndpoint + XCarsConfiguration.BucketName + "/" + XCarsConfiguration.AutoPhotosUploadUrl + (item.ID != 0 ? (item.ID + "_400x300") : XCarsConfiguration.AutoNoPhotoName) + XCarsConfiguration.PhotoExtension;
+
+                                                <li data-target="#myCarousel" data-slide-to="@j" class="@active"><img class="async" height="64" title="@autoName" alt="@autoName" src="@XCars.Common.XCarsConfiguration.ClearGif" finalSrc="@photoSrc"></li>
+
+                                                j++;
+                                            }
+
+                                            <div>@Resource.Defects</div>
+                                            foreach (var item in orderedPhotos)
+                                            {
+                                                photoSrc = XCarsConfiguration.BucketEndpoint + XCarsConfiguration.BucketName + "/" + XCarsConfiguration.AuctionPhotosUploadUrl + (item.ID != 0 ? (item.ID + "_400x300") : XCarsConfiguration.AutoNoPhotoName) + XCarsConfiguration.PhotoExtension;
+
+                                                <li data-target="#myCarousel" data-slide-to="@j"><img class="async" height="64" title="@autoName" alt="@autoName" src="@XCars.Common.XCarsConfiguration.ClearGif" finalSrc="@photoSrc"></li>
+
+                                                j++;
+                                            }
+                                        }
+                                    </ol>
+                                    <a class="hide_foto" href="#"><span>@Resource.Show</span> <span>@Resource.Minimize</span> @Resource.PhotoSmall</a>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 nopadding car_page_right_desc">
+                        <div class="car_page_price web s14">
+                            <p>@Resource.StartPrice</p>
+                            <span class="green s24">@Model.PriceUSDStr</span><span class="price_grn">/ @Model.PriceUAHStr</span>
+                            <p>@Resource.TimeRemaining: 
+                                @if (ViewBag.isActive)
+                                { <span class="timeRemainingBox"></span> }
+                                else
+                                { <span>@Resource.Finished</span> }
+                             </p>
+                            @if (User.Identity.IsAuthenticated && ViewBag.isActive && !ViewBag.currentUserIsOwner)
+                            {
+                                <div class="car_page_auc_bet">
+                                    <div class="col-md-6 col-sm-6">
+                                        <input class="myBid" id="myBid_2">
+                                    </div>
+                                    <div class="col-md-6 col-sm-6">
+                                        <button type="button" class="but_lgreen but sendBidBtn" id="sendBidBtn_2">@Resource.SendBid</button>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            }
+                            else if (ViewBag.isActive && !User.Identity.IsAuthenticated)
+                            {
+                                <div class="car_page_auc_bet">
+                                    <div class="col-md-6 col-sm-6">
+                                        <input class="myBid">
+                                    </div>
+                                    <div class="col-md-6 col-sm-6">
+                                        <button type="button" class="but_lgreen but" data-toggle="modal" data-target="#Modal_login" href="#">@Resource.SendBid</button>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            }
+                        </div>
+                        <div class="car_page_simple_des">
+                            @if (Model.Auto.DateAppearance != null)
+                            {
+                                <div class="car_page_simple_des_row">
+                                    <span class="car_page_simple_des_halfrow">
+                                        <b>@Html.DisplayNameFor(model => model.Auto.DateAppearance)</b>
+                                        @Model.Auto.DateAppearance.Value.ToString("dd.MM.yy")
+                                    </span>
+                                </div>
+                            }
+                            <div class="car_page_simple_des_row">
+                                <span class="car_page_simple_des_halfrow">
+                                    <b>@Html.DisplayNameFor(model => model.Views)</b>
+                                    @Model.Views
+                                </span>
+                            </div>
+                            <div class="car_page_simple_des_row">
+                                <span class="car_page_simple_des_halfrow">
+                                    <b>@Html.DisplayNameFor(model => model.CountOfFavorites)</b>
+                                    <span id="countOfFavorites">@Model.CountOfFavorites</span>
+                                </span>
+                            </div>
+                            <div class="car_page_simple_des_row">
+                                <span class="car_page_simple_des_halfrow">
+                                    <b>ID</b>
+                                    @Model.ID
+                                </span>
+                            </div>
+                        </div>
+                        <div class="car_page_simple_des2">
+                            @Resource.Owner
+
+                            <div class="car_page_simple_des2_inn">
+                                <img width="31" class="img-circle async" title="@Model.Auto.Owner.FirstName @Model.Auto.Owner.LastName" alt="@Model.Auto.Owner.FirstName @Model.Auto.Owner.LastName" src="@XCars.Common.XCarsConfiguration.ClearGif" finalSrc="@Model.Auto.Owner.PhotoSrc">
+                                @{
+                                    string offline = "";
+                                    if (!Model.Auto.Owner.IsOnline)
+                                    {
+                                        offline = "offline";
+                                    }
+                                }
+                                <div class="saller_name @offline"><span>@Model.Auto.Owner.FirstName @Model.Auto.Owner.LastName</span></div>
+                                @if (!Model.Auto.Owner.IsOnline && Model.Auto.Owner.LastSeen != null)
+                                {
+                                    string was = Resource.Was;
+                                    string online = Resource.OnlineSmall;
+                                    string timesAgo = "";
+                                    DateTime targetDT = Model.Auto.Owner.LastSeen.Value;
+                                    int passedDaysCount = (DateTime.Now - targetDT).Days;
+                                    if (passedDaysCount > 0)
+                                    {
+                                        if (passedDaysCount < 10)
+                                        {
+                                            timesAgo = passedDaysCount + " " + Resource.DaysAgo;
+                                        }
+                                        else
+                                        {
+                                            timesAgo = Resource.LongAgo;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        int passedHoursCount = (DateTime.Now - targetDT).Hours;
+                                        if (passedHoursCount > 0)
+                                        {
+                                            timesAgo = passedHoursCount + " " + Resource.HoursAgo;
+                                        }
+                                        else
+                                        {
+                                            int passedMinutesCount = (DateTime.Now - targetDT).Minutes;
+                                            if (passedMinutesCount > 0)
+                                            {
+                                                timesAgo = passedMinutesCount + " " + Resource.MinutesAgo;
+                                            }
+                                            else
+                                            {
+                                                timesAgo = Resource.MomentAgo;
+                                            }
+                                        }
+                                    }
+
+                                    string userStatus = was + " " + online + " " + timesAgo;
+
+                                    <div class="saller_last_time">@userStatus </div>
+                                }
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        @if (ViewBag.currentUserIsOwner && ViewBag.isActive)
+                        {
+                            <div class="car_page_simple_des2_but">
+                                <button class="but_lgreen but" id="finishAuctionBtn">@Resource.Finish</button>
+                            </div>
+                        }
+                        
+                    </div>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="car_page_auc_bet_history">
+                                <div class="col-md-8 car_page_auc_bet_history_allbets">
+                                    <h4>@Resource.HistoryOfBids</h4>
+                                    <table id="bids">
+                                        @foreach (var item in Model.Bids)
+                                        {
+                                            <tr class="bid"> 
+                                                <td><a href="#">@item.User.FirstName @item.User.LastName </a></td>
+                                                <td>@item.Amount.ToString(XCarsConfiguration.PriceFormat) @Model.Currency</td>
+                                                <td>@item.DateCreated.ToString("dd.MM.yyyy HH:mm")</td>
+                                            </tr> 
+                                        }
+                                        <tr>
+                                            <td class="start_bet">@Resource.StartPrice:</td>
+                                            <td>@Model.StartPrice.ToString(XCarsConfiguration.PriceFormat) @Model.Currency</td>
+                                            <td>@Model.DateCreated.ToString("dd.MM.yyyy HH:mm")</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="col-md-4 car_page_more_des_top">
+
+                                    <p><span>@Resource.NumberOfParticipants:</span><span id="numberOfParticipants">@Model.NumberOfParticipants</span></p>
+                                    <p><span>@Resource.BidsCount: </span><span id="bidsCount">@Model.BidsCount</span></p>
+                                    <p><span>@Resource.TimeRemaining:</span>
+                                    @if (ViewBag.isActive)
+                                    { <span class="timeRemainingBox"></span> }
+                                    else
+                                    { <span>@Resource.Finished</span> }</p>
+                                    @{ 
+                                        string duration = ((int)(Model.Deadline - DateTime.Now).TotalHours).ToString() + " " + Resource.HoursShort;
+                                    }
+                                    <p><span>@Resource.Duration: </span><span>@duration</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="car_page_more_des_wrap">
+                                <div class="col-md-12">
+                                    <h4>@Resource.Description @autoName</h4>
+                                </div>
+                                <div class="col-md-6 car_page_more_des_top">
+                                    @{
+                                        string autoType = Model.Auto.TransportType + " " + Model.Auto.BodyType;
+                                        if (Model.Auto.NumberOfDoors != null && Model.Auto.NumberOfDoors > 0)
+                                        {
+                                            autoType += ", " + Model.Auto.NumberOfDoors + " " + Resource.Doors;
+                                        }
+                                    }
+                                    <p><span>@Html.DisplayNameFor(model => model.Auto.TransportType): </span><span>@autoType</span></p>
+                                    <p><span>@Html.DisplayNameFor(model => model.Auto.Probeg):</span><span>@Model.Auto.Probeg @Resource.DistanceShort</span></p>
+                                    @if (Model.Auto.EngineCapacity != null)
+                                    {
+                                        <p><span>@Resource.Engine:</span><span>@Model.Auto.EngineCapacity @Resource.LitresShort, @Model.Auto.FuelType</span></p>
+                                    }
+                                    @if (!string.IsNullOrWhiteSpace(Model.Auto.TransmissionType))
+                                    {
+                                        <p><span>@Html.DisplayNameFor(model => model.Auto.TransmissionType):</span><span>@Model.Auto.TransmissionType	</span></p>
+                                    }
+                                </div>
+                                <div class="col-md-6 car_page_more_des_top top_right">
+                                    @if (!string.IsNullOrWhiteSpace(Model.Auto.DriveType))
+                                    {
+                                        <p><span>@Resource.Drive:</span><span>@Model.Auto.DriveType</span></p>
+                                    }
+                                    @if (!string.IsNullOrWhiteSpace(Model.Auto.Color))
+                                    {
+                                        <p><span>@Html.DisplayNameFor(model => model.Auto.Color):</span><span>@Model.Auto.Color</span></p>
+                                    }
+                                    @if (!string.IsNullOrWhiteSpace(Model.Auto.Region))
+                                    {
+                                        <p><span>@Resource.City:</span><span>@Model.Auto.Region</span></p>
+                                    }
+                                    <p><span>@Resource.Year:</span><span>@Model.Auto.YearOfIssue</span></p>
+                                </div>
+                                <div class="col-md-12 car_page_more_des_top more_desc">
+                                    <a class="hide_cont_href" href="#"> @Resource.AllCharacteristics</a>
+                                    <div class="hide_cont">
+                                        @if (Model.Auto.AutoSecurities != null && Model.Auto.AutoSecurities.Length > 0
+                                            || Model.Auto.AutoComforts != null && Model.Auto.AutoComforts.Length > 0
+                                            || Model.Auto.AutoMultimedias != null && Model.Auto.AutoMultimedias.Length > 0
+                                            || Model.Auto.AutoStates != null && Model.Auto.AutoStates.Length > 0
+                                            || Model.Auto.AutoMiscs != null && Model.Auto.AutoMiscs.Length > 0)
+                                        {
+                                            @CharacteristicsList(Html.DisplayNameFor(model => model.Auto.AutoSecurities).ToString(), Model.Auto.AutoSecurities)
+                                            @CharacteristicsList(Html.DisplayNameFor(model => model.Auto.AutoComforts).ToString(), Model.Auto.AutoComforts)
+                                            @CharacteristicsList(Html.DisplayNameFor(model => model.Auto.AutoMultimedias).ToString(), Model.Auto.AutoMultimedias)
+                                            @CharacteristicsList(Html.DisplayNameFor(model => model.Auto.AutoStates).ToString(), Model.Auto.AutoStates)
+                                            @CharacteristicsList(Html.DisplayNameFor(model => model.Auto.AutoMiscs).ToString(), Model.Auto.AutoMiscs)
+                                        }
+                                        else
+                                        {
+                                            <span>@Resource.NoDataToDisplay</span>
+                                        }
+                                    </div>
+                                    <div class="big_desc">
+                                        <p><span>@Html.DisplayNameFor(model => model.Description):</span><span>@Model.Description </span></p>
+                                        <p><span>@Html.DisplayNameFor(model => model.Auto.Description):</span><span>@Model.Auto.Description</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 nopadding">
+                        <div class="soc_share">
+                            @Resource.ShareThisAd:
+                            @{
+                                string url = "http://emcar.quadevs.com/Auction/Details/" + Model.ID;
+                                string urlEncoded = System.Web.HttpUtility.UrlEncode(url);
+                                string fbSharerUrl = "https://www.facebook.com/sharer/sharer.php?u=" + urlEncoded + "%2F&amp;src=sdkpreparse";
+                            }
+                            <span class="fb-share-button" data-href="@url" data-layout="button_count" data-size="large" data-mobile-iframe="false"><a class="share_ico_fb" target="_blank" href="@fbSharerUrl"></a></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="car_page_similar_ads one_row">
+                    <h5>@Resource.RelatedAutos</h5>
+                    <table id="relatedAutosList" style="width: 100%">
+                        <thead><tr><th class="col-xs-12"></th></tr></thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script src="~/Scripts/DataTables/datatables.min.js"></script>
+    <link href="~/Scripts/DataTables/datatables.min.css" rel="stylesheet" />
+
+    <script src="~/Scripts/jquery.countdown/jquery.countdown.min.js"></script>
+
+    <script src="~/Scripts/moment/moment.min.js"></script>
+    <script src="~/Scripts/moment/moment-timezone-with-data.js"></script>
+
+    <script>
+        var userEmail = "";
+        @if (User.Identity.IsAuthenticated)
+        {
+            <text>
+                userEmail = "@User.Identity.Name";
+            </text>
+        }
+        var auctionSearchVM = @Html.Raw(Json.Encode(ViewBag.auctionSearchVM as ExtendedSearchVM));
+
+        var auctionID = "@Model.ID";
+        var userID = "@ViewBag.userID";
+        var currency = "@Model.Currency";
+
+        var alreadyFinishedManually = false;
+
+        var utcDateTime = "@ViewBag.deadlineZFormat";
+        var res = moment(utcDateTime).utc();
+
+        $(document).ready(function () {
+            //timer
+            $(".timeRemainingBox").countdown(res.toDate())
+                .on('update.countdown', function (event) {
+                    var format = "%S " + "@Resource.SecondsShort.";
+                    if (event.offset.totalDays > 0)
+                        format = "%D " + "@Resource.DaysShort." + " %H " + "@Resource.HoursShort.";
+                    else if (event.offset.totalHours > 0)
+                        format = "%-H " + "@Resource.HoursShort." + " %-M " + "@Resource.MinutesShort.";
+                    else if (event.offset.totalMinutes > 0)
+                        format = "%M " + "@Resource.MinutesShort.";
+
+                    var $this = $(this).html(event.strftime(format));
+                })
+                .on("finish.countdown", function () {
+                    if (!alreadyFinishedManually)
+                        AuctionFinishes();
+                });
+
+            $(".sendBidBtn").click(function () {
+                var myBidID = "#myBid_" + $(this).attr("id").split('_')[1];
+                var bid = Number($(myBidID).val());
+                if (!isNaN(bid))
+                {
+                    if (bid > 0)
+                        auction.server.sendBid(userID, auctionID, bid);
+                }
+                $(".myBid").val("");
+            });
+
+            $(".myBid").keyup(function (e) {
+                if (e.which == 13) {
+                    var text = $(this).val();
+                    if (text !== "") {
+                        var sendBidBtnID = "#sendBidBtn_" + $(this).attr("id").split('_')[1];
+                        $(sendBidBtnID).trigger("click");
+                    }
+                }
+            });
+
+            $("#finishAuctionBtn").click(function () {
+                auction.server.finishAuction(userID, auctionID);
+                
+                //alert("ffffff");
+                //$(".timeRemainingBox").text("@Resource.Finished");
+                //AuctionFinishes();
+                //alreadyFinishedManually = true;
+
+                $.ajax({
+                    type: "POST",
+                    url: "/MyAuction/FinishManually",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify({
+                        id: auctionID
+                    }),
+                    //dataType: "json",
+                    success: function (data) {
+                        console.log(data);
+                    },
+                    error: function (data) {
+                        //alert("error: " + data);
+                    }
+                });
+            });
+
+            //get related
+            var table = $('#relatedAutosList').DataTable({
+                searching: false,
+                ordering: false,
+                //processing: true,
+                serverSide: true,
+                lengthChange: false,
+                paging: false,
+                pagingType: "simple_numbers",
+                language: {
+                    infoFiltered: " ",
+                    info: " ",
+                    processing: "@Resource.Loading...",
+                    zeroRecords: "",
+                    infoEmpty: "",
+                    paginate: {
+                        previous: " ",
+                        next: " ",
+                    }
+                },
+                ajax:
+                {
+                    url: "/SearchAuto/GetAutosFromElastic",
+                    type: "POST",
+                    contentType: "application/json",
+                    data: function (d) {
+                        d.modelVM = auctionSearchVM;
+                        d.related = true;
+                        return JSON.stringify(d);
+                    },
+                    complete: function () {
+                        StartLoadingImagesAsync();
+                    }
+                },
+                "lengthMenu": [[3, 50, 100], [3, 50, 100]]
+            });
+
+            $(".hide_cont_href").click(function () {
+                if ($(".hide_cont").is(":hidden")) {
+
+                    $(".hide_cont").show("slow");
+                    $(".hide_cont_href").addClass('open_con');
+                } else {
+
+                    $(".hide_cont").hide("slow");
+                    $(".hide_cont_href").removeClass('open_con');
+                }
+                return false;
+            });
+
+            $(".carousel-indica").each(function() {
+                if($(this).height()>90) {
+                    $(this).parent(".carosel_photo_prev").addClass('more_photo');
+                }
+            });
+
+            $(function() {
+                $(".hide_foto").click(function(e) {
+                    e.preventDefault();
+                    $( this ).toggleClass( "show_photo" );
+                    $(this).parent(".carosel_photo_prev").toggleClass( "show_photo" );
+
+                })
+            });
+        });
+
+        //AUCTION_HUB
+        var auction = $.connection.auctionHub;
+
+        auction.client.auctionFinishes = function (auctionID) {
+            //alert("asdfasdf");
+            $(".timeRemainingBox").countdown("stop");
+            $(".timeRemainingBox").trigger("finish");
+            AuctionFinishes();
+        };
+
+        // Create a function that the hub can call to broadcast bid.
+        auction.client.broadcastBid = function (userName, city, /*photoSrc,*/ amount, dateCreated, PriceUSDStr, PriceUAHStr) {
+            var html = "<tr class='bid'>";
+            html += "<td><a href='#'>" + userName + "</a></td>";
+            html += "<td>" + amount + " " + currency + "</td>";
+            html += "<td>" + dateCreated + "</td>";
+            html += "</tr>";
+
+            $("#bids").prepend(html);
+
+            var bidsCount = Number($("#bidsCount").text());
+            if (!isNaN(bidsCount))
+            {
+                bidsCount++;
+                $("#bidsCount").text(bidsCount);
+            }
+
+            //$(".car_page_price .green").text(PriceUSDStr);
+            //$(".car_page_price .price_grn").text("/ " + PriceUAHStr);
+        };
+
+        auction.client.participantsChanged = function (Participants) {
+            $("#numberOfParticipants").text(Participants);
+        };
+
+        $.connection.hub.start().done(function () {
+            //Calls the notify method of the server
+            //alert("hub started!");
+            auction.server.addCurrentUserToAuction(userEmail, auctionID);
+        });
+
+        function AuctionFinishes()
+        {
+            //alert("@Resource.Finished");
+            //$("#timeRemainingBox").css("display", "none");
+            $(".timeRemainingBox").text("@Resource.Finished");
+            $("#finishAuctionBtn").remove();
+            $(".car_page_auc_bet").remove();
+        }
+
+        function MarkAsFavorite(favoriteBox)
+        {
+            var auctionID = $(favoriteBox).data("auctionid");
+
+            if ($(favoriteBox).hasClass("active"))
+                $(favoriteBox).removeClass("active");
+            else
+                $(favoriteBox).addClass("active");
+
+            $.ajax({
+                type: "POST",
+                url: "/MyAuction/AddToFavorites",
+                data: JSON.stringify({
+                    id: auctionID
+                }),
+                contentType: "application/json; charset=utf-8",
+                //dataType: "json",
+                success: function (data) {
+                    //alert("success");
+                    //console.log(data);
+                    var currentCountOfFavorites =  Number($("#countOfFavorites").text());
+                    if (!isNaN(currentCountOfFavorites))
+                        $("#countOfFavorites").text(currentCountOfFavorites + data.result);
+                },
+                error: function (data) {
+                    //alert("error");
+                    //console.log(data);
+                    //alert(data + ". ");
+                }
+            });
+        }
+    </script>
+}

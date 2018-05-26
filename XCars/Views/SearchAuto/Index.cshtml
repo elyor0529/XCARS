@@ -1,0 +1,373 @@
+﻿@model XCars.ViewModels.ExtendedSearchVM
+@using XCars.ViewModels
+@using XCars.Resourses
+@using XCars.Helpers
+
+@{
+    ViewBag.Title = Resource.SearchAuto;
+    MakeAndModelVM mmVM = new MakeAndModelVM();
+}
+
+@Html.Breadcrumbs(ViewBag.breadcrumbs as Dictionary<string, string>)
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm("SearchResult", "SearchAuto", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.TextBoxFor(model => model.SearchText, new { @class = "form-control" })
+    <br />
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })    
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TransportTypeID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select class="form-control" id="TransportTypeID" name="TransportTypeID"></select>
+                @Html.ValidationMessageFor(model => model.TransportTypeID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <table class="table" id="mmTable">
+            @{
+                List<MakeAndModelVM> mmVMs = new List<MakeAndModelVM>();
+            }
+            <thead>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </thead>
+            @if (Model == null || Model != null && Model.MakeAndModels.Count == 0)
+            { mmVMs.Add(mmVM); }
+            else
+            { mmVMs = Model.MakeAndModels.ToList(); }
+            <tbody>
+                @for (int i = 0; i < mmVMs.Count; i++)
+                {
+                    <tr id="mm_@i">
+                        <td>
+                            <span>@Html.DisplayNameFor(m => mmVM.MakeID)</span>
+                            <select name="MakeAndModels[@i].MakeID" class="form-control make" onchange="UpdateModelList(this.value, @i)"></select>
+                        </td>
+                        <td>
+                            <span>@Html.DisplayNameFor(m => mmVM.ModelID)</span>
+                            <select name="MakeAndModels[@i].ModelID" class="form-control model"></select>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <br />
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.YearOfIssueFrom, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select class="form-control" id="YearOfIssueFrom" name="YearOfIssueFrom"></select>
+                @Html.ValidationMessageFor(model => model.YearOfIssueFrom, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.YearOfIssueTo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select class="form-control" id="YearOfIssueTo" name="YearOfIssueTo"></select>
+                @Html.ValidationMessageFor(model => model.YearOfIssueTo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PriceFrom, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PriceFrom, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PriceFrom, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PriceTo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PriceTo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PriceTo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CurrencyID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select class="form-control" id="CurrencyID" name="CurrencyID"></select>
+                @Html.ValidationMessageFor(model => model.CurrencyID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.RegionID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select class="form-control" id="RegionID" name="RegionID" onchange="MakeAjaxGetRequest('/City/GetByRegionIDAsSelectList', { regionID: (this.value != '') ? this.value : 0 }, 'select[name=\'CityID\']');"></select>
+                @Html.ValidationMessageFor(model => model.RegionID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.CityID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select class="form-control" id="CityID" name="CityID"></select>
+                @Html.ValidationMessageFor(model => model.CityID, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="@Resource.Search" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+@*<link href="~/Scripts/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />*@
+@section Scripts {
+    @*<script src="~/Scripts/DataTables/datatables.min.js"></script>
+    <link href="~/Scripts/DataTables/datatables.min.css" rel="stylesheet" />
+
+    <script src="~/Scripts/bootstrap-datetimepicker/js/moment-with-locales.min.js"></script>
+    <script src="~/Scripts/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>*@
+
+    <script>
+        $(document).ready(function () {
+            MakeAjaxGetRequest("/AutoTransportType/GetAllAsSelectList", null, "#TransportTypeID");
+            MakeAjaxGetRequest("/Region/GetAllAsSelectList", null, "#RegionID");
+            MakeAjaxGetRequest("/Year/GetAllAsSelectList", null, "#YearOfIssueFrom");
+            MakeAjaxGetRequest("/Year/GetAllAsSelectList", null, "#YearOfIssueTo");
+            MakeAjaxGetRequest("/Currency/GetAllAsSelectList", null, "#CurrencyID");
+
+            $("select#TransportTypeID").change(function () {
+                var data = {
+                    transportTypeID: $("#TransportTypeID").val(),
+                };
+
+                if (data.transportTypeID == "") {
+                    //$("#BodyTypeID").html("");
+                    $("select.make").html("");
+                }
+                else {
+                    //MakeAjaxGetRequest("/AutoBodyType/GetAsSelectList", data, "#BodyTypeID");
+                    MakeAjaxGetRequest("/AutoMake/GetAsSelectList", data, "select.make");
+                }
+
+                $("select.model").html("");
+            });
+        });
+
+        function UpdateModelList(makeID, i) {
+            var data = {
+                transportTypeID: $("#TransportTypeID").val(),
+                bodyTypeID: $("#BodyTypeID").val(),
+                makeID: makeID
+            };
+            MakeAjaxGetRequest("/AutoModel/GetAsSelectList", data, "select[name='MakeAndModels[" + i + "].ModelID']")
+        }
+
+        function MakeAjaxGetRequest(url, data, targetSelector, type, name) {
+            $.ajax({
+                type: "GET",
+                url: url,
+                data: data,
+                async: true,
+                contentType: "application/json; charset=utf-8",
+                //dataType: "json",
+                success: function (data) {
+                    //console.log(data);
+                    var html = "";
+                    if (type == "checkbox")
+                        html = BuildCheckboxList(data, targetSelector, name);
+                    else
+                        html = BuildDropDownListOptions(data, targetSelector);
+                    $(targetSelector).html(html).removeAttr("disabled");
+                },
+                error: function (data) {
+                    alert("Error: " + data);
+                }
+            });
+        }
+
+        function BuildCheckboxList(options, targetSelector, name) {
+            var html = "<ul class='list-unstyled'>";
+            for (var i = 0; i < options.length; i++) {
+                var checkedAttr = "";
+                if (options[i].Selected == true)
+                    checkedAttr = "checked=checked";
+                html += "<li><label><input type='checkbox' name='" + name + "' " + checkedAttr + " value='" + options[i].Value + "'> " + options[i].Text + "</label></li>";
+            }
+            html += "</ul>";
+
+            return html;
+        }
+
+        function BuildDropDownListOptions(options, targetSelector) {
+            var selectStr = "";
+            var defaultOption = "<option value=''>" + selectStr + "</option>";
+            if (targetSelector == "#CurrencyID")
+                defaultOption = "";
+            var html = defaultOption;
+            for (var i = 0; i < options.length; i++) {
+                var selected = "";
+                if (options[i].Selected == true)
+                    selected = "selected=selected";
+                html += "<option value='" + options[i].Value + "' " + selected + ">" + options[i].Text + "</option>";
+            }
+
+            return html;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        @*var ajaxData = [];
+
+        $(document).ready(function () {
+            $('#datetimepickerStart').datetimepicker({
+                locale: 'ru',
+                format: 'DD.MM.YYYY',
+                pickTime: false
+                //minDate: moment()
+            });
+            $('#datetimepickerEnd').datetimepicker({
+                locale: 'ru',
+                useCurrent: false, //Important! See issue #1075
+                format: 'DD.MM.YYYY',
+                pickTime: false
+            });
+            $("#datetimepickerStart").on("dp.change", function (e) {
+                $('#datetimepickerEnd').data("DateTimePicker").setMinDate(e.date);
+            });
+            $("#datetimepickerEnd").on("dp.change", function (e) {
+                $('#datetimepickerStart').data("DateTimePicker").setMaxDate(e.date);
+            });
+
+            var table = $('#example').DataTable({
+                "searching": false,
+                "ordering": false,
+                "processing": true,
+                "serverSide": true,
+                "ajax":
+                {
+                    "url": "/SearchAuto/Search",
+                    "data": function (d) {
+                        d.statusID = 2;
+                        d.searchText = $("#searchInput").val();
+                        d.periodFilterHours = $("input[name=periodFilterHours]:checked").val();
+                        d.periodFilterStartStr = $("#datetimepickerStart").val();
+                        d.periodFilterEndStr = $("#datetimepickerEnd").val();
+
+                        d.TransportTypeID = $("#TransportTypeID").val();
+                        d.MakeID = $("#MakeID").val();
+                        d.ModelID = $("#ModelID").val();
+                        d.RegionID = $("#RegionID").val();
+                        d.yearFrom = $("#yearFrom").val();
+                        d.yearTo = $("#yearTo").val();
+                        d.priceFrom = $("#priceFrom").val();
+                        d.priceTo = $("#priceTo").val();
+                        d.CurrencyID = $("#CurrencyID").val();
+
+                        // d.custom = $('#myInput').val();
+                        // etc
+                    },
+                    "complete": function () {
+                        StartLoadingImagesAsync();
+                    }
+                },
+                "lengthMenu": [[10, 50, 100], [10, 50, 100]]
+            });
+
+            $('#searchBtn').click(function () {
+                table.draw();
+            });
+
+            //******************************************************
+
+            //******************************************************
+            $("select#TransportTypeID").change(function () {
+                $("#MakeID, #ModelID").attr("disabled", "disabled");
+                ajaxData = [];
+                ajaxData.push(
+                {
+                    targetID: "MakeID",
+                    url: "GetAutoMakesByTransportTypeIDAndBodyTypeID",
+                    data: JSON.stringify({
+                        TransportTypeID: $("#TransportTypeID").val(),
+                        BodyTypeID: 0
+                    })
+                },
+                {
+                    targetID: "ModelID",
+                    url: "GetAutoModelsByTransportTypeIDAndBodyTypeIDAndMakeID",
+                    data: JSON.stringify({
+                        TransportTypeID: $("#TransportTypeID").val(),
+                        BodyTypeID: 0,
+                        MakeID: $("#MakeID").val()
+                    })
+                });
+
+                ReloadSelectBoxes(ajaxData.pop());
+            });
+
+            $("select#MakeID").change(function () {
+                $("#ModelID").attr("disabled", "disabled");
+                ajaxData = [];
+                ajaxData.push(
+                {
+                    targetID: "ModelID",
+                    url: "GetAutoModelsByTransportTypeIDAndBodyTypeIDAndMakeID",
+                    data: JSON.stringify({
+                        TransportTypeID: $("#TransportTypeID").val(),
+                        BodyTypeID: $("#BodyTypeID").val(),
+                        MakeID: $("#MakeID").val()
+                    })
+                });
+
+                ReloadSelectBoxes(ajaxData.pop());
+            });
+        });
+
+        function ReloadSelectBoxes(d) {
+            var selectStr = "@Resource.Select";
+            $.ajax({
+                type: "POST",
+                url: "/AutoSpecification/" + d.url,
+                data: d.data,
+                async: true,
+                contentType: "application/json; charset=utf-8",
+                //dataType: "json",
+                success: function (data) {
+                    console.log(data);
+                    var html = "<option value=''>" + selectStr + "</option>";
+                    for (var i = 0; i < data.length; i++) {
+                        html += "<option value='" + data[i].Value + "'>" + data[i].Text + "</option>";
+                    }
+                    $("#" + d.targetID).html(html).removeAttr("disabled");
+
+                    if (ajaxData.length > 0)
+                        ReloadSelectBoxes(ajaxData.pop())
+                },
+                error: function (data) {
+                    //alert("Error: " + data);
+                }
+            });
+        }*@
+    </script>
+}

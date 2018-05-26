@@ -1,0 +1,30 @@
+﻿@model XCars.ViewModels.AutoShortInfoVM
+@using XCars.Resourses
+@using XCars.Helpers
+
+@{
+    ViewBag.Title = Resource.Preview;
+}
+
+@Html.Partial("_BreadcrumbsPartial", ViewBag.breadcrumbs as Dictionary<string, string>)
+
+<div class="add_cars">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="add_cars_in">
+                    @Html.Partial("_AddInfoTab")
+
+                    @Html.Partial("~/Views/AutoCardPartial/_AutoCardPreview.cshtml", Model)
+
+                    <div class="add_cars_foot step2">
+                        <button type="button" class="but_purple but" onclick="location.href='/MyAuto/AddExtraInfo/@Model.ID'">@Resource.Back</button> 
+                        <button type="button" class="but_purple but" onclick="location.href='/MyAuto'">@Resource.SaveAsDraft</button>
+                        <button type="button" class="but_purple but" onclick="location.href='/MyAuto/CheckOut/@Model.ID'">@Resource.PayAndPublish</button>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

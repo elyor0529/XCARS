@@ -1,0 +1,261 @@
+﻿@model XCars.ViewModels.ExtendedSearchVM
+@using XCars.Resourses
+
+@{
+    ViewBag.Title = Resource.SearchResult;
+}
+
+<div id="home_after_head">
+    <div class="container darkblue">
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <h1>@Resource.HomePageSlogan</h1>
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <div class="home_af au">
+                    <a href="#">
+                        <span>+95</span>
+                        <span>@Resource.NewAuctionsCount</span>
+                    </a>
+                </div>
+                <div class="home_af">
+                    <a href="#">
+                        <span>+@ViewBag.autosCountAddedToday</span>
+                        <span>@Resource.NewAdvertisementsCount</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="home_search_form_wrap">
+                @Html.Partial("~/Views/SearchAuto/_SimplifiedSearchFormPartial.cshtml")
+                <div class="home_search_form_baner">
+                    <img height="250" width="300" src="~/Content/images/samples/ads-squere.jpg" alt="XCars">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3 nopad_right">
+            @{ 
+                string ads = "объявлений";
+                if (Model.Type == "auction")
+                { ads = "аукционов"; }
+            }
+            <h2 class="searh_res_h2">Найдено <span id="recordsFiltered"></span> @ads</h2>
+
+            <a class="searh_res_filter_hide_cont_href hide_cont_href " href="#"><span class="show_filter">@Resource.Show</span><span class="hide_filter">@Resource.Hide</span> @Resource.FilterSmall</a>
+            <div class="searh_res_filter hide_cont">
+                <a class="searh_res_filter_reset" href="javascript:void(0);" onclick="ResetFilters()">Сбросить все параметры</a>
+                <label>@Resource.AutoType:</label>
+                <select class="selectpicker w_search_sel" id="TransportTypeID" name="TransportTypeID" title="@Resource.AnyM"></select>
+                <label>@Html.DisplayNameFor(model => model.BodyTypeID):</label>
+                <select id="BodyTypeID" name="BodyTypeID" class="selectpicker w_search_sel" title="@Resource.AnyM" multiple></select>
+                <label>@Html.DisplayNameFor(model => model.MakeID):</label>
+                <select id="MakeID" name="MakeID" class="selectpicker w_search_sel" title="@Resource.AnyFem" multiple></select>
+                <label>@Resource.SelectModel:</label>
+                <select id="ModelID" name="ModelID" class="selectpicker w_search_sel" title="@Resource.AnyFem" multiple></select>
+                <label>@Html.DisplayNameFor(model => model.YearOfIssue):</label>
+                <select id="YearOfIssue" name="YearOfIssue" class="selectpicker w_search_sel" title="@Resource.AnyM" multiple></select>
+                <label class="">@Html.DisplayNameFor(model => model.PriceFrom):</label>
+                @{ 
+                    string disabled = "";
+                    string value = "";
+                    if (Model.PriceFrom != null && Model.PriceFrom > 0)
+                    {
+                        disabled = "disabled";
+                        value = "value=" + Model.PriceFrom.Value;
+                    }
+                }
+                <input class="search_sel w74" type="text" placeholder="@Resource.FromSmall" id="PriceFrom" name="PriceFrom" @value @disabled>
+                -
+                @{
+                    disabled = "";
+                    value = "";
+                    if (Model.PriceTo != null && Model.PriceTo > 0)
+                    {
+                        disabled = "disabled";
+                        value = "value=" + Model.PriceTo.Value;
+                    }
+                }
+                <input class="search_sel w74" type="text" placeholder="@Resource.ToSmall" id="PriceTo" name="PriceTo" @value @disabled>
+                <select class="search_sel third currency" id="CurrencyID" name="CurrencyID"></select>
+                <label class="w55">@Html.DisplayNameFor(model => model.RegionID):</label>
+                <select class="selectpicker w_search_sel" title="@Resource.AnyM" id="RegionID" name="RegionID" multiple></select>
+                <label class="w55">@Html.DisplayNameFor(model => model.CityID):</label>
+                <select class="selectpicker w_search_sel" title="@Resource.AnyM" id="CityID" name="CityID" multiple></select>
+                <label class="w55">@Html.DisplayNameFor(model => model.ProbegFrom):</label>
+                @{
+                    disabled = "";
+                    value = "";
+                    if (Model.ProbegFrom != null && Model.ProbegFrom > 0)
+                    {
+                        disabled = "disabled";
+                        value = "value=" + Model.ProbegFrom.Value;
+                    }
+                }
+                <input class="search_sel w74" type="text" placeholder="@Resource.FromSmall" id="ProbegFrom" name="ProbegFrom" @value @disabled>
+                -
+                @{
+                    disabled = "";
+                    value = "";
+                    if (Model.ProbegTo != null && Model.ProbegTo > 0)
+                    {
+                        disabled = "disabled";
+                        value = "value=" + Model.ProbegTo.Value;
+                    }
+                }
+                <input class="search_sel w74" type="text" placeholder="@Resource.ToSmall" id="ProbegTo" name="ProbegTo" @value @disabled> @Resource.DistanceShort.
+                <label>@Html.DisplayNameFor(model => model.TransmissionTypeID):</label>
+                <select id="TransmissionTypeID" name="TransmissionTypeID" class="selectpicker w_search_sel" title="@Resource.AnyFem" multiple></select>
+                <label>@Html.DisplayNameFor(model => model.FuelTypeID):</label>
+                <select id="FuelTypeID" name="FuelTypeID" class="selectpicker w_search_sel" title="@Resource.AnyN" multiple></select>
+                <label>@Html.DisplayNameFor(model => model.DriveTypeID):</label>
+                <select id="DriveTypeID" name="DriveTypeID" class="selectpicker w_search_sel" title="@Resource.AnyM" multiple></select>
+                <label>@Resource.Registration:</label>
+                <select id="TSRegistrationID" name="TSRegistrationID" class="selectpicker w_search_sel" title="@Resource.AnyFem" multiple></select>
+                <label>@Html.DisplayNameFor(model => model.States):</label>
+                <select id="States" name="States" class="selectpicker w_search_sel" title="@Resource.AnyN" multiple></select>
+
+                <div class="searh_res_removebsle_but">
+                    <span>
+                        <input type="checkbox" class="search_sel" id="WithPhotoOnly" name="WithPhotoOnly" value="false" /><label for="WithPhotoOnly">@Html.DisplayNameFor(model => model.WithPhotoOnly)</label>
+                        @*@Html.EditorFor(model => model.WithPhotoOnly, new { htmlAttributes = new { @class = "search_sel" } })@Html.LabelFor(model => model.WithPhotoOnly)*@
+                        @*@Html.CheckBoxFor(model => model.WithPhotoOnly, new { @class = "search_sel" })@Html.LabelFor(model => model.WithPhotoOnly)*@
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="searh_res_right">
+                <div class="searh_res_top_choose">
+                    <span class="choose_number_adds dropdown">
+                        @Html.DisplayNameFor(model => model.SortID):
+                        @{ 
+                            string sortDefaultStr = Resource.SortUsual;
+                            if (Model.SortID == 1)
+                            { sortDefaultStr = Resource.SortChEx; }
+                            else if (Model.SortID == 2)
+                            { sortDefaultStr = Resource.SortExCh; }
+                        }
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="sortDropdown">
+                            @sortDefaultStr
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="javascript:void(0);" value="0" onclick="SetTopFilter('#SortID', 0, '#sortDropdown', '@Resource.SortUsual')">@Resource.SortUsual</a></li>
+                            <li><a href="javascript:void(0);" value="1" onclick="SetTopFilter('#SortID', 1, '#sortDropdown', '@Resource.SortChEx')">@Resource.SortChEx</a></li>
+                            <li><a href="javascript:void(0);" value="2" onclick="SetTopFilter('#SortID', 2, '#sortDropdown', '@Resource.SortExCh')">@Resource.SortExCh</a></li>
+                        </ul>
+                        <input type="hidden" value="@Model.SortID" id="SortID" name="SortID"/>
+                    </span>
+                    <span class="choose_number_adds dropdown">
+                        @Html.DisplayNameFor(model => model.PeriodID):
+                        @{
+                            string periodDefaultStr = Resource.All;
+                            if (Model.PeriodID == 1)
+                            { periodDefaultStr = Resource.ForLastHour; }
+                            else if (Model.PeriodID == 2)
+                            { periodDefaultStr = Resource.For6Hours; }
+                            else if (Model.PeriodID == 3)
+                            { periodDefaultStr = Resource.ForLastDay; }
+                            else if (Model.PeriodID == 4)
+                            { periodDefaultStr = Resource.For24Hours; }
+                            else if (Model.PeriodID == 5)
+                            { periodDefaultStr = Resource.ForLastWeek; }
+                            else if (Model.PeriodID == 6)
+                            { periodDefaultStr = Resource.ForLastMonth; }
+                        }
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="periodDropdown">
+                            @periodDefaultStr
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="javascript:void(0);" value="0" onclick="SetTopFilter('#PeriodID', 0, '#periodDropdown', '@Resource.All')">@Resource.All</a></li>
+                            <li><a href="javascript:void(0);" value="1" onclick="SetTopFilter('#PeriodID', 1, '#periodDropdown', '@Resource.ForLastHour')">@Resource.ForLastHour</a></li>
+                            <li><a href="javascript:void(0);" value="2" onclick="SetTopFilter('#PeriodID', 2, '#periodDropdown', '@Resource.For6Hours')">@Resource.For6Hours</a></li>
+                            <li><a href="javascript:void(0);" value="3" onclick="SetTopFilter('#PeriodID', 3, '#periodDropdown', '@Resource.ForLastDay')">@Resource.ForLastDay</a></li>
+                            <li><a href="javascript:void(0);" value="4" onclick="SetTopFilter('#PeriodID', 4, '#periodDropdown', '@Resource.For24Hours')">@Resource.For24Hours</a></li>
+                            <li><a href="javascript:void(0);" value="5" onclick="SetTopFilter('#PeriodID', 5, '#periodDropdown', '@Resource.ForLastWeek')">@Resource.ForLastWeek</a></li>
+                            <li><a href="javascript:void(0);" value="6" onclick="SetTopFilter('#PeriodID', 6, '#periodDropdown', '@Resource.ForLastMonth')">@Resource.ForLastMonth</a></li>
+                        </ul>
+                        <input type="hidden" value="@Model.PeriodID" id="PeriodID" name="PeriodID" />
+                    </span>
+
+                    <span class="choose_number_adds low_width dropdown">
+                        @Resource.AdsNumber:
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="lengthDropdown">
+                            10
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="javascript:void(0);" value="10" onclick="SetTopFilter('#length', 10, '#lengthDropdown', '10')">10</a></li>
+                            <li><a href="javascript:void(0);" value="20" onclick="SetTopFilter('#length', 20, '#lengthDropdown', '20')">20</a></li>
+                            <li><a href="javascript:void(0);" value="50" onclick="SetTopFilter('#length', 50, '#lengthDropdown', '50')">50</a></li>
+                            <li><a href="javascript:void(0);" value="100" onclick="SetTopFilter('#length', 100, '#lengthDropdown', '100')">100</a></li>
+                        </ul>
+                        <input type="hidden" value="" id="length" name="length" />
+                    </span>
+                    <div class="pull-right choose_grid-line">
+                        <a class="view_line icon-sort-line active" title="показать списком" href="#"></a>
+                        <a class="view_grid icon-sort-grid" title="показать галереей" href="#"></a>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#serchresult_all">Все</a></li>
+                    <li><a data-toggle="tab" href="#serchresult_new">Новые авто</a></li>
+                    <li><a data-toggle="tab" href="#serchresult_old">Б/у авто</a></li>
+                </ul>
+                <div class="tab-content searh_res_ads line">
+                    <div id="serchresult_all" class="tab-pane fade in active">
+                        <table id="resultList" style="width: 100%">
+                            <thead><tr><th class="col-xs-12"></th></tr></thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/Scripts/DataTables/datatables.min.js"></script>
+    <link href="~/Scripts/DataTables/datatables.min.css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap-select.js"></script>
+
+    <script>
+        var table;
+        var searchVM = @Html.Raw(Json.Encode(Model));
+        var Resource = {
+            From: "@Resource.From",
+            To: "@Resource.To",
+            AnyM: "@Resource.AnyM",
+            AnyFem: "@Resource.AnyFem",
+            AnyN: "@Resource.AnyN",
+            Loading: "@Resource.Loading",
+            SortUsual: "@Resource.SortUsual",
+            All: '@Resource.All'
+        };
+    </script>
+
+    <script src="~/Scripts/custom/SimplifiedSearchFormScript.js"></script>
+    <script src="~/Scripts/custom/ExtendedSearchFilterFormScript.js"></script>
+}
+
+<script src="~/Scripts/custom/MakeAjaxGetRequest.js"></script>
+
+<style>
+    div.dataTables_wrapper div.dataTables_paginate {
+        text-align: center !important;
+        margin: 0 auto !important;
+    }
+</style>

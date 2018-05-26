@@ -1,0 +1,1163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AcceptTerms" xml:space="preserve">
+    <value>Принимаю условия</value>
+  </data>
+  <data name="Auction" xml:space="preserve">
+    <value>Аукцион</value>
+  </data>
+  <data name="AuctionEnterPayment" xml:space="preserve">
+    <value>Оплата за вход в аукцион</value>
+  </data>
+  <data name="AutoPublishPayment" xml:space="preserve">
+    <value>Оплата за публикацию объявления</value>
+  </data>
+  <data name="BodyType" xml:space="preserve">
+    <value>Тип кузова</value>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>Город</value>
+  </data>
+  <data name="Color" xml:space="preserve">
+    <value>Цвет</value>
+  </data>
+  <data name="Comfort" xml:space="preserve">
+    <value>Комфорт</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Подтвердите пароль</value>
+  </data>
+  <data name="ConfirmPasswordError" xml:space="preserve">
+    <value>Пароли не совпадают</value>
+  </data>
+  <data name="Contacts" xml:space="preserve">
+    <value>Контакты</value>
+  </data>
+  <data name="CreateAuction" xml:space="preserve">
+    <value>В аукцион</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>Валюта</value>
+  </data>
+  <data name="DateRegistered" xml:space="preserve">
+    <value>Регистрация</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="DriveType" xml:space="preserve">
+    <value>Тип привода</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Редактировать</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="EngineCapacity" xml:space="preserve">
+    <value>Объем двигателя</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
+  <data name="Finish" xml:space="preserve">
+    <value>Завершить</value>
+  </data>
+  <data name="Finished" xml:space="preserve">
+    <value>Завершено</value>
+  </data>
+  <data name="FuelConsumptionCity" xml:space="preserve">
+    <value>город</value>
+  </data>
+  <data name="FuelConsumptionHighway" xml:space="preserve">
+    <value>шоссе</value>
+  </data>
+  <data name="FuelConsumptionMixed" xml:space="preserve">
+    <value>смеш</value>
+  </data>
+  <data name="FuelType" xml:space="preserve">
+    <value>Топливо</value>
+  </data>
+  <data name="InvalidData" xml:space="preserve">
+    <value>Неверные данные</value>
+  </data>
+  <data name="IsColorMetallic" xml:space="preserve">
+    <value>Металлик</value>
+  </data>
+  <data name="IsExchangeAvailable" xml:space="preserve">
+    <value>Возможен обмен</value>
+  </data>
+  <data name="IsRastamojed" xml:space="preserve">
+    <value>Растаможенный</value>
+  </data>
+  <data name="Make" xml:space="preserve">
+    <value>Марка</value>
+  </data>
+  <data name="Misc" xml:space="preserve">
+    <value>Прочее</value>
+  </data>
+  <data name="Model" xml:space="preserve">
+    <value>Модель</value>
+  </data>
+  <data name="Modification" xml:space="preserve">
+    <value>Модификация</value>
+  </data>
+  <data name="MoveToArchives" xml:space="preserve">
+    <value>В архив</value>
+  </data>
+  <data name="Multimedia" xml:space="preserve">
+    <value>Мультимедиа</value>
+  </data>
+  <data name="NotFound" xml:space="preserve">
+    <value>Не нейдено</value>
+  </data>
+  <data name="NumberOfDoors" xml:space="preserve">
+    <value>Кол-во дверей</value>
+  </data>
+  <data name="NumberOfSeats" xml:space="preserve">
+    <value>Количество мест</value>
+  </data>
+  <data name="Owner" xml:space="preserve">
+    <value>Информация о владельце</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Пароль</value>
+  </data>
+  <data name="PasswordLengthError" xml:space="preserve">
+    <value>Пароль должен содержать минимум 6 символов</value>
+  </data>
+  <data name="PeriodInHours" xml:space="preserve">
+    <value>Период (в часах)</value>
+  </data>
+  <data name="Photo" xml:space="preserve">
+    <value>Фото</value>
+  </data>
+  <data name="PleaseCheck" xml:space="preserve">
+    <value>Пожалуйста, поставьте галочку</value>
+  </data>
+  <data name="PriceUAH" xml:space="preserve">
+    <value>uah</value>
+  </data>
+  <data name="PriceUSD" xml:space="preserve">
+    <value>usd</value>
+  </data>
+  <data name="Probeg" xml:space="preserve">
+    <value>Пробег</value>
+  </data>
+  <data name="ProvidePrice" xml:space="preserve">
+    <value>Укажите цену</value>
+  </data>
+  <data name="Publish" xml:space="preserve">
+    <value>Опубликовать</value>
+  </data>
+  <data name="Region" xml:space="preserve">
+    <value>Регион</value>
+  </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>Запомнить</value>
+  </data>
+  <data name="SaveError" xml:space="preserve">
+    <value>Ошибка при сохранении</value>
+  </data>
+  <data name="Security" xml:space="preserve">
+    <value>Безопасность</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Поделиться</value>
+  </data>
+  <data name="StartPrice" xml:space="preserve">
+    <value>Стартовая цена</value>
+  </data>
+  <data name="State" xml:space="preserve">
+    <value>Состояние</value>
+  </data>
+  <data name="Telephone" xml:space="preserve">
+    <value>Телефон</value>
+  </data>
+  <data name="ThisOfferIsNotYours" xml:space="preserve">
+    <value>Это предложение Вам не принадлежит</value>
+  </data>
+  <data name="TransmissionType" xml:space="preserve">
+    <value>Коробка передач</value>
+  </data>
+  <data name="TransportType" xml:space="preserve">
+    <value>Тип транспорта</value>
+  </data>
+  <data name="UnknownError" xml:space="preserve">
+    <value>Неизвестная ошибка</value>
+  </data>
+  <data name="UserFullName" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="Views" xml:space="preserve">
+    <value>Количество просмотров</value>
+  </data>
+  <data name="VINCode" xml:space="preserve">
+    <value>VIN-код</value>
+  </data>
+  <data name="YearOfIssue" xml:space="preserve">
+    <value>Год выпуска</value>
+  </data>
+  <data name="AboutUs" xml:space="preserve">
+    <value>О нас</value>
+  </data>
+  <data name="AddAdvertisement" xml:space="preserve">
+    <value>Подать объявление</value>
+  </data>
+  <data name="Advertisement" xml:space="preserve">
+    <value>Объявление</value>
+  </data>
+  <data name="Auctions" xml:space="preserve">
+    <value>Аукционы</value>
+  </data>
+  <data name="Auto" xml:space="preserve">
+    <value>Информация об Авто</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Назад</value>
+  </data>
+  <data name="Bids" xml:space="preserve">
+    <value>Предложения</value>
+  </data>
+  <data name="DataSaved" xml:space="preserve">
+    <value>Данные сохранены</value>
+  </data>
+  <data name="DateCreated" xml:space="preserve">
+    <value>Дата создания</value>
+  </data>
+  <data name="DateStopped" xml:space="preserve">
+    <value>Дата остановки</value>
+  </data>
+  <data name="Deadline" xml:space="preserve">
+    <value>Оставшееся время</value>
+  </data>
+  <data name="DeletePhoto" xml:space="preserve">
+    <value>Удалить фото</value>
+  </data>
+  <data name="DoOffer" xml:space="preserve">
+    <value>Предложить</value>
+  </data>
+  <data name="EditProfile" xml:space="preserve">
+    <value>Изменить мои данные</value>
+  </data>
+  <data name="EnterSearchText" xml:space="preserve">
+    <value>поиск</value>
+  </data>
+  <data name="Exchange" xml:space="preserve">
+    <value>Обмен</value>
+  </data>
+  <data name="ExtraInfo" xml:space="preserve">
+    <value>Дополнительная информация</value>
+  </data>
+  <data name="HasOffered" xml:space="preserve">
+    <value>предложил</value>
+  </data>
+  <data name="IDoOfferExchange" xml:space="preserve">
+    <value>Предлагаю обмен на</value>
+  </data>
+  <data name="In" xml:space="preserve">
+    <value>в</value>
+  </data>
+  <data name="IWantAdditionalPayment" xml:space="preserve">
+    <value>Хочу доплату</value>
+  </data>
+  <data name="Main" xml:space="preserve">
+    <value>Emcar</value>
+  </data>
+  <data name="MainInfo" xml:space="preserve">
+    <value>Основная информация</value>
+  </data>
+  <data name="MainPhoto" xml:space="preserve">
+    <value>Главное фото</value>
+  </data>
+  <data name="Max" xml:space="preserve">
+    <value>Максимальное</value>
+  </data>
+  <data name="MyAdditionalPayment" xml:space="preserve">
+    <value>Моя доплата</value>
+  </data>
+  <data name="MyAdvertisements" xml:space="preserve">
+    <value>Мои объявления</value>
+  </data>
+  <data name="MyProfile" xml:space="preserve">
+    <value>Мой профиль</value>
+  </data>
+  <data name="NoOfferedExchanges" xml:space="preserve">
+    <value>Предложений обмена нет</value>
+  </data>
+  <data name="NotDefined" xml:space="preserve">
+    <value>Не указано</value>
+  </data>
+  <data name="OfferedExchanges" xml:space="preserve">
+    <value>Предложения обмена</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>Предпросмотр</value>
+  </data>
+  <data name="Price" xml:space="preserve">
+    <value>Цена</value>
+  </data>
+  <data name="PriceError" xml:space="preserve">
+    <value>Цена не указана</value>
+  </data>
+  <data name="PriceHint" xml:space="preserve">
+    <value>Укажите хотя бы одну цену</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Искать</value>
+  </data>
+  <data name="SearchAuto" xml:space="preserve">
+    <value>Поиск авто</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Выберите</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Показать</value>
+  </data>
+  <data name="DistanceShort" xml:space="preserve">
+    <value>тыс.км</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>Начать</value>
+  </data>
+  <data name="WithMyAdditionalPayment" xml:space="preserve">
+    <value>с моей доплатой</value>
+  </data>
+  <data name="WithoutAdditionalPayment" xml:space="preserve">
+    <value>Без доплаты</value>
+  </data>
+  <data name="WithYourAdditionalPayment" xml:space="preserve">
+    <value>с Вашей доплатой</value>
+  </data>
+  <data name="Advertisements" xml:space="preserve">
+    <value>Объявления</value>
+  </data>
+  <data name="AddAuto" xml:space="preserve">
+    <value>Добавить объявление</value>
+  </data>
+  <data name="EditAdvertisement" xml:space="preserve">
+    <value>Редактировать объявление</value>
+  </data>
+  <data name="MyAuctions" xml:space="preserve">
+    <value>Мои аукционы</value>
+  </data>
+  <data name="MyCabinet" xml:space="preserve">
+    <value>Мой кабинет</value>
+  </data>
+  <data name="Related" xml:space="preserve">
+    <value>Похожие</value>
+  </data>
+  <data name="CheckEmailForConfirmationLink" xml:space="preserve">
+    <value>&lt;p&gt;Пожалуйста, подтвердите вашу электронную почту&lt;/p&gt;
+    &lt;p&gt;Вам нужно подтвердить ее чтобы войти.&lt;/p&gt;</value>
+  </data>
+  <data name="LastSeen" xml:space="preserve">
+    <value>Последний раз был онлайн</value>
+  </data>
+  <data name="Offline" xml:space="preserve">
+    <value>Офлайн</value>
+  </data>
+  <data name="Online" xml:space="preserve">
+    <value>Онлайн</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="CountOfFavorites" xml:space="preserve">
+    <value>Счетчик добавлений в избранное</value>
+  </data>
+  <data name="ExtraPhotos" xml:space="preserve">
+    <value>Дополнительные фото</value>
+  </data>
+  <data name="FillInCharacteristics" xml:space="preserve">
+    <value>Заполнить анкету характеристик</value>
+  </data>
+  <data name="FuelConsumption" xml:space="preserve">
+    <value>Расход топлива</value>
+  </data>
+  <data name="TimeRemaining" xml:space="preserve">
+    <value>Оставшееся время</value>
+  </data>
+  <data name="Statistics" xml:space="preserve">
+    <value>Статистика</value>
+  </data>
+  <data name="DaysShort" xml:space="preserve">
+    <value>дн</value>
+  </data>
+  <data name="HoursShort" xml:space="preserve">
+    <value>ч</value>
+  </data>
+  <data name="MinutesShort" xml:space="preserve">
+    <value>мин</value>
+  </data>
+  <data name="NoCity" xml:space="preserve">
+    <value>нет города</value>
+  </data>
+  <data name="NoName" xml:space="preserve">
+    <value>нет имени</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Все</value>
+  </data>
+  <data name="CustomPeriod" xml:space="preserve">
+    <value>Свой период</value>
+  </data>
+  <data name="ForLastDay" xml:space="preserve">
+    <value>За последний день</value>
+  </data>
+  <data name="ForLastHour" xml:space="preserve">
+    <value>За последний час</value>
+  </data>
+  <data name="ForLastMonth" xml:space="preserve">
+    <value>За последний месяц</value>
+  </data>
+  <data name="ForLastWeek" xml:space="preserve">
+    <value>За последнюю неделю</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>От</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>До</value>
+  </data>
+  <data name="AutoPublication" xml:space="preserve">
+    <value>Публикация объявления</value>
+  </data>
+  <data name="BalanceIsNotUsedHintText" xml:space="preserve">
+    <value>Вы можете использовать деньги на счету для оплаты</value>
+  </data>
+  <data name="BalanceIsUsedHintText" xml:space="preserve">
+    <value>Вы используете деньги на счету для оплаты</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Отменить</value>
+  </data>
+  <data name="Checkout" xml:space="preserve">
+    <value>Добавить средства на счет</value>
+  </data>
+  <data name="DayShort" xml:space="preserve">
+    <value>дн</value>
+  </data>
+  <data name="DaySmall" xml:space="preserve">
+    <value>день</value>
+  </data>
+  <data name="DaysSmall" xml:space="preserve">
+    <value>дней</value>
+  </data>
+  <data name="InGlobalSearch" xml:space="preserve">
+    <value>общем поиске</value>
+  </data>
+  <data name="MoneyFromBalance" xml:space="preserve">
+    <value>Деньги со счета</value>
+  </data>
+  <data name="Pay" xml:space="preserve">
+    <value>Оплатить</value>
+  </data>
+  <data name="PositionCost" xml:space="preserve">
+    <value>Стоимость позиции в поиске</value>
+  </data>
+  <data name="PositionIn" xml:space="preserve">
+    <value>позиция в</value>
+  </data>
+  <data name="TotalToBePayed" xml:space="preserve">
+    <value>Итого к оплате</value>
+  </data>
+  <data name="uah" xml:space="preserve">
+    <value>₴</value>
+  </data>
+  <data name="Use" xml:space="preserve">
+    <value>Использовать</value>
+  </data>
+  <data name="AllAuctions" xml:space="preserve">
+    <value>Все аукционы</value>
+  </data>
+  <data name="MyAutos" xml:space="preserve">
+    <value>Мои объявления</value>
+  </data>
+  <data name="Balance" xml:space="preserve">
+    <value>Баланс</value>
+  </data>
+  <data name="MakeTop" xml:space="preserve">
+    <value>Поднять в топ</value>
+  </data>
+  <data name="IsTorgAvailable" xml:space="preserve">
+    <value>Возможен торг</value>
+  </data>
+  <data name="TSRegistration" xml:space="preserve">
+    <value>Регистрация ТС</value>
+  </data>
+  <data name="AutoDetails" xml:space="preserve">
+    <value>Детали объявления</value>
+  </data>
+  <data name="AutoInfo" xml:space="preserve">
+    <value>Информация об автомобиле</value>
+  </data>
+  <data name="AutoPreviewAndPublication" xml:space="preserve">
+    <value>Проверка и публикация объявления</value>
+  </data>
+  <data name="Step" xml:space="preserve">
+    <value>Шаг</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Далее</value>
+  </data>
+  <data name="SaveAsDraft" xml:space="preserve">
+    <value>Сохранить как черновик</value>
+  </data>
+  <data name="PayAndPublish" xml:space="preserve">
+    <value>Оплатить и опубликовать</value>
+  </data>
+  <data name="SearchExtended" xml:space="preserve">
+    <value>Расширенный поиск</value>
+  </data>
+  <data name="MakeAndModel" xml:space="preserve">
+    <value>Марка и модель</value>
+  </data>
+  <data name="ModelToBeExcluded" xml:space="preserve">
+    <value>Исключить модель</value>
+  </data>
+  <data name="PeriodResult" xml:space="preserve">
+    <value>Период подачи</value>
+  </data>
+  <data name="Sort" xml:space="preserve">
+    <value>Сортировка</value>
+  </data>
+  <data name="Power" xml:space="preserve">
+    <value>Мощность</value>
+  </data>
+  <data name="FuelConsumptionMeasurement" xml:space="preserve">
+    <value>л/100 км</value>
+  </data>
+  <data name="PowerMeasurement" xml:space="preserve">
+    <value>л. с</value>
+  </data>
+  <data name="SearchResult" xml:space="preserve">
+    <value>Результат поиска</value>
+  </data>
+  <data name="SortChEx" xml:space="preserve">
+    <value>От дешевых к дорогим</value>
+  </data>
+  <data name="SortExCh" xml:space="preserve">
+    <value>От дорогих к дешевым</value>
+  </data>
+  <data name="SortUsual" xml:space="preserve">
+    <value>Обычная</value>
+  </data>
+  <data name="SearchText" xml:space="preserve">
+    <value>Текст поиска</value>
+  </data>
+  <data name="For24Hours" xml:space="preserve">
+    <value>за сутки</value>
+  </data>
+  <data name="For6Hours" xml:space="preserve">
+    <value>за 6 часов</value>
+  </data>
+  <data name="LogIn" xml:space="preserve">
+    <value>Войти</value>
+  </data>
+  <data name="LogOut" xml:space="preserve">
+    <value>Выйти</value>
+  </data>
+  <data name="News" xml:space="preserve">
+    <value>Новости</value>
+  </data>
+  <data name="Autos" xml:space="preserve">
+    <value>Автомобили</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Регистрация</value>
+  </data>
+  <data name="LitresShort" xml:space="preserve">
+    <value>л</value>
+  </data>
+  <data name="InFavorites" xml:space="preserve">
+    <value>В избранном</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>Обновить</value>
+  </data>
+  <data name="AllAutos" xml:space="preserve">
+    <value>Все объявления</value>
+  </data>
+  <data name="AllNews" xml:space="preserve">
+    <value>Все новости</value>
+  </data>
+  <data name="AnyQuestions" xml:space="preserve">
+    <value>ВОЗНИКЛИ ВОПРОСЫ?</value>
+  </data>
+  <data name="AskAQuestion" xml:space="preserve">
+    <value>задайте нам вопрос!</value>
+  </data>
+  <data name="CatalogOfAirAutos" xml:space="preserve">
+    <value>Каталог воздушного</value>
+  </data>
+  <data name="CatalogOfAllAutos" xml:space="preserve">
+    <value>Каталог автомобилей</value>
+  </data>
+  <data name="CatalogOfAutodomAutos" xml:space="preserve">
+    <value>Каталог автодомов</value>
+  </data>
+  <data name="CatalogOfBusAutos" xml:space="preserve">
+    <value>Каталог автобусов</value>
+  </data>
+  <data name="CatalogOfMotoAutos" xml:space="preserve">
+    <value>Каталог мото</value>
+  </data>
+  <data name="CatalogOfMotorAutos" xml:space="preserve">
+    <value>Каталог легковых</value>
+  </data>
+  <data name="CatalogOfSpecialAutos" xml:space="preserve">
+    <value>Каталог спецтехники</value>
+  </data>
+  <data name="CatalogOfTrailerAutos" xml:space="preserve">
+    <value>Каталог прицепов</value>
+  </data>
+  <data name="CatalogOfTruckAutos" xml:space="preserve">
+    <value>Каталог грузовиков</value>
+  </data>
+  <data name="CatalogOfWaterAutos" xml:space="preserve">
+    <value>Каталог водного</value>
+  </data>
+  <data name="ContactHelpDesk" xml:space="preserve">
+    <value>ОБРАТИТЕСЬ В ТЕХПОДДЕРЖКУ!</value>
+  </data>
+  <data name="ContactUs" xml:space="preserve">
+    <value>Свяжитесь с нами!</value>
+  </data>
+  <data name="HomePageSlogan" xml:space="preserve">
+    <value>Покупка, продажа новых и б/у автомобилей по всей Украине!</value>
+  </data>
+  <data name="Loading" xml:space="preserve">
+    <value>Загрузка</value>
+  </data>
+  <data name="NewAdvertisementsCount" xml:space="preserve">
+    <value>новых объявлений</value>
+  </data>
+  <data name="NewAuctionsCount" xml:space="preserve">
+    <value>новых аукционов</value>
+  </data>
+  <data name="NoDataToDisplay" xml:space="preserve">
+    <value>Нет данных для показа</value>
+  </data>
+  <data name="PrivacyPolicy" xml:space="preserve">
+    <value>Политика конфиденциальности</value>
+  </data>
+  <data name="SearchTextHint" xml:space="preserve">
+    <value>Введите ключевые слова или выберите нужные параметры в формах ниже</value>
+  </data>
+  <data name="SiteShortDescription" xml:space="preserve">
+    <value>Автопродажа на EMCar это более 400000 б.у. авто, а также продажа новых автомобилей в Украине</value>
+  </data>
+  <data name="TopAuctions" xml:space="preserve">
+    <value>ТОП аукционов</value>
+  </data>
+  <data name="TopAutos" xml:space="preserve">
+    <value>ТОП обьявлений</value>
+  </data>
+  <data name="ViewAllMakes" xml:space="preserve">
+    <value>Смотреть все марки</value>
+  </data>
+  <data name="ViewAllYears" xml:space="preserve">
+    <value>Смотреть все года</value>
+  </data>
+  <data name="AddAutoMainInfoPageBottomNote" xml:space="preserve">
+    <value>При клике на кнопку "Далее" Вы перейдете к более подробному описанию своего объявления, а также добавлению фото</value>
+  </data>
+  <data name="AddAutoExtraInfoPageBottomNote" xml:space="preserve">
+    <value>При клике на кнопку “Далее” Вы перейдете к публикации своего объявления</value>
+  </data>
+  <data name="AutoDescriptionHint" xml:space="preserve">
+    <value>Опишите здесь особенности Вашего авто, которые не были указаны ранее.&lt;br /&gt;&lt;br /&gt;
+                                    В данном поле запрещается:&lt;br /&gt;
+                                    — предлагать какие-либо услуги, не связанные с объектом продажи (пригоню под заказ, есть еще другие авто, помогу выбрать);&lt;br /&gt;
+                                    — давать ссылки на какие-либо сайты или E-mail адреса, указывать номера телефонов.</value>
+  </data>
+  <data name="DropZoneInnerText" xml:space="preserve">
+    <value>Нажмите или перетащите &lt;br /&gt; сюда фотографию &lt;br /&gt;для добавления ее на сайт</value>
+  </data>
+  <data name="PhotoMakingSuggestions" xml:space="preserve">
+    <value>Как правильно сфотографировать автомобиль</value>
+  </data>
+  <data name="PhotoRequirements" xml:space="preserve">
+    <value>Максимальный размер одного фото: 5 Мб. Форматы фото: GIF, JPG, PNG</value>
+  </data>
+  <data name="SelectMainPhoto" xml:space="preserve">
+    <value>Выберите главную фотографию большого размера</value>
+  </data>
+  <data name="KilometersShort" xml:space="preserve">
+    <value>км</value>
+  </data>
+  <data name="AllCharacteristics" xml:space="preserve">
+    <value>Все характеристики</value>
+  </data>
+  <data name="Checked" xml:space="preserve">
+    <value>Есть</value>
+  </data>
+  <data name="Doors" xml:space="preserve">
+    <value>дверей</value>
+  </data>
+  <data name="Engine" xml:space="preserve">
+    <value>Двигатель</value>
+  </data>
+  <data name="MetallicSmall" xml:space="preserve">
+    <value>металлик</value>
+  </data>
+  <data name="AdWall" xml:space="preserve">
+    <value>Стена объявления</value>
+  </data>
+  <data name="Archives" xml:space="preserve">
+    <value>Архив</value>
+  </data>
+  <data name="ContactTheSeller" xml:space="preserve">
+    <value>Связаться с продавцом</value>
+  </data>
+  <data name="ExchangeOffer" xml:space="preserve">
+    <value>Предложение обмена</value>
+  </data>
+  <data name="MakeOffer" xml:space="preserve">
+    <value>Предложить</value>
+  </data>
+  <data name="NextAd" xml:space="preserve">
+    <value>Следующее объявление</value>
+  </data>
+  <data name="RelatedAutos" xml:space="preserve">
+    <value>Похожие авто</value>
+  </data>
+  <data name="ShareThisAd" xml:space="preserve">
+    <value>Поделиться этим объявлением</value>
+  </data>
+  <data name="CreateAutoBuyback" xml:space="preserve">
+    <value>Создать &lt;/br&gt;автовыкуп</value>
+  </data>
+  <data name="CreateAutoDealer" xml:space="preserve">
+    <value>Создать&lt;/br&gt; автодилера</value>
+  </data>
+  <data name="CreateAutoWashService" xml:space="preserve">
+    <value>Создать &lt;/br&gt;автомойку</value>
+  </data>
+  <data name="CreateServiceStation" xml:space="preserve">
+    <value>Создать&lt;/br&gt; СТО</value>
+  </data>
+  <data name="EmCarServices" xml:space="preserve">
+    <value>Сервисы EmCar</value>
+  </data>
+  <data name="AutoDealer" xml:space="preserve">
+    <value>автодилер</value>
+  </data>
+  <data name="AutoSalon" xml:space="preserve">
+    <value>автосалон</value>
+  </data>
+  <data name="CreateAdvertisement" xml:space="preserve">
+    <value>Создать объявление</value>
+  </data>
+  <data name="CreateAuto" xml:space="preserve">
+    <value>создать авто</value>
+  </data>
+  <data name="CreateNewAuto" xml:space="preserve">
+    <value>создать новое авто</value>
+  </data>
+  <data name="CreateOldAuto" xml:space="preserve">
+    <value>создать б/у авто</value>
+  </data>
+  <data name="PrivatePerson" xml:space="preserve">
+    <value>частное лицо</value>
+  </data>
+  <data name="NotPublished" xml:space="preserve">
+    <value>не опубликовано</value>
+  </data>
+  <data name="Published" xml:space="preserve">
+    <value>опубликовано</value>
+  </data>
+  <data name="DateAppearance" xml:space="preserve">
+    <value>Дата подачи</value>
+  </data>
+  <data name="DaysAgo" xml:space="preserve">
+    <value>дн. назад</value>
+  </data>
+  <data name="Decline" xml:space="preserve">
+    <value>Отклонить</value>
+  </data>
+  <data name="DiffPriceNotProvided" xml:space="preserve">
+    <value>сумма доплаты не указана</value>
+  </data>
+  <data name="LongAgo" xml:space="preserve">
+    <value>давно</value>
+  </data>
+  <data name="OnlineSmall" xml:space="preserve">
+    <value>онлайн</value>
+  </data>
+  <data name="Reply" xml:space="preserve">
+    <value>Ответить</value>
+  </data>
+  <data name="TimeAt" xml:space="preserve">
+    <value>в</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>сегодня</value>
+  </data>
+  <data name="Was" xml:space="preserve">
+    <value>был</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>вчера</value>
+  </data>
+  <data name="AutoType" xml:space="preserve">
+    <value>Тип автомобиля</value>
+  </data>
+  <data name="Extra" xml:space="preserve">
+    <value>Дополнительно</value>
+  </data>
+  <data name="MainData" xml:space="preserve">
+    <value>Основные данные</value>
+  </data>
+  <data name="TechnicalCharacteristics" xml:space="preserve">
+    <value>Технические характеристики</value>
+  </data>
+  <data name="FromSmall" xml:space="preserve">
+    <value>от</value>
+  </data>
+  <data name="Registration" xml:space="preserve">
+    <value>Регистрация</value>
+  </data>
+  <data name="SelectModel" xml:space="preserve">
+    <value>Выберите модель</value>
+  </data>
+  <data name="ToSmall" xml:space="preserve">
+    <value>до</value>
+  </data>
+  <data name="WithExchangeToAuto" xml:space="preserve">
+    <value>С обменом на автомобиль</value>
+  </data>
+  <data name="Drive" xml:space="preserve">
+    <value>Привод</value>
+  </data>
+  <data name="Transport" xml:space="preserve">
+    <value>Транспорт</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>Год</value>
+  </data>
+  <data name="AnyFem" xml:space="preserve">
+    <value>Любая</value>
+  </data>
+  <data name="AnyM" xml:space="preserve">
+    <value>Любой</value>
+  </data>
+  <data name="AnyN" xml:space="preserve">
+    <value>Любое</value>
+  </data>
+  <data name="SearchResults" xml:space="preserve">
+    <value>Результаты поиска</value>
+  </data>
+  <data name="ViewsShort" xml:space="preserve">
+    <value>Просмотры</value>
+  </data>
+  <data name="WithPhotoOnly" xml:space="preserve">
+    <value>Только с фото</value>
+  </data>
+  <data name="HoursAgo" xml:space="preserve">
+    <value>ч. назад</value>
+  </data>
+  <data name="MinutesAgo" xml:space="preserve">
+    <value>мин. назад</value>
+  </data>
+  <data name="MomentAgo" xml:space="preserve">
+    <value>только что</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Фамилия</value>
+  </data>
+  <data name="AddPhoto" xml:space="preserve">
+    <value>Добавить фото</value>
+  </data>
+  <data name="SymbolsLeft" xml:space="preserve">
+    <value>Осталось символов</value>
+  </data>
+  <data name="AuctionCreate" xml:space="preserve">
+    <value>Создать аукцион</value>
+  </data>
+  <data name="AuctionCreateAgreement" xml:space="preserve">
+    <value>Я прочитал и согласен с &lt;a href="#"&gt;правилами пользования&lt;/a&gt; аукционами</value>
+  </data>
+  <data name="AuctionDuration" xml:space="preserve">
+    <value>Длительность аукциона</value>
+  </data>
+  <data name="AuctionExtraDescription" xml:space="preserve">
+    <value>Дополнительное описание дефектов</value>
+  </data>
+  <data name="FindOutReasonOfRecommendedPriceValue" xml:space="preserve">
+    <value>Узнать почему мы рекомендуем такую цену</value>
+  </data>
+  <data name="PaymentForAuctionWarning" xml:space="preserve">
+    <value>&lt;p&gt;При создании аукциона с вашего счета будет списано 100 грн.&lt;/p&gt;
+                            &lt;p&gt;В случае нехватки средств, вы будете перенаправлены на форму пополнения счета.&lt;/p&gt;</value>
+  </data>
+  <data name="RecommendedPrice" xml:space="preserve">
+    <value>Мы рекомендуем поставить цену</value>
+  </data>
+  <data name="StartPriceForBet" xml:space="preserve">
+    <value>Ваша стартовая цена для торгов</value>
+  </data>
+  <data name="PeriodInDays" xml:space="preserve">
+    <value>Период (в днях)</value>
+  </data>
+  <data name="FInishesAfter" xml:space="preserve">
+    <value>Окончание через</value>
+  </data>
+  <data name="SendBid" xml:space="preserve">
+    <value>сделать ставку</value>
+  </data>
+  <data name="BidsCount" xml:space="preserve">
+    <value>Ставок</value>
+  </data>
+  <data name="NumberOfParticipants" xml:space="preserve">
+    <value>Участников</value>
+  </data>
+  <data name="Defects" xml:space="preserve">
+    <value>Дефекты</value>
+  </data>
+  <data name="Duration" xml:space="preserve">
+    <value>Продолжительность</value>
+  </data>
+  <data name="HistoryOfBids" xml:space="preserve">
+    <value>История ставок</value>
+  </data>
+  <data name="CurrentPrice" xml:space="preserve">
+    <value>Текущая цена</value>
+  </data>
+  <data name="Minimize" xml:space="preserve">
+    <value>Свернуть</value>
+  </data>
+  <data name="PhotoSmall" xml:space="preserve">
+    <value>фото</value>
+  </data>
+  <data name="SecondsShort" xml:space="preserve">
+    <value>cек</value>
+  </data>
+  <data name="SellersData" xml:space="preserve">
+    <value>Данные продавца</value>
+  </data>
+  <data name="ActionConfirmationAlertText" xml:space="preserve">
+    <value>Вы уверены?</value>
+  </data>
+  <data name="UnableToFormAddress" xml:space="preserve">
+    <value>Не удалось сформировать название адреса</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Создать</value>
+  </data>
+  <data name="StartAgain" xml:space="preserve">
+    <value>Запустить заново</value>
+  </data>
+  <data name="AdsNumber" xml:space="preserve">
+    <value>Кол-во объявлений</value>
+  </data>
+  <data name="SortAscending" xml:space="preserve">
+    <value>По возрастанию</value>
+  </data>
+  <data name="SortAZ" xml:space="preserve">
+    <value>А-Я</value>
+  </data>
+  <data name="SortByMake" xml:space="preserve">
+    <value>По марке</value>
+  </data>
+  <data name="SortByModel" xml:space="preserve">
+    <value>По модели</value>
+  </data>
+  <data name="SortDescending" xml:space="preserve">
+    <value>По убыванию</value>
+  </data>
+  <data name="SortZA" xml:space="preserve">
+    <value>Я-А</value>
+  </data>
+  <data name="FilterSmall" xml:space="preserve">
+    <value>фильтр</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>Скрыть</value>
+  </data>
+  <data name="EnterPositivePrice" xml:space="preserve">
+    <value>Введите положительную цену</value>
+  </data>
+  <data name="Or" xml:space="preserve">
+    <value>или</value>
+  </data>
+  <data name="PageIsDeleted" xml:space="preserve">
+    <value>• страница временно недоступна или удалена.</value>
+  </data>
+  <data name="PageNotExist" xml:space="preserve">
+    <value>• страница не существует;</value>
+  </data>
+  <data name="PageNotFound" xml:space="preserve">
+    <value>страница не найдена</value>
+  </data>
+  <data name="PopularAds" xml:space="preserve">
+    <value>Популярные объявления</value>
+  </data>
+  <data name="PossibleReasons" xml:space="preserve">
+    <value>Возможные причины:</value>
+  </data>
+  <data name="ToMainPage" xml:space="preserve">
+    <value>Главную страницу</value>
+  </data>
+  <data name="UseSearch" xml:space="preserve">
+    <value>Воспользоваться поиском</value>
+  </data>
+  <data name="WrongURLCheckIt" xml:space="preserve">
+    <value>неверный URL страницы: проверьте его на наличие ошибок;</value>
+  </data>
+  <data name="YouMayGoTo" xml:space="preserve">
+    <value>Вы можете перейти на</value>
+  </data>
+  <data name="String2" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Publication" xml:space="preserve">
+    <value>Публикация</value>
+  </data>
+  <data name="AddFullDescription" xml:space="preserve">
+    <value>Добавить подробное описание</value>
+  </data>
+  <data name="AddNewAd" xml:space="preserve">
+    <value>Добавление нового объявления</value>
+  </data>
+  <data name="PlaceForComfortView" xml:space="preserve">
+    <value>Место, удобное для просмотра авто</value>
+  </data>
+  <data name="RemovePlace" xml:space="preserve">
+    <value>Убрать место</value>
+  </data>
+  <data name="ViewPlace" xml:space="preserve">
+    <value>Место просмотра</value>
+  </data>
+</root>

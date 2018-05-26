@@ -1,0 +1,21 @@
+﻿@using XCars.Resourses
+
+<ul class="nav nav-tabs">
+    @{
+        string classActive = "";
+        if (ViewBag.activeTab == "MyAutos")
+        { classActive = "class=active"; }
+        @*<li @classActive><a href="/MyAuto/Index">@Resource.MyAutos</a></li>*@
+        <li @classActive><a data-toggle="tab"  href="#acc_myAds">@Resource.MyAutos</a></li>
+
+        classActive = "";
+        if (ViewBag.activeTab == "MyAuctions")
+        { classActive = "class=active"; }
+        <li @classActive><a data-toggle="tab"  href="#acc_myAuc">@Resource.MyAuctions</a></li>
+
+        @*classActive = "";
+        if (ViewBag.activeTab == "AllAuctions")
+        { classActive = "class=active"; }
+        <li @classActive><a href="/MyAuction/All">@Resource.AllAuctions</a></li>*@
+    }
+</ul>

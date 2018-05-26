@@ -1,0 +1,34 @@
+﻿@model IEnumerable<XCars.ViewModels.AutoShortInfoVM>
+@using XCars.Resourses
+
+@{
+    if (Model != null)
+    {
+        List<XCars.ViewModels.AutoShortInfoVM> autos = Model.ToList();
+        if (autos.Count > 3)
+        {
+
+
+                 for (int i = 0; i < 4; i++)
+                {
+                    @Html.Partial("~/Views/AutoCardPartial/_AutoCardHome.cshtml", autos[i])
+
+            }
+
+        }
+
+        else if (autos.Count > 0)
+        {
+
+
+            for (int i = 0; i < autos.Count; i++)
+            {
+
+                    @Html.Partial("~/Views/AutoCardPartial/_AutoCardHome.cshtml", autos[i])
+
+                }
+            
+        }
+        
+    }
+}

@@ -1,0 +1,30 @@
+﻿@model IEnumerable<XCars.ViewModels.AutoShortInfoVM>
+@using XCars.Resourses
+
+@{
+    if (Model != null)
+    {
+        List<XCars.ViewModels.AutoShortInfoVM> autos = Model.ToList();
+        if (autos.Count > 0)
+        {
+            @Html.Partial("~/Views/AutoCardPartial/_AutoCardHomeVIP.cshtml", autos[0])
+
+            <div class="home_ads_in_others">
+                <div class="home_ads_in_others2">
+                    @for (int i = 1; i < autos.Count; i++)
+                    {
+                        @Html.Partial("~/Views/AutoCardPartial/_AutoCardHome.cshtml", autos[i])
+                        if (i % 3 == 0)
+                        {
+                            <div class="clearfix"></div>
+                        }
+                    }
+                </div>
+            </div>
+        }
+        else
+        {
+            <span>@Resource.NoDataToDisplay</span>
+        }
+    }
+}

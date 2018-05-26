@@ -1,0 +1,86 @@
+﻿@model XCars.ViewModels.ExtendedSearchVM
+@using XCars.Resourses
+@using XCars.Helpers
+
+@{
+    ViewBag.Title = Resource.MyAuctions;
+}
+
+@Html.Partial("_BreadcrumbsPartial", ViewBag.breadcrumbs as Dictionary<string, string>)
+
+<div class="account_inner">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="account_in_tabs">
+                    @Html.Partial("_CabinetTabs")
+
+                    <div class="account_filter">
+                        @using (Html.BeginForm("SearchResult", "SearchAuto", FormMethod.Post))
+                        {
+                            string active = "";
+                            if (ViewBag.selectedStatusID == 0)
+                            { active = "active"; }
+
+                            <a class="status @active" data-statusID="" href="#">@Resource.All <strong>0</strong></a>
+                            foreach (var item in ViewBag.statuses as List<SelectListItem>)
+                            {
+                                active = "";
+                                if (int.Parse(item.Value) == ViewBag.selectedStatusID)
+                                { active = "active"; }
+
+                                <a class="status @active" data-statusID="@item.Value" href="#">@item.Text <strong>0</strong></a>
+                            }
+                            <div class="account_filter_search">
+                                @*<form action="" method="post" class="account_search">*@
+                                @Html.TextBoxFor(model => model.SearchText, new { @class = "input", placeholder = Resource.EnterSearchText })
+                                <input type="submit" name="" value="" class="submit" />
+                                @*</form>*@
+                            </div>
+                        }
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="tab-content">
+                        <div id="acc_myAds" class="tab-pane fade in active">
+                            <table id="autosList" style="width: 100%">
+                                <thead><tr><th class="col-xs-12"></th></tr></thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                @Html.Partial("_CabinetUserInfoSidebar", ViewBag.userVM as XCars.ViewModels.UserShortVM)
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("form").submit(function () {
+                return false;
+            });
+        });
+    </script>
+}
+
+@*<div class="row">
+    <div class="col-sm-9">
+        @Html.Partial("_CabinetTabs")
+        <br />
+
+        <div class="row">
+            <div class="col-sm-12">
+                @foreach (var item in Model)
+                {
+                    <a href="/Auction/Details/@item.ID">@item.Auto.AutoMake.Name @item.Auto.AutoModel.Name, @item.Auto.YearOfIssue</a><br />
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        @Html.Partial("_CabinetUserInfoSidebar", ViewBag.userVM as XCars.ViewModels.UserShortVM)
+    </div>
+</div>*@

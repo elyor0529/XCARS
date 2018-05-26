@@ -1,0 +1,88 @@
+﻿@model XCars.ViewModels.AutoExchangeDetailsVM
+@using XCars.Resourses
+@using XCars.Common
+@using System.Globalization
+
+@if (Model == null)
+{
+    if (ViewBag.errorMsg != null)
+    {
+        <div class="alert alert-danger">
+            @ViewBag.errorMsg
+        </div>
+    }
+}
+else
+{
+    <div class="wall_single_post" id="autoExchangeOffer_@Model.ID">
+        <div class="col-md-8 nopadding">
+            <div class="wall_single_post_info">
+                <img width="38" class="img-circle pull-left async" title="@Model.Auto.Owner.Name" alt="@Model.Auto.Owner.Name" src="@XCars.Common.XCarsConfiguration.ClearGif" finalSrc="@Model.Auto.Owner.PhotoSrc">
+                <div class="wall_single_post_info_right">
+                    @{ 
+                        string offline = "";
+                        if (!Model.Auto.Owner.IsOnline)
+                        {
+                            offline = "offline";
+                        }
+                    }
+                    <div class="saller_name @offline"><span>@Model.Auto.Owner.Name</span></div>
+                    @{
+                        CultureInfo ruRU = new CultureInfo("ru-RU");
+                        string dateStr = Model.DateCreated.ToString("D", ruRU);
+                    }
+                    @*<div class="saller_reg_time">@Model.DateCreated.ToLongDateString(), @Model.DateCreated.ToShortTimeString()</div>*@
+                    <div class="saller_reg_time">@dateStr, @Model.DateCreated.ToString("HH:mm")</div>
+                </div>
+            </div>
+            <div class="wall_single_post_txt">
+                @{
+                    string doplataStr = Resource.WithoutAdditionalPayment;
+                    if (Model.DiffPriceDirection == 1)
+                    {
+                        doplataStr = Resource.WithMyAdditionalPayment;
+                    }
+                    else if (Model.DiffPriceDirection == 2)
+                    {
+                        doplataStr = Resource.WithYourAdditionalPayment;
+                    }
+                    string doplataSummaStr = "";
+                    if (Model?.DiffPrice != null)
+                    {
+                        doplataSummaStr += Model.DiffPrice + " " + Model.Currency;
+                    }
+                    else
+                    {
+                        doplataSummaStr += Resource.DiffPriceNotProvided;
+                    }
+
+                    string autoName = Model.Auto.Make + " " + Model.Auto.Model + (!string.IsNullOrWhiteSpace(Model.Auto.Modification) ? " " + Model.Auto.Modification : "") + " " + Model.Auto.YearOfIssue;
+                }
+                @Resource.IDoOfferExchange <a href="/Auto/Details/@Model.Auto.ID">@autoName</a> @Resource.In @Model.Auto.Region @doplataStr <span class="doplata">(@doplataSummaStr)</span>
+                @*Предлагаю обмен на  <a href="#">Subaru Tribeca B9 2006 г.</a> в Каменец-Подольском со своей доплатой <span class="doplata">(сумма доплаты не указана)</span>*@
+            </div>
+            @if (ViewBag.isAbleToAnswerToOffers != null)
+            {
+                <div class="wall_single_post_owner_but">
+                    <a href="#">@Resource.Reply</a>      <a href="#">@Resource.Decline</a>
+                </div>
+            }
+        </div>
+
+        @{
+            string photoSrc = XCarsConfiguration.BucketEndpoint + XCarsConfiguration.BucketName + "/" + XCarsConfiguration.AutoPhotosUploadUrl + (Model.Auto.Photo.ID != 0 ? (Model.Auto.Photo.ID + "_272x179") : XCarsConfiguration.AutoNoPhotoName) + XCarsConfiguration.PhotoExtension;
+        }
+
+        <div class="col-md-4">
+            <div class="wall_single_post_photo">
+                <img height="85" title="@Model.Auto.Make @Model.Auto.Model @Model.Auto.YearOfIssue" alt="@Model.Auto.Make @Model.Auto.Model @Model.Auto.YearOfIssue" class="async" src="@XCars.Common.XCarsConfiguration.ClearGif" finalSrc="@photoSrc">
+                <span class="green">@Model.Auto.PriceUSDStr</span><span class="runout">/ @Model.Auto.Probeg @Resource.DistanceShort</span>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        @if (Model.DeleteButtonIsAvailable)
+        {
+            <button class="wall_single_post_del btn-default" onclick="DeleteOffer(@Model.ID)">×</button>
+        }
+    </div>
+}

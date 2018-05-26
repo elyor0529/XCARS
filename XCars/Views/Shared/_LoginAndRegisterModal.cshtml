@@ -1,0 +1,28 @@
+﻿@using XCars.Resourses
+
+<!-- Modal -->
+<div id="Modal_login" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal login-->
+        <div class="modal-content modal-login active">
+
+            @Html.Partial("_LoginFormPartial", new XCars.Models.LoginViewModel())
+
+            <div class="clearfix"></div>
+            <div class="modal-bottom">
+                <a class="mod_to_register" href="#">Зарегистрироваться на EMCAR</a>
+            </div>
+        </div>
+
+        <!-- Modal registr-->
+        <div class="modal-content modal-register">
+            
+            @Html.Partial("_RegisterFormPartial", new XCars.Models.RegisterViewModel())
+
+            <div class="clearfix"></div>
+            <div class="modal-bottom">
+                <a class="mod_to_login" href="#">Уже зарегистрированы?</a>
+            </div>
+        </div>
+    </div>
+</div>

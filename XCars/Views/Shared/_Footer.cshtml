@@ -1,0 +1,30 @@
+﻿@using XCars.Resourses
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 col-sm-4">
+                <a class="navbar-brand" href="/"></a>
+                <span class="s14">© @DateTime.Now.Year EmCar</span>
+                <span class="s14">@Resource.PrivacyPolicy</span>
+            </div>
+            <div class="col-md-6 col-sm-8">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink(Resource.Autos, "Index", "Auto")</li>
+                    <li>@Html.ActionLink(Resource.Auctions, "Index", "Auction")</li>
+                    <li>@Html.ActionLink(Resource.News, "Index", "Home")</li>
+                    <li>@Html.ActionLink(Resource.AboutUs, "About", "Home")</li>
+                    <li>@Html.ActionLink(Resource.Contacts, "Contact", "Home")</li>
+                </ul>
+                <span class="s14">@Resource.SiteShortDescription</span>
+            </div>
+            <div class="col-md-4 col-sm-12">
+                @Resource.ContactUs
+                <span class="s18 green"><br /><a href="tel:+380631234567">+3 8063 1234 567</a><br /> <a href="tel:+380631234567">+3 8063 1234 567</a><br /></span>
+                <a class="ico_fb" href="#"></a>
+                <a class="ico_in" href="#"></a>
+                <a class="ico_tw" href="#"></a>
+            </div>
+        </div>
+    </div>
+</footer>

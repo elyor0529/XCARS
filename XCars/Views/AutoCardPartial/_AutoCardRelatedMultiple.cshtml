@@ -1,0 +1,6 @@
+﻿@model IEnumerable<XCars.ViewModels.AutoShortInfoVM>
+
+@foreach (var item in Model)
+{
+    @Html.Partial("~/Views/AutoCardPartial/_AutoCardRelated.cshtml", item)
+}

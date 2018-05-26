@@ -1,0 +1,108 @@
+﻿@model ExtendedSearchVM
+@using XCars.ViewModels
+@using XCars.Resourses
+@using XCars.Helpers
+
+<div class="home_search_form">
+    @using (Html.BeginForm("SearchResult", "SearchAuto", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-row">
+            <div class="label large">Я ищу:</div>
+            @Html.TextBoxFor(model => model.SearchText, new { @class = "search_sel large" })
+            <div class="note">@Resource.SearchTextHint</div>
+        </div>
+        <div class="home_search_rows row_1">
+            <div class="label">@Resource.Transport:</div>
+            <select class="search_sel" id="TransportTypeID" name="TransportTypeID"></select>
+            <div class="label">@Html.DisplayNameFor(model => model.MakeID):</div>
+            <select id="MakeID" name="MakeID" class="search_sel"></select>
+        </div>
+        <div class="home_search_rows row_2">
+            <div class="label">@Html.DisplayNameFor(model => model.ModelID):</div>
+            <select class="search_sel" id="ModelID" name="ModelID"></select>
+            <div class="label">@Html.DisplayNameFor(model => model.RegionID):</div>
+            <select class="search_sel" id="RegionID" name="RegionID"></select>
+        </div>
+        <div class="home_search_rows row_3">
+            <div class="row_3_left">
+                <div class="label half">@Resource.Year:</div>
+                <select class="search_sel half" id="YearOfIssueFrom" name="YearOfIssueFrom"></select>
+                <select class="search_sel half" id="YearOfIssueTo" name="YearOfIssueTo"></select>
+            </div>
+            <div class="row_3_right">
+                <div class="label third">@Html.DisplayNameFor(model => model.PriceFrom):</div>
+                @Html.TextBoxFor(model => model.PriceFrom, new { @class = "search_sel third", placeholder = Resource.From })
+                @Html.TextBoxFor(model => model.PriceTo, new { @class = "search_sel third", placeholder = Resource.To })
+                <select class="search_sel third currency" id="CurrencyID" name="CurrencyID"></select>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+        <div class="row_4">
+            <a href="/wsearch">@Resource.SearchExtended</a> <button type="submit" class="but_lgreen but">@Resource.Search</button>
+        </div>
+    }
+</div>
+
+
+
+
+
+
+
+
+
+@*@{
+    MakeAndModelVM mmVM = new MakeAndModelVM();
+    List<MakeAndModelVM> mmVMs = new List<MakeAndModelVM>();
+
+    if (Model == null || Model != null && Model.MakeAndModels.Count == 0)
+    { mmVMs.Add(mmVM); }
+    else
+    { mmVMs = Model.MakeAndModels.ToList(); }
+}
+
+<div class="home_search_form">
+    @using (Html.BeginForm("SearchResult", "SearchAuto", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-row">
+            <div class="label large">Я ищу:</div>
+            @Html.TextBoxFor(model => model.SearchText, new { @class = "search_sel large" })
+            <div class="note">@Resource.SearchTextHint</div>
+        </div>
+        <div class="home_search_rows row_1">
+            <div class="label">@Html.DisplayNameFor(model => model.TransportTypeID):</div>
+            <select class="search_sel" id="TransportTypeID" name="TransportTypeID"></select>
+            <div class="label">@Html.DisplayNameFor(m => mmVM.MakeID):</div>
+            <select name="MakeAndModels[0].MakeID" class="search_sel make" onchange="UpdateModelList(this.value, 0)"></select>
+        </div>
+        <div class="home_search_rows row_2">
+            <div class="label">@Html.DisplayNameFor(m => mmVM.ModelID):</div>
+            <select name="MakeAndModels[0].ModelID" class="search_sel model"></select>
+            <div class="label">@Html.DisplayNameFor(model => model.RegionID):</div>
+            <select class="search_sel" id="RegionID" name="RegionID"></select>
+        </div>
+        <div class="home_search_rows row_3">
+            <div class="row_3_left">
+                <div class="label half">@Html.DisplayNameFor(model => model.YearOfIssueFrom):</div>
+                <select class="search_sel half" id="YearOfIssueFrom" name="YearOfIssueFrom"></select>
+                <select class="search_sel half" id="YearOfIssueTo" name="YearOfIssueTo"></select>
+            </div>
+            <div class="row_3_right">
+                <div class="label third">@Html.DisplayNameFor(model => model.PriceFrom):</div>
+                @Html.TextBoxFor(model => model.PriceFrom, new { @class = "search_sel third", placeholder = Resource.From })
+                @Html.TextBoxFor(model => model.PriceTo, new { @class = "search_sel third", placeholder = Resource.To })
+                <select class="search_sel third currency" id="CurrencyID" name="CurrencyID"></select>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+        <div class="row_4">
+            <a href="#">@Resource.SearchExtended</a> <button type="submit" class="but_lgreen but">@Resource.Search</button>
+        </div>
+    }
+</div>*@

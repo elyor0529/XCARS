@@ -1,0 +1,48 @@
+﻿@model XCars.ViewModels.AuctionShortInfoVM
+@using XCars.Resourses
+@using XCars.Common
+
+@{
+    string photoSrc = XCarsConfiguration.BucketEndpoint + XCarsConfiguration.BucketName + "/" + XCarsConfiguration.AutoPhotosUploadUrl + (Model.Auto.Photo.ID != 0 ? (Model.Auto.Photo.ID + "_272x179") : XCarsConfiguration.AutoNoPhotoName) + XCarsConfiguration.PhotoExtension;
+    string autoName = Model.Auto.Make + " " + Model.Auto.Model + (!string.IsNullOrWhiteSpace(Model.Auto.Modification) ? " " + Model.Auto.Modification : "")/* + " " + Model.Auto.YearOfIssue*/;
+}
+
+<div class="account_single_ads">
+    <a href="/Auction/Details/@Model.ID">
+        <div class="account_single_ads_foto new">
+            <img class="async" width="250" title="@autoName" alt="@autoName" src="@XCars.Common.XCarsConfiguration.ClearGif" finalSrc="@photoSrc">
+        </div>
+        <div class="account_single_ads_desc">
+            <div class="more_des_price_name">
+                <i class="icon-favorite"></i><span class="name">@autoName</span>
+                <span class="green">@Model.PriceUSDStr</span><span class="price_grn">/ @Model.PriceUAHStr</span>
+            </div>
+            <div class="more_des">
+                <span><i class="icon-date_publication"></i>@Model.TimeLeft</span>
+
+                @if (!string.IsNullOrWhiteSpace(Model.Auto.Region))
+                {
+                    <span><i class="icon-region"></i>@Model.Auto.Region</span>
+                }
+                <span><i class="icon-race"></i>@Model.Auto.Probeg @Resource.DistanceShort</span>
+                @if (!string.IsNullOrWhiteSpace(Model.Auto.TransmissionType))
+                {
+                    <span><i class="icon-transmission"></i>@Model.Auto.TransmissionType</span>
+                }
+                @if (!string.IsNullOrWhiteSpace(Model.Auto.FuelType) && Model.Auto.EngineCapacity != null)
+                {
+                    <span><i class="icon-fuel"></i>@Model.Auto.FuelType, @Model.Auto.EngineCapacity @Resource.LitresShort</span>
+                }
+                <span><i class="icon-year"></i>@Model.Auto.YearOfIssue</span>
+                @if (!string.IsNullOrWhiteSpace(Model.Auto.TSRegistration))
+                {
+                    <span class="icon_additional">@Model.Auto.TSRegistration</span>
+                }
+            </div>
+            <div class="more_des_status">
+                @Model.Description
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </a>
+</div>

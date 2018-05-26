@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="20080fe4ca004cf9a6448d76afeaa92d" Name="Diagram1" ZoomLevel="72">
+        <EntityTypeShape EntityType="XCarsModel.AuctionBid" Width="1.5" PointX="8.25" PointY="11.875" />
+        <EntityTypeShape EntityType="XCarsModel.AuctionConnection" Width="1.5" PointX="11.25" PointY="17" />
+        <EntityTypeShape EntityType="XCarsModel.Auto" Width="1.5" PointX="6" PointY="11.5" />
+        <EntityTypeShape EntityType="XCarsModel.AutoBodyType" Width="1.5" PointX="3.75" PointY="43.625" />
+        <EntityTypeShape EntityType="XCarsModel.AutoColor" Width="1.5" PointX="3.75" PointY="35.875" />
+        <EntityTypeShape EntityType="XCarsModel.AutoComfort" Width="1.5" PointX="8.25" PointY="20.125" />
+        <EntityTypeShape EntityType="XCarsModel.AutoDriveType" Width="1.5" PointX="3.75" PointY="21.25" />
+        <EntityTypeShape EntityType="XCarsModel.AutoExchange" Width="1.5" PointX="11.25" PointY="12.625" />
+        <EntityTypeShape EntityType="XCarsModel.AutoFavorite" Width="1.5" PointX="14.25" PointY="17.125" />
+        <EntityTypeShape EntityType="XCarsModel.AutoFuelType" Width="1.5" PointX="3.75" PointY="13" />
+        <EntityTypeShape EntityType="XCarsModel.AutoMake" Width="1.5" PointX="3.75" PointY="2.625" />
+        <EntityTypeShape EntityType="XCarsModel.AutoMisc" Width="1.5" PointX="8.25" PointY="25.25" />
+        <EntityTypeShape EntityType="XCarsModel.AutoModel" Width="1.5" PointX="3.75" PointY="5.375" />
+        <EntityTypeShape EntityType="XCarsModel.AutoMultimedia" Width="1.5" PointX="8.25" PointY="30.125" />
+        <EntityTypeShape EntityType="XCarsModel.AutoPhoto" Width="1.5" PointX="8.25" PointY="27.5" />
+        <EntityTypeShape EntityType="XCarsModel.AutoSecurity" Width="1.5" PointX="8.25" PointY="32.375" />
+        <EntityTypeShape EntityType="XCarsModel.AutoState" Width="1.5" PointX="8.25" PointY="15" />
+        <EntityTypeShape EntityType="XCarsModel.AutoStatu" Width="1.5" PointX="3.75" PointY="38.375" />
+        <EntityTypeShape EntityType="XCarsModel.AutoTransmissionType" Width="1.5" PointX="3.75" PointY="8.25" />
+        <EntityTypeShape EntityType="XCarsModel.AutoTransportType" Width="1.5" PointX="1.5" PointY="43.75" />
+        <EntityTypeShape EntityType="XCarsModel.AutoTSRegistration" Width="1.5" PointX="3.75" PointY="10.625" />
+        <EntityTypeShape EntityType="XCarsModel.City" Width="1.5" PointX="3.75" PointY="40.75" />
+        <EntityTypeShape EntityType="XCarsModel.ContactsRequest" Width="1.5" PointX="11.25" PointY="20.125" />
+        <EntityTypeShape EntityType="XCarsModel.Currency" Width="1.5" PointX="0.75" PointY="17" />
+        <EntityTypeShape EntityType="XCarsModel.Order" Width="1.5" PointX="11" PointY="30.375" />
+        <EntityTypeShape EntityType="XCarsModel.OrderDetail" Width="1.5" PointX="13.25" PointY="31.375" />
+        <EntityTypeShape EntityType="XCarsModel.PurchaseType" Width="1.5" PointX="8.75" PointY="35.5" />
+        <EntityTypeShape EntityType="XCarsModel.Region" Width="1.5" PointX="1.5" PointY="40.875" />
+        <EntityTypeShape EntityType="XCarsModel.Role" Width="1.5" PointX="1.5" PointY="31.625" />
+        <EntityTypeShape EntityType="XCarsModel.ScheduledEmail" Width="1.5" PointX="8" PointY="1" />
+        <EntityTypeShape EntityType="XCarsModel.ScheduledEmailObjectType" Width="1.5" PointX="5.75" PointY="49.875" />
+        <EntityTypeShape EntityType="XCarsModel.ScheduledEmailStatu" Width="1.5" PointX="5.75" PointY="1.875" />
+        <EntityTypeShape EntityType="XCarsModel.SiteSetting" Width="1.5" PointX="0.75" PointY="4.75" />
+        <EntityTypeShape EntityType="XCarsModel.Transaction" Width="1.5" PointX="6" PointY="30.25" />
+        <EntityTypeShape EntityType="XCarsModel.TransactionState" Width="1.5" PointX="3.75" PointY="46.625" />
+        <EntityTypeShape EntityType="XCarsModel.User" Width="1.5" PointX="3.75" PointY="29.625" />
+        <EntityTypeShape EntityType="XCarsModel.UserConnection" Width="1.5" PointX="6" PointY="36.5" />
+        <AssociationConnector Association="XCarsModel.FK_AuctionBid_User" />
+        <AssociationConnector Association="XCarsModel.FK_AuctionConnection_User" />
+        <AssociationConnector Association="XCarsModel.FK_Auto_AutoBodyType" />
+        <AssociationConnector Association="XCarsModel.FK_Auto_AutoColor" />
+        <AssociationConnector Association="XCarsModel.FK_Auto_AutoDriveType" />
+        <AssociationConnector Association="XCarsModel.FK_Auto_AutoFuelType" />
+        <AssociationConnector Association="XCarsModel.FK_Auto_AutoMake" />
+        <AssociationConnector Association="XCarsModel.FK_Auto_AutoModel" />
+        <AssociationConnector Association="XCarsModel.FK_Auto_AutoStatus" />
+        <AssociationConnector Association="XCarsModel.FK_Auto_AutoTransmissionType" />
+        <AssociationConnector Association="XCarsModel.FK_Auto_AutoTransportType" />
+        <AssociationConnector Association="XCarsModel.FK_Auto_AutoTSRegistration" />
+        <AssociationConnector Association="XCarsModel.FK_Auto_City" />
+        <AssociationConnector Association="XCarsModel.FK_Auto_Currency" />
+        <AssociationConnector Association="XCarsModel.FK_Auto_User" />
+        <AssociationConnector Association="XCarsModel.FK_AutoExchange_OfferedAuto" />
+        <AssociationConnector Association="XCarsModel.FK_AutoExchange_TargetAuto" />
+        <AssociationConnector Association="XCarsModel.FK_AutoFavorite_Auto" />
+        <AssociationConnector Association="XCarsModel.FK_AutoPhoto_Auto" />
+        <AssociationConnector Association="XCarsModel.FK_ContactsRequest_Auto" />
+        <AssociationConnector Association="XCarsModel.FK_AutoBodyType_AutoTransportType" />
+        <AssociationConnector Association="XCarsModel.FK_AutoExchange_Currency" />
+        <AssociationConnector Association="XCarsModel.FK_AutoFavorite_User" />
+        <AssociationConnector Association="XCarsModel.FK_AutoModel_AutoMake" />
+        <AssociationConnector Association="XCarsModel.FK_City_Region" />
+        <AssociationConnector Association="XCarsModel.FK_User_City" />
+        <AssociationConnector Association="XCarsModel.FK_ContactsRequest_User" />
+        <AssociationConnector Association="XCarsModel.FK_Order_PurchaseType" />
+        <AssociationConnector Association="XCarsModel.FK_Order_User" />
+        <AssociationConnector Association="XCarsModel.FK_OrderDetails_Order" />
+        <AssociationConnector Association="XCarsModel.FK_Transaction_PurchaseType" />
+        <AssociationConnector Association="XCarsModel.FK_User_Region" />
+        <AssociationConnector Association="XCarsModel.FK_ScheduledEmail_ScheduledEmailObjectType" />
+        <AssociationConnector Association="XCarsModel.FK_ScheduledEmail_ScheduledEmailStatus" />
+        <AssociationConnector Association="XCarsModel.FK_Transaction_TransactionState" />
+        <AssociationConnector Association="XCarsModel.FK_Transaction_User" />
+        <AssociationConnector Association="XCarsModel.FK_UserConnection_User" />
+        <AssociationConnector Association="XCarsModel.AutoComfortManyToMany" />
+        <AssociationConnector Association="XCarsModel.AutoMiscManyToMany" />
+        <AssociationConnector Association="XCarsModel.AutoMultimediaManyToMany" />
+        <AssociationConnector Association="XCarsModel.AutoSecurityManyToMany" />
+        <AssociationConnector Association="XCarsModel.AutoStateManyToMany" />
+        <AssociationConnector Association="XCarsModel.UserRole" />
+        <EntityTypeShape EntityType="XCarsModel.AuctionPhoto" Width="1.5" PointX="5.25" PointY="26.25" />
+        <EntityTypeShape EntityType="XCarsModel.AuctionFavorite" Width="1.5" PointX="11" PointY="24.875" />
+        <AssociationConnector Association="XCarsModel.FK_AuctionFavorite_User" />
+        <EntityTypeShape EntityType="XCarsModel.Auction" Width="1.5" PointX="14.25" PointY="10.75" />
+        <EntityTypeShape EntityType="XCarsModel.AuctionStatu" Width="1.5" PointX="12" PointY="9.5" />
+        <AssociationConnector Association="XCarsModel.FK_Auction_AuctionStatus" />
+        <AssociationConnector Association="XCarsModel.FK_Auction_Auto" />
+        <AssociationConnector Association="XCarsModel.FK_Auction_Currency" />
+        <AssociationConnector Association="XCarsModel.FK_AuctionBid_Auction" />
+        <AssociationConnector Association="XCarsModel.FK_AuctionConnection_Auction" />
+        <AssociationConnector Association="XCarsModel.FK_AuctionFavorite_Auction" />
+        <AssociationConnector Association="XCarsModel.FK_AuctionPhoto_Auction" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

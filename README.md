@@ -1,2 +1,2 @@
 # XCARS
-Quadevs team XCARS
+Online store for cars 

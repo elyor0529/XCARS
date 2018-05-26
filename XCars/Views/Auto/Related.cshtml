@@ -1,0 +1,56 @@
+﻿@model int
+@using XCars.Resourses
+@using XCars.Helpers
+
+@{
+    ViewBag.Title = Resource.Related;
+}
+
+@Html.Breadcrumbs(ViewBag.breadcrumbs as Dictionary<string, string>)
+
+<h2>@ViewBag.Title</h2>
+
+
+<div class="row">
+    <div class="col-sm-12 col-md-6">
+        <table id="example" class="table table-bordered display" cellspacing="0">
+            <thead>
+                <tr>
+                    <th class="col-xs-3">@*Фото*@</th>
+                    <th class="col-xs-9">@*Информация*@</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/Scripts/DataTables/datatables.min.js"></script>
+    <link href="~/Scripts/DataTables/datatables.min.css" rel="stylesheet" />
+
+    <script>
+        $(document).ready(function () {
+            $(document).ready(function () {
+                var table = $('#example').DataTable({
+                    "searching": false,
+                    "ordering": false,
+                    "processing": true,
+                    "serverSide": true,
+                    "ajax":
+                    {
+                        "url": "/Auto/GetRelated",
+                        "data": function (d) {
+                            d.id = "@Model";
+                            // d.custom = $('#myInput').val();
+                            // etc
+                        },
+                        "complete": function () {
+                            StartLoadingImagesAsync();
+                        }
+                    },
+                    "lengthMenu": [[2, 3, 5], [2, 3, 5]]
+                });
+            });
+        });
+    </script>
+}

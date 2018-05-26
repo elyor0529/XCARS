@@ -1,0 +1,23 @@
+﻿@model Dictionary<string, string>
+
+<div id="breadcrumb">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <ol class="breadcrumb">
+                    @foreach (KeyValuePair<string, string> item in Model)
+                    {
+                        if (item.Key != "#")
+                        {
+                            <li class="breadcrumb-item"><a href="@item.Key">@item.Value</a></li>
+                        }
+                        else
+                        {
+                            <li class="breadcrumb-item active">@item.Value</li>
+                        }
+                    }
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>

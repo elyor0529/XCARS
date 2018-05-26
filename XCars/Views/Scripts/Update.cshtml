@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewBag.Title = "UpdateMakesAndModels";
+}
+
+<h2>Update Makes And Models</h2>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <input type="file" name="excel" />
+    <br />
+    <select name="typeID">
+        <option></option>
+        <option value="1">Make</option>
+        <option value="2">Model</option>
+        <option value="3">Complex</option>
+    </select>
+    <br/>
+    <button type = "submit" class="btn btn-primary">Submit</button>
+}

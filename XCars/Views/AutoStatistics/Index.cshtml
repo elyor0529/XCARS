@@ -1,0 +1,46 @@
+﻿@using XCars.Resourses
+
+@{
+    ViewBag.Title = Resource.Statistics;
+}
+
+<h2>@ViewBag.Title</h2>
+<hr />
+
+<div class="row">
+    <div class="col-sm-6 col-md-4">
+        <table class="table" id="numberOfAutosGroupedByMake">
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            //alert("asdf");
+            $.ajax({
+                type: "GET",
+                url: "/AutoStatistics/GetNumberOfAutosGroupedByMake",
+                contentType: "application/json; charset=utf-8",
+                //dataType: "json",
+                success: function (data) {
+                    //console.log(data.result);
+                    var makes = data.result;
+                    for (var i = 0; i < makes.length; i++)
+                    {
+                        var html = "<tr>";
+                        html += "<td><a href='/SearchAuto/Index?MakeID=" + makes[i].MakeID + "'>" + makes[i].MakeName + "</a></td>";
+                        html += "<td>" + makes[i].AutosNumber + "</td>";
+                        html += "</tr>";
+                        
+                        $("table#numberOfAutosGroupedByMake > tbody").append(html);
+                    }
+                },
+                error: function (data) {
+                    alert("Error: " + data);
+                }
+            });
+        });
+    </script>
+}

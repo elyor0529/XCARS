@@ -1,0 +1,272 @@
+﻿@model XCars.Model.Auto
+@using XCars.Resourses
+@using XCars.Helpers
+
+@{
+    ViewBag.Title = Resource.Checkout;
+
+    int posInAll = ViewBag.positions[0];
+    int posInRegion = ViewBag.positions[1];
+    int posInMake = ViewBag.positions[2];
+    int posInMakeAndModel = ViewBag.positions[3];
+
+    int balance = (int)Model.User.Balance;
+
+    int topMin = ViewBag.topMin;
+    int topMax = ViewBag.topMax;
+    int daysMin = ViewBag.daysMin;
+    int daysMax = ViewBag.daysMax;
+
+    int oncePayedCost = ViewBag.oncePayedCost;
+    int topDefault = ViewBag.topDefault;
+    int daysDefault = ViewBag.daysDefault;
+    int positionCost = topDefault * daysDefault;
+    int totalToBePayed = oncePayedCost + positionCost;
+}
+
+@Html.Breadcrumbs(ViewBag.breadcrumbs as Dictionary<string, string>)
+
+<h2>@ViewBag.Title</h2>
+
+<div class="row">
+    <div class="col-sm-6">
+        @*@using (Html.BeginForm("Publish", "MyAuto", FormMethod.Post, new { id = "checkoutForm" }))
+        {*@
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <input type="hidden" value="@Model.ID" name="id" />
+                    <b>@topMin @Resource.uah/@Resource.DaySmall</b> <input id="ex1" type="text" name="top" /> <b>@topMax @Resource.uah/@Resource.DaySmall</b>
+                    <br />
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6">
+                            <span id="posInAll">@posInAll</span> @Resource.PositionIn @Resource.InGlobalSearch |
+                            <span id="posInRegion">@posInRegion</span> @Resource.PositionIn @Model.City.Name |
+                            <span id="posInMake">@posInMake</span> @Resource.PositionIn @Model.AutoMake.Name |
+                            <span id="posInMakeAndModel">@posInMakeAndModel</span> @Resource.PositionIn @Model.AutoMake.Name @Model.AutoModel.Name
+                        </div>
+                    </div>
+                    <br />
+                    <b>@daysMin @Resource.DaySmall</b> <input id="ex2" type="text" name="days" /> <b>@daysMax @Resource.DaysSmall</b>
+                    <br />
+                    <br />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-5">
+                    У вас на счету: <b><span id="balance">@balance</span> @Resource.uah</b><br />
+                    @if (balance > 0)
+                    {
+                        <small>
+                            <i id="balanceIsNotUsedHintText">@Resource.BalanceIsNotUsedHintText</i>
+                            <i id="balanceIsUsedHintText" style="display: none;">@Resource.BalanceIsUsedHintText</i>
+                        </small>
+                        <br />
+                        <button type="button" class="btn btn-info" id="useBalanceBtn">@Resource.Use</button>
+                        <button type="button" class="btn btn-link" style="display: none;" id="cancelBalanceUsageBtn">@Resource.Cancel</button>
+                    }
+                </div>
+                <div class="col-sm-7">
+                    <p>@Resource.AutoPublication: <b><span id="oncePayedCost">@oncePayedCost</span> @Resource.uah</b></p>
+                    <p>@Resource.PositionCost: <b><span id="positionCost">@positionCost</span> @Resource.uah</b></p>
+                    <p style="display: none;" id="fromBalanceText">@Resource.MoneyFromBalance: <b>- <span id="fromBalance"></span> @Resource.uah</b></p>
+                    <p><b>@Resource.TotalToBePayed: <span id="totalToBePayed">@totalToBePayed</span> @Resource.uah</b></p>
+                </div>
+            </div>
+        @*}*@
+    </div>
+    <div class="col-sm-6">
+        <div class="panel panel-info">
+
+            <div id="paymasterContainer">
+                <form action="https://lmi.paymaster.ua/" method="post" id="lmi">
+                    <input type="hidden" name="LMI_MERCHANT_ID" id="LMI_MERCHANT_ID" />
+                    <input type="hidden" name="LMI_PAYMENT_NO" id="LMI_PAYMENT_NO" />
+                    <input type="hidden" name="LMI_PAYMENT_AMOUNT" id="LMI_PAYMENT_AMOUNT" />
+                    <input type="hidden" name="LMI_PAYMENT_DESC" id="LMI_PAYMENT_DESC" />
+                    <input type="hidden" name="LMI_SUCCESS_URL" id="LMI_SUCCESS_URL" />
+                    <input type="hidden" name="LMI_FAIL_URL" id="LMI_FAIL_URL" />
+                    <input type="hidden" name="LMI_HASH" id="LMI_HASH" />
+                    @*<button type="submit" class="btn btn-success">@Resource.Pay</button>*@
+                </form>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <button type="button" class="btn btn-info" id="payBtn">@Resource.Pay</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link href="~/Scripts/bootstrap-slider/css/bootstrap-slider.min.css" rel="stylesheet" />
+@section Scripts {
+    <script src="~/Scripts/bootstrap-slider/bootstrap-slider.min.js"></script>
+    <script>
+        var autoID = "@Model.ID";
+
+        var regionID = "@Model.RegionID";
+        var makeID = "@Model.MakeID";
+        var modelID = "@Model.ModelID";
+
+        var balance = Number("@balance");
+        var fromBalance = 0;
+        var oncePayedCost = Number("@oncePayedCost");
+        var totalToBePayed = Number("@totalToBePayed");
+        var globalTop = Number("@topDefault");
+        var globalDays = Number("@daysDefault");
+        var positionCost = globalTop * globalDays;
+
+        var balanceUsed = false;
+
+        $(document).ready(function () {
+            //top slider
+            $('#ex1').slider({
+                id: "ex1Slider",
+                formatter: function (value) {
+                    return value + " @Resource.uah" + "/" + "@Resource.DaySmall";
+                },
+                min: Number("@topMin"),
+                max: Number("@topMax"),
+                value: globalTop,
+                step: 1,
+                tooltip: 'always',
+                tooltip_position: 'bottom'
+            });
+            $('#ex1').slider().on("slideStop", function (ev) {
+                var top = $("#ex1").data("slider").getValue();
+                globalTop = top;
+                CalculateSummary();
+
+                $.ajax({
+                    type: "GET",
+                    url: "/SearchAuto/GetPotentialPositions/?regionID=" + regionID + "&makeID=" + makeID + "&modelID=" + modelID + "&top=" + top,
+                    contentType: "application/json; charset=utf-8",
+                    //dataType: "json",
+                    success: function (data) {
+                        console.log(data);
+                        $("#posInAll").text(data[0]);
+                        $("#posInRegion").text(data[1]);
+                        $("#posInMake").text(data[2]);
+                        $("#posInMakeAndModel").text(data[3]);
+                    },
+                    error: function (data) {
+                        //alert("error: " + data);
+                    }
+                });
+            });
+
+            //days slider
+            $('#ex2').slider({
+                id: "ex2Slider",
+                formatter: function (value) {
+                    return value + " @Resource.DayShort";
+                },
+                min: Number("@daysMin"),
+                max: Number("@daysMax"),
+                value: globalDays,
+                step: 1,
+                tooltip: 'always',
+                tooltip_position: 'bottom'
+            });
+            $('#ex2').slider().on("slideStop", function (ev) {
+                var days = $("#ex2").data("slider").getValue();
+                globalDays = days;
+                CalculateSummary();
+            });
+
+            //others
+            $("button#useBalanceBtn").click(function () {
+                balanceUsed = true;
+                $("#useBalanceBtn").css("display", "none");
+                $("#cancelBalanceUsageBtn").css("display", "inherit");
+
+                fromBalance = (balance > totalToBePayed) ? totalToBePayed : balance;
+                balance -= fromBalance;
+
+                $("#balance").text(balance);
+                $("#fromBalance").text(fromBalance);
+                $("#fromBalanceText").css("display", "inherit");
+
+                $("#balanceIsUsedHintText").css("display", "inherit");
+                $("#balanceIsNotUsedHintText").css("display", "none");
+
+                CalculateSummary();
+            });
+            $("button#cancelBalanceUsageBtn").click(function () {
+                balanceUsed = false;
+                $("#useBalanceBtn").css("display", "inherit");
+                $("#cancelBalanceUsageBtn").css("display", "none");
+
+                balance += fromBalance;
+                fromBalance = 0;
+
+                $("#balance").text(balance);
+                $("#fromBalance").text(fromBalance);
+                $("#fromBalanceText").css("display", "none");
+
+                $("#balanceIsUsedHintText").css("display", "none");
+                $("#balanceIsNotUsedHintText").css("display", "inherit");
+
+                CalculateSummary();
+            });
+
+            $("#payBtn").click(function () {
+                $(this).attr("disabled", "disabled");
+                $.ajax({
+                    type: "POST",
+                    url: "/MyAuto/Publish/",
+                    contentType: "application/json; charset=utf-8",
+                    //dataType: "json",
+                    data: JSON.stringify({
+                        id: autoID,
+                        top: globalTop,
+                        days: globalDays,
+                        balanceUsed: balanceUsed
+                    }),
+                    success: function (data) {
+                        console.log(data);
+                        if (data.error != null)
+                        {
+                            alert(data.error);
+                        }
+                        else if (data.ok == 1)
+                        {
+                            location.href = data.successUrl;
+                        }
+                        else if (data.LMI_PAYMENT_NO != null)
+                        {
+                            $("#LMI_MERCHANT_ID").val(data.LMI_MERCHANT_ID);
+                            $("#LMI_PAYMENT_NO").val(data.LMI_PAYMENT_NO);
+                            $("#LMI_PAYMENT_AMOUNT").val(totalToBePayed);
+                            $("#LMI_PAYMENT_DESC").val(data.LMI_PAYMENT_DESC);
+                            $("#LMI_SUCCESS_URL").val(data.LMI_SUCCESS_URL);
+                            $("#LMI_FAIL_URL").val(data.LMI_FAIL_URL);
+                            $("#LMI_HASH").val(data.LMI_HASH);
+
+                            $("form#lmi").submit();
+                        }
+                    },
+                    error: function (data) {
+                        //alert("error: " + data);
+                    }
+                });
+                //$("form#checkoutForm").submit();
+            });
+
+            //$("form#checkoutForm").submit(function () {
+            //    var html = "<input type='hidden' name='balanceUsed' value='" + balanceUsed + "' />";
+            //    $("form#checkoutForm").append(html);
+            //});
+        });
+
+        function CalculateSummary() {
+            positionCost = globalTop * globalDays;
+            $("#positionCost").text(positionCost);
+
+            totalToBePayed = oncePayedCost + positionCost - fromBalance;
+            $("#totalToBePayed").text(totalToBePayed);
+        }
+    </script>
+}

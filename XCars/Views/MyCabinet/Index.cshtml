@@ -1,0 +1,20 @@
+﻿@using XCars.Resourses
+@using XCars.Helpers
+
+@{
+    ViewBag.Title = Resource.MyCabinet;
+}
+
+@Html.Breadcrumbs(ViewBag.breadcrumbs as Dictionary<string, string>)
+
+<h2>@ViewBag.Title</h2>
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="list-group">
+            <a href="/MyProfile/Edit" class="list-group-item">@Resource.MyProfile</a>
+            <a href="/MyAuto/AddMainInfo" class="list-group-item">@Resource.AddAdvertisement</a>
+            <a href="/MyAuto/Index" class="list-group-item">@Resource.MyAdvertisements</a>
+        </div>
+    </div>
+</div>

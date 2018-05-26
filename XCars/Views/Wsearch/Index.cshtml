@@ -1,0 +1,388 @@
+﻿@model XCars.ViewModels.ExtendedSearchVM
+@using XCars.ViewModels
+@using XCars.Resourses
+
+@{
+    ViewBag.Title = Resource.SearchExtended;
+}
+
+<div id="home_after_head">
+    <div class="container darkblue">
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <h1>@Resource.HomePageSlogan</h1>
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <div class="home_af au">
+                    <a href="#">
+                        <span>+95</span>
+                        <span>@Resource.NewAuctionsCount</span>
+                    </a>
+                </div>
+                <div class="home_af">
+                    <a href="#">
+                        <span>+@ViewBag.autosCountAddedToday</span>
+                        <span>@Resource.NewAdvertisementsCount</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="bigest_filter_wrap">
+                <div class="home_search_form">
+                    <div class="bigest_filter_inn">
+                        @using (Html.BeginForm("SearchResult", "SearchAuto", FormMethod.Post))
+                        {
+                            <div class="bigest_filter_top">
+                                <h5>@Resource.TransportType</h5>
+                                <div class="col-md-6 nopadding">
+                                    <label>@Resource.AutoType:</label>
+                                    <select class="search_sel" id="TransportTypeID" name="TransportTypeID"></select>
+                                </div>
+                                <div class="col-md-6 nopadding">
+                                    <label>@Html.DisplayNameFor(model => model.BodyTypeID):</label>
+                                    <select id="BodyTypeID" name="BodyTypeID" class="selectpicker w_search_sel" title="@Resource.AnyM" multiple></select>
+                                </div>
+                                <div class="clearfix"></div>
+
+                                <h5>@Html.DisplayNameFor(model => model.MakeAndModels)</h5>
+                                <div class="col-md-6 nopadding">
+                                    <label>@Html.DisplayNameFor(model => model.MakeID):</label>
+                                    <select id="MakeID" name="MakeID" class="selectpicker w_search_sel" title="@Resource.AnyFem" multiple></select>
+                                </div>
+                                <div class="col-md-6 nopadding">
+                                    <label>@Resource.SelectModel:</label>
+                                    <select id="ModelID" name="ModelID" class="selectpicker w_search_sel" title="@Resource.AnyFem" multiple></select>
+                                </div>
+                                <div class="clearfix"></div>
+
+                                <h5>@Resource.MainData</h5>
+                                <div class="col-md-6 nopadding">
+                                    <label>@Html.DisplayNameFor(model => model.RegionID):</label>
+                                    <select class="selectpicker w_search_sel" title="@Resource.AnyM" id="RegionID" name="RegionID" multiple></select>
+                                    <div class="br_line"></div>
+                                    <label>@Html.DisplayNameFor(model => model.CityID):</label>
+                                    <select class="selectpicker w_search_sel" title="@Resource.AnyM" id="CityID" name="CityID" multiple></select>
+                                    <div class="br_line"></div>
+                                    <label>@Html.DisplayNameFor(model => model.YearOfIssue):</label>
+                                    <select id="YearOfIssue" name="YearOfIssue" class="selectpicker w_search_sel" title="@Resource.AnyM" multiple></select>
+                                </div>
+                                <div class="col-md-6 col-sm-12 nopadding">
+                                    <label class="">@Html.DisplayNameFor(model => model.PriceFrom):</label>
+                                    <input class="search_sel w74" placeholder="@Resource.FromSmall" id="PriceFrom" name="PriceFrom">
+                                    -
+                                    <input class="search_sel w74" placeholder="@Resource.ToSmall" id="PriceTo" name="PriceTo">
+                                    <select class="search_sel w68" id="CurrencyID" name="CurrencyID"></select>
+                                    <div class="br_line"></div>
+                                    <label class="">@Html.DisplayNameFor(model => model.ProbegFrom):</label>
+                                    <input class="search_sel w74" placeholder="@Resource.FromSmall" id="ProbegFrom" name="ProbegFrom">
+                                    -
+                                    <input class="search_sel w74" placeholder="@Resource.ToSmall" id="ProbegTo" name="ProbegTo"><span class="more_notes"> @Resource.DistanceShort.</span>
+                                </div>
+                                <div class="clearfix"></div>
+
+                                <h5>@Resource.TechnicalCharacteristics</h5>
+                                <div class="col-md-6 nopadding bigest_filter_tech">
+                                    <label>@Html.DisplayNameFor(model => model.TransmissionTypeID):</label>
+                                    <select id="TransmissionTypeID" name="TransmissionTypeID" class="selectpicker w_search_sel w160" title="@Resource.AnyFem" multiple></select>
+                                    <div class="br_line"></div>
+                                    <label>@Html.DisplayNameFor(model => model.DriveTypeID):</label>
+                                    <select id="DriveTypeID" name="DriveTypeID" class="selectpicker w_search_sel w160" title="@Resource.AnyM" multiple></select>
+                                    <div class="br_line"></div>
+                                    <label>@Html.DisplayNameFor(model => model.EngineCapacityFrom):</label>
+                                    <input id="EngineCapacityFrom" name="EngineCapacityFrom" class="search_sel w74" placeholder="@Resource.FromSmall">
+                                    -
+                                    <input id="EngineCapacityTo" name="EngineCapacityTo" class="search_sel w74" placeholder="@Resource.ToSmall">
+                                    <div class="br_line"></div>
+                                    <label>@Html.DisplayNameFor(model => model.FuelTypeID):</label>
+                                    <select id="FuelTypeID" name="FuelTypeID" class="selectpicker w_search_sel w160" title="@Resource.AnyN" multiple></select>
+                                    <div class="br_line"></div>
+                                    <label>@Html.DisplayNameFor(model => model.FuelConsumptionFrom)</label>
+                                    <input id="FuelConsumptionFrom" name="FuelConsumptionFrom" class="search_sel w74" placeholder="@Resource.FromSmall">
+                                    -
+                                    <input id="FuelConsumptionTo" name="FuelConsumptionTo" class="search_sel w74" placeholder="@Resource.ToSmall"><span class="more_notes"> @Resource.FuelConsumptionMeasurement.</span>
+                                    <div class="br_line"></div>
+                                </div>
+                                <div class="col-md-6 nopadding">
+                                    <label>@Html.DisplayNameFor(model => model.PowerFrom):</label>
+                                    <input id="PowerFrom" name="PowerFrom" class="search_sel w74" placeholder="@Resource.FromSmall">
+                                    -
+                                    <input id="PowerTo" name="PowerTo" class="search_sel w74" placeholder="@Resource.ToSmall"><span class="more_notes"> @Resource.PowerMeasurement</span>
+                                    <div class="br_line"></div>
+                                    <label>@Html.DisplayNameFor(model => model.NumberOfDoors):</label>
+                                    <select id="NumberOfDoors" name="NumberOfDoors" class="selectpicker w_search_sel w74" title="@Resource.AnyN" multiple>
+                                        <option value="0" selected>@Resource.AnyN</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                    <div class="br_line"></div>
+                                    <label>@Resource.Registration:</label>
+                                    <select id="TSRegistrationID" name="TSRegistrationID" class="selectpicker w_search_sel w160" title="@Resource.AnyFem" multiple></select>
+                                    <div class="br_line"></div>
+                                    <label>@Html.DisplayNameFor(model => model.ColorID):</label>
+                                    <select id="ColorID" name="ColorID" class="selectpicker w_search_sel w160" title="@Resource.AnyM" multiple></select>
+                                    <br />
+                                    <label></label>
+                                    @Html.EditorFor(model => model.IsColorMetallic)
+                                    <label class="vert_al" for="IsColorMetallic">@Resource.MetallicSmall</label>
+                                    @*@Html.LabelFor(model => model.IsColorMetallic, new { @class = "vert_al" })*@
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="hide_cont_wrap">
+                                <a href="#statesCollapse" class="hide_cont_href_boot collapsed" data-toggle="collapse">@Html.DisplayNameFor(model => model.States)</a>
+                                <div id="statesCollapse" class="collapse hide_cont_sel">
+
+                                </div>
+                            </div>
+                            <div class="hide_cont_wrap">
+                                <a href="#securitiesCollapse" class="hide_cont_href_boot collapsed" data-toggle="collapse">@Html.DisplayNameFor(model => model.Securities)</a>
+                                <div id="securitiesCollapse" class="collapse hide_cont_sel">
+
+                                </div>
+                            </div>
+                            <div class="hide_cont_wrap">
+                                <a href="#comfortsCollapse" class="hide_cont_href_boot collapsed" data-toggle="collapse">@Html.DisplayNameFor(model => model.Comforts)</a>
+                                <div id="comfortsCollapse" class="collapse hide_cont_sel">
+                                </div>
+                            </div>
+                            <div class="hide_cont_wrap">
+                                <a href="#multimediasCollapse" class="hide_cont_href_boot collapsed" data-toggle="collapse">@Html.DisplayNameFor(model => model.Multimedias)</a>
+                                <div id="multimediasCollapse" class="collapse hide_cont_sel">
+                                </div>
+                            </div>
+                            <div class="hide_cont_wrap">
+                                <a href="#miscsCollapse" class="hide_cont_href_boot collapsed" data-toggle="collapse">@Html.DisplayNameFor(model => model.Miscs)</a>
+                                <div id="miscsCollapse" class="collapse hide_cont_sel">
+                                </div>
+                            </div>
+
+                            <div class="bigest_filter_chek_bot">
+                                <h5>@Resource.Misc</h5>
+                                <span>
+                                    @Html.EditorFor(model => model.IsExchangeAvailable)
+                                    <label for="IsExchangeAvailable">@Resource.WithExchangeToAuto</label>
+                                </span>
+                                <span>
+                                    @Html.EditorFor(model => model.IsTorgAvailable)
+                                    @Html.LabelFor(model => model.IsTorgAvailable)
+                                </span>
+                            </div>
+                            <h5>@Resource.SearchResults</h5>
+                            <div class="hide_cont_sel bigest_filter_top">
+                                <label>@Html.DisplayNameFor(model => model.SortID):</label>
+                                <select class="search_sel" id="SortID" name="SortID">
+                                    <option value="0" selected>@Resource.SortUsual</option>
+                                    <option value="1">@Resource.SortChEx</option>
+                                    <option value="2">@Resource.SortExCh</option>
+                                </select>
+                                <div class="br_line"></div>
+                                <label>@Html.DisplayNameFor(model => model.PeriodID):</label>
+                                <select class="search_sel" id="PeriodID" name="PeriodID">
+                                    <option value="0">@Resource.All</option>
+                                    <option value="1">@Resource.ForLastHour</option>
+                                    <option value="2">@Resource.For6Hours</option>
+                                    <option value="3">@Resource.ForLastDay</option>
+                                    <option value="4">@Resource.For24Hours</option>
+                                    <option value="5">@Resource.ForLastWeek</option>
+                                    <option value="6">@Resource.ForLastMonth</option>
+                                </select>
+                            </div>
+                            <button class="but_purple but pull-right" type="submit">@Resource.Search</button>
+                            <div class="clearfix"></div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="home_search_form_baner">
+                <img height="250" width="300" src="~/Content/images/samples/ads-squere.jpg" alt="XCars"><br /><br />
+                <img height="250" width="300" src="~/Content/images/samples/ads-squere.jpg" alt="XCars"><br /><br />
+                <img height="250" width="300" src="~/Content/images/samples/ads-squere.jpg" alt="XCars"><br /><br />
+                <img height="250" width="300" src="~/Content/images/samples/ads-squere.jpg" alt="XCars">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/bootstrap-select.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            MakeAjaxGetRequest("/AutoTransportType/GetAllAsSelectList", null, "#TransportTypeID", "select", null, "@Resource.AnyM");
+            MakeAjaxGetRequest("/AutoMake/GetAsSelectList", null, "#MakeID", "select", null, "@Resource.AnyFem", true);
+            MakeAjaxGetRequest("/Year/GetAllAsSelectList", null, "#YearOfIssue", "select", null, "@Resource.AnyM", true);
+            MakeAjaxGetRequest("/Currency/GetAllAsSelectList", null, "#CurrencyID");
+            MakeAjaxGetRequest("/Region/GetAllAsSelectList", null, "#RegionID", "select", null, "@Resource.AnyM", true);
+
+            MakeAjaxGetRequest("/AutoTransmissionType/GetAllAsSelectList", null, "#TransmissionTypeID", "select", null, "@Resource.AnyFem", true);
+            MakeAjaxGetRequest("/AutoDriveType/GetAllAsSelectList", null, "#DriveTypeID", "select", null, "@Resource.AnyM", true);
+            MakeAjaxGetRequest("/AutoFuelType/GetAllAsSelectList", null, "#FuelTypeID", "select", null, "@Resource.AnyN", true);
+            MakeAjaxGetRequest("/AutoTSRegistration/GetAllAsSelectList", null, "#TSRegistrationID", "select", null, "@Resource.AnyFem", true);
+            MakeAjaxGetRequest("/AutoColor/GetAllAsSelectList", null, "#ColorID", "select", null, "@Resource.AnyM", true);
+
+            MakeAjaxGetRequest("/AutoState/GetAllAsSelectList", null, "#statesCollapse", "checkboxForOthersInSearchForm", "States");
+            MakeAjaxGetRequest("/AutoSecurity/GetAllAsSelectList", null, "#securitiesCollapse", "checkboxForOthersInSearchForm", "Securities");
+            MakeAjaxGetRequest("/AutoComfort/GetAllAsSelectList", null, "#comfortsCollapse", "checkboxForOthersInSearchForm", "Comforts");
+            MakeAjaxGetRequest("/AutoMultimedia/GetAllAsSelectList", null, "#multimediasCollapse", "checkboxForOthersInSearchForm", "Multimedias");
+            MakeAjaxGetRequest("/AutoMisc/GetAllAsSelectList", null, "#miscsCollapse", "checkboxForOthersInSearchForm", "Miscs");
+
+            $('.w_search_sel').on('changed.bs.select', function (event, clickedIndex, newValue, oldValue) {
+                var selID = $(this).attr("id");
+                //console.log(clickedIndex);
+                if (clickedIndex > 0) {
+                    var curVal = $(this).val();
+                    var index = curVal.indexOf("0");
+                    if (index !== -1)
+                        curVal.splice(index, 1);
+
+                    if (selID == "YearOfIssue")
+                    {
+                        if (newValue == true)
+                        {
+                            var arr = $("#YearOfIssue > option").toArray();
+                            
+                            var topCheckedIndex = 0;
+                            for (var i = clickedIndex - 1; i > 0; i--)
+                            {
+                                if (curVal.includes("" + $(arr[i]).attr("value")))
+                                {
+                                    topCheckedIndex = i;
+                                    break;
+                                }
+                            }
+                            if (topCheckedIndex > 0)
+                            {
+                                for (var i = clickedIndex - 1; i > topCheckedIndex; i--)
+                                    curVal.push("" + $(arr[i]).attr("value"));
+                            }
+                            
+                            var bottomCheckedIndex = arr.length;
+                            for (var i = clickedIndex + 1; i < arr.length; i++) {
+                                if (curVal.includes("" + $(arr[i]).attr("value"))) {
+                                    bottomCheckedIndex = i;
+                                    break;
+                                }
+                            }
+                            if (bottomCheckedIndex < arr.length) {
+                                for (var i = clickedIndex + 1; i < bottomCheckedIndex; i++)
+                                    curVal.push("" + $(arr[i]).attr("value"));
+                            }
+                        }
+                    }
+                    //console.log(curVal);
+                    $(this).selectpicker('val', curVal);
+                }
+                else {
+                    $(this).selectpicker('val', ['0']);
+                }
+
+                if (selID == "MakeID") {
+                    var targetSelector = "#ModelID";
+                    //$(targetSelector).attr("disabled", "disabled");
+                    var data = { makeID: $("#MakeID").val(), selected: $(targetSelector).val() };
+                    if (data.makeID.length == 0 || data.makeID.length == 1 && data.makeID[0] == "0") {
+                        $(targetSelector).html("<option value='0' selected=selected>" + "@Resource.AnyFem" + "</option>");
+                        $(targetSelector).selectpicker('refresh');
+                    }
+                    else
+                        MakeAjaxGetRequest("/AutoModel/GetAsSelectListWithParentIDMultiple", data, targetSelector, "select", null, "@Resource.AnyFem", true, null, true, "#MakeID");
+                }
+                else if (selID == "RegionID") {
+                    var targetSelector = "#CityID";
+                    //$(targetSelector).attr("disabled", "disabled");
+                    var data = { regionID: $("#RegionID").val(), selected: $(targetSelector).val() };
+                    if (data.regionID.length == 0 || data.regionID.length == 1 && data.regionID[0] == "0") {
+                        $(targetSelector).html("<option value='0' selected=selected>" + "@Resource.AnyM" + "</option>");
+                        $(targetSelector).selectpicker('refresh');
+                    }
+                    else
+                        MakeAjaxGetRequest("/City/GetAsSelectListWithParentIDMultiple", data, targetSelector, "select", null, "@Resource.AnyM", true, null, true, "#RegionID");
+                }
+
+                //$(this).selectpicker('refresh');
+            });
+
+            //$("select#TransportTypeID").change(function () {
+            //    //console.log($("#TransportTypeID").val().length);
+            //    var targetSelector = "#BodyTypeID";
+            //    //$(targetSelector).attr("disabled", "disabled");
+            //    var data = { transportTypeID: $("#TransportTypeID").val() };
+            //    if (data.transportTypeID.length == 0)
+            //    {
+            //        $(targetSelector).html("");
+            //        $(targetSelector).selectpicker('refresh');
+            //    }
+            //    else
+            //        MakeAjaxGetRequest("/AutoBodyType/GetAsSelectListMultiple", data, targetSelector, "select", null, null, true);
+            //});
+
+            $("select#TransportTypeID").change(function () {
+                var targetSelector = "#BodyTypeID";
+                //$(targetSelector).attr("disabled", "disabled");
+                var data = { transportTypeID: $("#TransportTypeID").val() };
+
+                if (data.transportTypeID == "")
+                    $(targetSelector).html("");
+                else
+                    MakeAjaxGetRequest("/AutoBodyType/GetAsSelectListMultiple", data, targetSelector, "select", null, "@Resource.AnyM", true);
+            });
+
+            //$("select#MakeID").change(function () {
+            //    //console.log($("#TransportTypeID").val().length);
+            //    var targetSelector = "#ModelID";
+            //    //$(targetSelector).attr("disabled", "disabled");
+            //    var data = { makeID: $("#MakeID").val(), selected: $(targetSelector).val() };
+            //    if (data.makeID.length == 0) {
+            //        $(targetSelector).html("");
+            //        $(targetSelector).selectpicker('refresh');
+            //    }
+            //    else
+            //        MakeAjaxGetRequest("/AutoModel/GetAsSelectListWithParentIDMultiple", data, targetSelector, "select", null, null, true);
+            //});
+
+            @*$("select#RegionID").change(function () {
+                //console.log($("#TransportTypeID").val().length);
+                var targetSelector = "#CityID";
+                //$(targetSelector).attr("disabled", "disabled");
+                var data = { regionID: $("#RegionID").val(), selected: $(targetSelector).val() };
+                if (data.regionID.length == 0 || data.regionID.length == 1 && data.regionID[0] == "0") {
+                    $(targetSelector).html("<option value='0' selected=selected>" + "@Resource.All" + "</option>");
+                    $(targetSelector).selectpicker('refresh');
+                }
+                else
+                    MakeAjaxGetRequest("/City/GetAsSelectListMultiple", data, targetSelector, "select", null, "@Resource.All", true);
+            });*@
+
+            $("form").submit(function () {
+                var html = "";
+                var selectedModels = $("#ModelID option:selected").toArray();
+                for (var i = 0; i < selectedModels.length; i++) {
+                    html += "<input type='hidden' name='MakeAndModels[" + i + "].MakeID' value='" + $(selectedModels[i]).attr("parentid") + "'>";
+                    html += "<input type='hidden' name='MakeAndModels[" + i + "].ModelID' value='" + $(selectedModels[i]).val() + "'>";
+                }
+                $("form").append(html);
+
+                var selectedCities = $("#CityID option:selected").toArray();
+                for (var i = 0; i < selectedCities.length; i++) {
+                    html += "<input type='hidden' name='RegionAndCities[" + i + "].RegionID' value='" + $(selectedCities[i]).attr("parentid") + "'>";
+                    html += "<input type='hidden' name='RegionAndCities[" + i + "].CityID' value='" + $(selectedCities[i]).val() + "'>";
+                }
+                $("form").append(html);
+
+                return true;
+            });
+        });
+    </script>
+    <script src="~/Scripts/custom/MakeAjaxGetRequest.js"></script>
+}

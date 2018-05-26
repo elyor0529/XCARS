@@ -1,0 +1,3 @@
+﻿CREATE LOGIN [root]
+    WITH PASSWORD = N';xWoz|pxgkqF`apwbljrt:,omsFT7_&#$!~<cain0g|hJveT', SID = 0x149922FA1CC1D34CBFB1D96BFE9A6C70, DEFAULT_LANGUAGE = [us_english], CHECK_POLICY = OFF;
+

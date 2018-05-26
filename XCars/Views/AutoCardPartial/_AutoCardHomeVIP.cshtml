@@ -1,0 +1,25 @@
+﻿@model XCars.ViewModels.AutoShortInfoVM
+@using XCars.Resourses
+@using XCars.Common
+
+@{ 
+    string photoSrc = XCarsConfiguration.BucketEndpoint + XCarsConfiguration.BucketName + "/" + XCarsConfiguration.AutoPhotosUploadUrl + (Model.Photo.ID != 0 ? (Model.Photo.ID + "_575x359") : XCarsConfiguration.AutoNoPhotoName) + XCarsConfiguration.PhotoExtension;
+    string autoName = Model.Make + " " + Model.Model + (!string.IsNullOrWhiteSpace(Model.Modification) ? " " + Model.Modification : "")/* + " " + Model.YearOfIssue*/;
+}
+
+<div class="home_ads_in_vip">
+    <div class="home_ads_in_single">
+        <a href="/Auto/Details/@Model.ID">
+            <div class="home_ads_in_photo new vip">
+                <img class="async" height="360" title="@autoName" alt="@autoName" finalSrc="@photoSrc" src="@XCars.Common.XCarsConfiguration.ClearGif">
+            </div>
+            <div class="home_ads_in_description">
+                <div>@*<i class="icon-favorite active">*@</i><span class="name">@autoName </span></div>
+                <span class="green">@Model.PriceUSDStr  </span><span class="price_grn">/ @Model.PriceUAHStr</span>
+                <div class="more_des">
+                    <i class="icon-race"></i><span>@Model.Probeg @Resource.DistanceShort</span>@if (!string.IsNullOrWhiteSpace(Model.TransmissionType)){<i class="icon-transmission"></i><span>@Model.TransmissionType</span>}@if (!string.IsNullOrWhiteSpace(Model.FuelType) && Model.EngineCapacity != null){<i class="icon-fuel"></i><span>@Model.FuelType, @Model.EngineCapacity @Resource.LitresShort</span>}<i class="icon-year"></i><span>@Model.YearOfIssue</span>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>

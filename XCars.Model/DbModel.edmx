@@ -1,0 +1,3288 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="XCarsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Auction">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AutoID" Type="int" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="StartPrice" Type="int" Nullable="false" />
+          <Property Name="CurrentPrice" Type="int" Nullable="false" />
+          <Property Name="PriceUSDSearch" Type="int" Nullable="false" />
+          <Property Name="PriceUAHSearch" Type="int" Nullable="false" />
+          <Property Name="CurrencyID" Type="int" Nullable="false" />
+          <Property Name="DateStopped" Type="datetime" />
+          <Property Name="Deadline" Type="datetime" Nullable="false" />
+          <Property Name="CompletionJobID" Type="nvarchar" MaxLength="50" />
+          <Property Name="DeletionJobID" Type="nvarchar" MaxLength="50" />
+          <Property Name="Views" Type="int" Nullable="false" />
+          <Property Name="StatusID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AuctionBid">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AuctionID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="Amount" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AuctionConnection">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AuctionID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="Connection" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AuctionFavorite">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AuctionID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AuctionPhoto">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AuctionID" Type="int" Nullable="false" />
+          <Property Name="IsMain" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AuctionStatus">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Auto">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="DateUpdated" Type="datetime" Nullable="false" />
+          <Property Name="DatePublished" Type="datetime" />
+          <Property Name="DateExpires" Type="datetime" />
+          <Property Name="DateAppearance" Type="datetime" />
+          <Property Name="StatusID" Type="int" Nullable="false" />
+          <Property Name="RegionID" Type="int" Nullable="false" />
+          <Property Name="TransportTypeID" Type="int" Nullable="false" />
+          <Property Name="BodyTypeID" Type="int" Nullable="false" />
+          <Property Name="MakeID" Type="int" Nullable="false" />
+          <Property Name="ModelID" Type="int" Nullable="false" />
+          <Property Name="YearOfIssue" Type="int" Nullable="false" />
+          <Property Name="Modification" Type="nvarchar" MaxLength="256" />
+          <Property Name="TSRegistrationID" Type="int" Nullable="false" />
+          <Property Name="Probeg" Type="int" Nullable="false" />
+          <Property Name="CurrencyID" Type="int" Nullable="false" />
+          <Property Name="PriceUSD" Type="int" />
+          <Property Name="PriceUAH" Type="int" />
+          <Property Name="PriceUSDSearch" Type="int" Nullable="false" />
+          <Property Name="PriceUAHSearch" Type="int" Nullable="false" />
+          <Property Name="IsTorgAvailable" Type="bit" Nullable="false" />
+          <Property Name="IsExchangeAvailable" Type="bit" Nullable="false" />
+          <Property Name="TransmissionTypeID" Type="int" />
+          <Property Name="DriveTypeID" Type="int" />
+          <Property Name="NumberOfDoors" Type="int" />
+          <Property Name="NumberOfSeats" Type="int" />
+          <Property Name="ColorID" Type="int" />
+          <Property Name="IsColorMetallic" Type="bit" Nullable="false" />
+          <Property Name="FuelTypeID" Type="int" />
+          <Property Name="FuelConsumptionCity" Type="decimal" Precision="18" Scale="1" />
+          <Property Name="FuelConsumptionHighway" Type="decimal" Precision="18" Scale="1" />
+          <Property Name="FuelConsumptionMixed" Type="decimal" Precision="18" Scale="1" />
+          <Property Name="EngineCapacity" Type="decimal" Precision="18" Scale="1" />
+          <Property Name="Power" Type="int" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Views" Type="int" Nullable="false" />
+          <Property Name="CompletionJobID" Type="nvarchar" MaxLength="50" />
+          <Property Name="Top" Type="int" Nullable="false" />
+          <Property Name="PlaceLat" Type="nvarchar" MaxLength="256" />
+          <Property Name="PlaceLng" Type="nvarchar" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="AutoBodyType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="TransportTypeID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AutoColor">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Hex" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AutoComfort">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AutoComfortManyToMany">
+          <Key>
+            <PropertyRef Name="AutoID" />
+            <PropertyRef Name="AutoComfortID" />
+          </Key>
+          <Property Name="AutoID" Type="int" Nullable="false" />
+          <Property Name="AutoComfortID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AutoDriveType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AutoExchange">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TargetAutoID" Type="int" Nullable="false" />
+          <Property Name="OfferedAutoID" Type="int" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="DiffPrice" Type="int" />
+          <Property Name="CurrencyID" Type="int" Nullable="false" />
+          <Property Name="DiffPriceDirection" Type="int" />
+        </EntityType>
+        <EntityType Name="AutoFavorite">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AutoID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AutoFuelType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AutoMake">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name_ru" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AutoMisc">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AutoMiscManyToMany">
+          <Key>
+            <PropertyRef Name="AutoID" />
+            <PropertyRef Name="AutoMiscID" />
+          </Key>
+          <Property Name="AutoID" Type="int" Nullable="false" />
+          <Property Name="AutoMiscID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AutoModel">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="MakeID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name_ru" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AutoMultimedia">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AutoMultimediaManyToMany">
+          <Key>
+            <PropertyRef Name="AutoID" />
+            <PropertyRef Name="AutoMultimediaID" />
+          </Key>
+          <Property Name="AutoID" Type="int" Nullable="false" />
+          <Property Name="AutoMultimediaID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AutoPhoto">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AutoID" Type="int" Nullable="false" />
+          <Property Name="IsMain" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AutoSecurity">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AutoSecurityManyToMany">
+          <Key>
+            <PropertyRef Name="AutoID" />
+            <PropertyRef Name="AutoSecurityID" />
+          </Key>
+          <Property Name="AutoID" Type="int" Nullable="false" />
+          <Property Name="AutoSecurityID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AutoState">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AutoStateManyToMany">
+          <Key>
+            <PropertyRef Name="AutoID" />
+            <PropertyRef Name="AutoStateID" />
+          </Key>
+          <Property Name="AutoID" Type="int" Nullable="false" />
+          <Property Name="AutoStateID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AutoStatus">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AutoTransmissionType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AutoTransportType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AutoTSRegistration">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="NameFull" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="RegionID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ContactsRequest">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="AutoID" Type="int" />
+        </EntityType>
+        <EntityType Name="Currency">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Symbol" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="LMI_PAYMENT_NO" />
+          </Key>
+          <Property Name="LMI_PAYMENT_NO" Type="nvarchar" MaxLength="64" Nullable="false" />
+          <Property Name="LMI_PREREQUEST" Type="int" />
+          <Property Name="LMI_MERCHANT_ID" Type="int" Nullable="false" />
+          <Property Name="LMI_PAYMENT_AMOUNT" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="LMI_MODE" Type="int" Nullable="false" />
+          <Property Name="LMI_SYS_PAYMENT_DATE" Type="datetime" />
+          <Property Name="LMI_HASH" Type="nvarchar" MaxLength="511" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="PurchaseTypeID" Type="int" />
+          <Property Name="ObjectID" Type="int" />
+          <Property Name="IsOpen" Type="bit" Nullable="false" />
+          <Property Name="UsedFromBalance" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OrderDetails">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderID" Type="nvarchar" MaxLength="64" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Value" Type="nvarchar" MaxLength="511" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PurchaseType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Region">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ScheduledEmail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DateScheduled" Type="datetime" Nullable="false" />
+          <Property Name="DateDue" Type="datetime" Nullable="false" />
+          <Property Name="StatusID" Type="int" Nullable="false" />
+          <Property Name="To" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Subject" Type="nvarchar" MaxLength="511" Nullable="false" />
+          <Property Name="Body" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ObjectTypeID" Type="int" Nullable="false" />
+          <Property Name="ObjectID" Type="int" />
+          <Property Name="DateEligible" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ScheduledEmailObjectType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ScheduledEmailStatus">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SiteSettings">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Keyy" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Value" Type="nvarchar" MaxLength="511" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Transaction">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="StateID" Type="int" Nullable="false" />
+          <Property Name="PurchaseTypeID" Type="int" />
+          <Property Name="Amount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="ObjectID" Type="int" />
+          <Property Name="LMI_MODE" Type="int" Nullable="false" />
+          <Property Name="LMI_PAYMENT_SYSTEM" Type="nvarchar" MaxLength="256" />
+          <Property Name="LMI_PAYMENT_DESC" Type="nvarchar(max)" />
+          <Property Name="LMI_SYS_PAYMENT_ID" Type="int" />
+          <Property Name="LMI_SYS_PAYMENT_DATE" Type="datetime" />
+          <Property Name="LMI_PAYER_IDENTIFIER" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="TransactionState">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AspNetUserID" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="DateRegistered" Type="datetime" Nullable="false" />
+          <Property Name="Balance" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="AuctionAgreement" Type="bit" Nullable="false" />
+          <Property Name="LastSeen" Type="datetime" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" MaxLength="128" />
+          <Property Name="RegionID" Type="int" />
+          <Property Name="CityID" Type="int" />
+          <Property Name="PhotoUrl" Type="nvarchar" MaxLength="512" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="256" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="UserConnection">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="Connection" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="UserID" />
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="RoleID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Auction_AuctionStatus">
+          <End Role="AuctionStatus" Type="Self.AuctionStatus" Multiplicity="1" />
+          <End Role="Auction" Type="Self.Auction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AuctionStatus">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Auction">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Auction_Auto">
+          <End Role="Auto" Type="Self.Auto" Multiplicity="1" />
+          <End Role="Auction" Type="Self.Auction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Auto">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Auction">
+              <PropertyRef Name="AutoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Auction_Currency">
+          <End Role="Currency" Type="Self.Currency" Multiplicity="1" />
+          <End Role="Auction" Type="Self.Auction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Currency">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Auction">
+              <PropertyRef Name="CurrencyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AuctionBid_Auction">
+          <End Role="Auction" Type="Self.Auction" Multiplicity="1" />
+          <End Role="AuctionBid" Type="Self.AuctionBid" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Auction">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AuctionBid">
+              <PropertyRef Name="AuctionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AuctionBid_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="AuctionBid" Type="Self.AuctionBid" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AuctionBid">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AuctionConnection_Auction">
+          <End Role="Auction" Type="Self.Auction" Multiplicity="1" />
+          <End Role="AuctionConnection" Type="Self.AuctionConnection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Auction">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AuctionConnection">
+              <PropertyRef Name="AuctionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AuctionConnection_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="AuctionConnection" Type="Self.AuctionConnection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AuctionConnection">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AuctionFavorite_Auction">
+          <End Role="Auction" Type="Self.Auction" Multiplicity="1" />
+          <End Role="AuctionFavorite" Type="Self.AuctionFavorite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Auction">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AuctionFavorite">
+              <PropertyRef Name="AuctionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AuctionFavorite_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="AuctionFavorite" Type="Self.AuctionFavorite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AuctionFavorite">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AuctionPhoto_Auction">
+          <End Role="Auction" Type="Self.Auction" Multiplicity="1" />
+          <End Role="AuctionPhoto" Type="Self.AuctionPhoto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Auction">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AuctionPhoto">
+              <PropertyRef Name="AuctionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Auto_AutoBodyType">
+          <End Role="AutoBodyType" Type="Self.AutoBodyType" Multiplicity="1" />
+          <End Role="Auto" Type="Self.Auto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AutoBodyType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Auto">
+              <PropertyRef Name="BodyTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Auto_AutoColor">
+          <End Role="AutoColor" Type="Self.AutoColor" Multiplicity="0..1" />
+          <End Role="Auto" Type="Self.Auto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AutoColor">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Auto">
+              <PropertyRef Name="ColorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Auto_AutoDriveType">
+          <End Role="AutoDriveType" Type="Self.AutoDriveType" Multiplicity="0..1" />
+          <End Role="Auto" Type="Self.Auto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AutoDriveType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Auto">
+              <PropertyRef Name="DriveTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Auto_AutoFuelType">
+          <End Role="AutoFuelType" Type="Self.AutoFuelType" Multiplicity="0..1" />
+          <End Role="Auto" Type="Self.Auto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AutoFuelType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Auto">
+              <PropertyRef Name="FuelTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Auto_AutoMake">
+          <End Role="AutoMake" Type="Self.AutoMake" Multiplicity="1" />
+          <End Role="Auto" Type="Self.Auto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AutoMake">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Auto">
+              <PropertyRef Name="MakeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Auto_AutoModel">
+          <End Role="AutoModel" Type="Self.AutoModel" Multiplicity="1" />
+          <End Role="Auto" Type="Self.Auto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AutoModel">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Auto">
+              <PropertyRef Name="ModelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Auto_AutoStatus">
+          <End Role="AutoStatus" Type="Self.AutoStatus" Multiplicity="1" />
+          <End Role="Auto" Type="Self.Auto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AutoStatus">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Auto">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Auto_AutoTransmissionType">
+          <End Role="AutoTransmissionType" Type="Self.AutoTransmissionType" Multiplicity="0..1" />
+          <End Role="Auto" Type="Self.Auto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AutoTransmissionType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Auto">
+              <PropertyRef Name="TransmissionTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Auto_AutoTransportType">
+          <End Role="AutoTransportType" Type="Self.AutoTransportType" Multiplicity="1" />
+          <End Role="Auto" Type="Self.Auto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AutoTransportType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Auto">
+              <PropertyRef Name="TransportTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Auto_AutoTSRegistration">
+          <End Role="AutoTSRegistration" Type="Self.AutoTSRegistration" Multiplicity="1" />
+          <End Role="Auto" Type="Self.Auto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AutoTSRegistration">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Auto">
+              <PropertyRef Name="TSRegistrationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Auto_City">
+          <End Role="City" Type="Self.City" Multiplicity="1" />
+          <End Role="Auto" Type="Self.Auto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Auto">
+              <PropertyRef Name="RegionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Auto_Currency">
+          <End Role="Currency" Type="Self.Currency" Multiplicity="1" />
+          <End Role="Auto" Type="Self.Auto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Currency">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Auto">
+              <PropertyRef Name="CurrencyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Auto_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Auto" Type="Self.Auto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Auto">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AutoBodyType_AutoTransportType">
+          <End Role="AutoTransportType" Type="Self.AutoTransportType" Multiplicity="1" />
+          <End Role="AutoBodyType" Type="Self.AutoBodyType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AutoTransportType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AutoBodyType">
+              <PropertyRef Name="TransportTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AutoComfortManyToMany_Auto">
+          <End Role="Auto" Type="Self.Auto" Multiplicity="1" />
+          <End Role="AutoComfortManyToMany" Type="Self.AutoComfortManyToMany" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Auto">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AutoComfortManyToMany">
+              <PropertyRef Name="AutoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AutoComfortManyToMany_AutoComfort">
+          <End Role="AutoComfort" Type="Self.AutoComfort" Multiplicity="1" />
+          <End Role="AutoComfortManyToMany" Type="Self.AutoComfortManyToMany" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AutoComfort">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AutoComfortManyToMany">
+              <PropertyRef Name="AutoComfortID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AutoExchange_Currency">
+          <End Role="Currency" Type="Self.Currency" Multiplicity="1" />
+          <End Role="AutoExchange" Type="Self.AutoExchange" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Currency">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AutoExchange">
+              <PropertyRef Name="CurrencyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AutoExchange_OfferedAuto">
+          <End Role="Auto" Type="Self.Auto" Multiplicity="1" />
+          <End Role="AutoExchange" Type="Self.AutoExchange" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Auto">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AutoExchange">
+              <PropertyRef Name="OfferedAutoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AutoExchange_TargetAuto">
+          <End Role="Auto" Type="Self.Auto" Multiplicity="1" />
+          <End Role="AutoExchange" Type="Self.AutoExchange" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Auto">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AutoExchange">
+              <PropertyRef Name="TargetAutoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AutoFavorite_Auto">
+          <End Role="Auto" Type="Self.Auto" Multiplicity="1" />
+          <End Role="AutoFavorite" Type="Self.AutoFavorite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Auto">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AutoFavorite">
+              <PropertyRef Name="AutoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AutoFavorite_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="AutoFavorite" Type="Self.AutoFavorite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AutoFavorite">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AutoMiscManyToMany_Auto">
+          <End Role="Auto" Type="Self.Auto" Multiplicity="1" />
+          <End Role="AutoMiscManyToMany" Type="Self.AutoMiscManyToMany" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Auto">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AutoMiscManyToMany">
+              <PropertyRef Name="AutoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AutoMiscManyToMany_AutoMisc">
+          <End Role="AutoMisc" Type="Self.AutoMisc" Multiplicity="1" />
+          <End Role="AutoMiscManyToMany" Type="Self.AutoMiscManyToMany" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AutoMisc">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AutoMiscManyToMany">
+              <PropertyRef Name="AutoMiscID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AutoModel_AutoMake">
+          <End Role="AutoMake" Type="Self.AutoMake" Multiplicity="1" />
+          <End Role="AutoModel" Type="Self.AutoModel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AutoMake">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AutoModel">
+              <PropertyRef Name="MakeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AutoMultimediaManyToMany_Auto">
+          <End Role="Auto" Type="Self.Auto" Multiplicity="1" />
+          <End Role="AutoMultimediaManyToMany" Type="Self.AutoMultimediaManyToMany" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Auto">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AutoMultimediaManyToMany">
+              <PropertyRef Name="AutoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AutoMultimediaManyToMany_AutoMultimedia">
+          <End Role="AutoMultimedia" Type="Self.AutoMultimedia" Multiplicity="1" />
+          <End Role="AutoMultimediaManyToMany" Type="Self.AutoMultimediaManyToMany" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AutoMultimedia">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AutoMultimediaManyToMany">
+              <PropertyRef Name="AutoMultimediaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AutoPhoto_Auto">
+          <End Role="Auto" Type="Self.Auto" Multiplicity="1" />
+          <End Role="AutoPhoto" Type="Self.AutoPhoto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Auto">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AutoPhoto">
+              <PropertyRef Name="AutoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AutoSecurityManyToMany_Auto">
+          <End Role="Auto" Type="Self.Auto" Multiplicity="1" />
+          <End Role="AutoSecurityManyToMany" Type="Self.AutoSecurityManyToMany" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Auto">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AutoSecurityManyToMany">
+              <PropertyRef Name="AutoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AutoSecurityManyToMany_AutoSecurity">
+          <End Role="AutoSecurity" Type="Self.AutoSecurity" Multiplicity="1" />
+          <End Role="AutoSecurityManyToMany" Type="Self.AutoSecurityManyToMany" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AutoSecurity">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AutoSecurityManyToMany">
+              <PropertyRef Name="AutoSecurityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AutoStateManyToMany_Auto">
+          <End Role="Auto" Type="Self.Auto" Multiplicity="1" />
+          <End Role="AutoStateManyToMany" Type="Self.AutoStateManyToMany" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Auto">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AutoStateManyToMany">
+              <PropertyRef Name="AutoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AutoStateManyToMany_AutoState">
+          <End Role="AutoState" Type="Self.AutoState" Multiplicity="1" />
+          <End Role="AutoStateManyToMany" Type="Self.AutoStateManyToMany" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AutoState">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AutoStateManyToMany">
+              <PropertyRef Name="AutoStateID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_City_Region">
+          <End Role="Region" Type="Self.Region" Multiplicity="1" />
+          <End Role="City" Type="Self.City" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Region">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="City">
+              <PropertyRef Name="RegionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ContactsRequest_Auto">
+          <End Role="Auto" Type="Self.Auto" Multiplicity="0..1" />
+          <End Role="ContactsRequest" Type="Self.ContactsRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Auto">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ContactsRequest">
+              <PropertyRef Name="AutoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ContactsRequest_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="ContactsRequest" Type="Self.ContactsRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ContactsRequest">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_PurchaseType">
+          <End Role="PurchaseType" Type="Self.PurchaseType" Multiplicity="0..1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PurchaseType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="PurchaseTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderDetails_Order">
+          <End Role="Order" Type="Self.Order" Multiplicity="1" />
+          <End Role="OrderDetails" Type="Self.OrderDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="LMI_PAYMENT_NO" />
+            </Principal>
+            <Dependent Role="OrderDetails">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ScheduledEmail_ScheduledEmailObjectType">
+          <End Role="ScheduledEmailObjectType" Type="Self.ScheduledEmailObjectType" Multiplicity="1" />
+          <End Role="ScheduledEmail" Type="Self.ScheduledEmail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ScheduledEmailObjectType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ScheduledEmail">
+              <PropertyRef Name="ObjectTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ScheduledEmail_ScheduledEmailStatus">
+          <End Role="ScheduledEmailStatus" Type="Self.ScheduledEmailStatus" Multiplicity="1" />
+          <End Role="ScheduledEmail" Type="Self.ScheduledEmail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ScheduledEmailStatus">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ScheduledEmail">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transaction_PurchaseType">
+          <End Role="PurchaseType" Type="Self.PurchaseType" Multiplicity="0..1" />
+          <End Role="Transaction" Type="Self.Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PurchaseType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Transaction">
+              <PropertyRef Name="PurchaseTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transaction_TransactionState">
+          <End Role="TransactionState" Type="Self.TransactionState" Multiplicity="1" />
+          <End Role="Transaction" Type="Self.Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TransactionState">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Transaction">
+              <PropertyRef Name="StateID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transaction_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Transaction" Type="Self.Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Transaction">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_City">
+          <End Role="City" Type="Self.City" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="CityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Region">
+          <End Role="Region" Type="Self.Region" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Region">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="RegionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserConnection_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserConnection" Type="Self.UserConnection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserConnection">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRole_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserRole">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRole_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserRole">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="XCarsModelStoreContainer">
+          <EntitySet Name="Auction" EntityType="Self.Auction" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AuctionBid" EntityType="Self.AuctionBid" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AuctionConnection" EntityType="Self.AuctionConnection" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AuctionFavorite" EntityType="Self.AuctionFavorite" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AuctionPhoto" EntityType="Self.AuctionPhoto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AuctionStatus" EntityType="Self.AuctionStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Auto" EntityType="Self.Auto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AutoBodyType" EntityType="Self.AutoBodyType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AutoColor" EntityType="Self.AutoColor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AutoComfort" EntityType="Self.AutoComfort" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AutoComfortManyToMany" EntityType="Self.AutoComfortManyToMany" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AutoDriveType" EntityType="Self.AutoDriveType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AutoExchange" EntityType="Self.AutoExchange" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AutoFavorite" EntityType="Self.AutoFavorite" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AutoFuelType" EntityType="Self.AutoFuelType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AutoMake" EntityType="Self.AutoMake" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AutoMisc" EntityType="Self.AutoMisc" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AutoMiscManyToMany" EntityType="Self.AutoMiscManyToMany" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AutoModel" EntityType="Self.AutoModel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AutoMultimedia" EntityType="Self.AutoMultimedia" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AutoMultimediaManyToMany" EntityType="Self.AutoMultimediaManyToMany" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AutoPhoto" EntityType="Self.AutoPhoto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AutoSecurity" EntityType="Self.AutoSecurity" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AutoSecurityManyToMany" EntityType="Self.AutoSecurityManyToMany" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AutoState" EntityType="Self.AutoState" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AutoStateManyToMany" EntityType="Self.AutoStateManyToMany" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AutoStatus" EntityType="Self.AutoStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AutoTransmissionType" EntityType="Self.AutoTransmissionType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AutoTransportType" EntityType="Self.AutoTransportType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AutoTSRegistration" EntityType="Self.AutoTSRegistration" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="City" EntityType="Self.City" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ContactsRequest" EntityType="Self.ContactsRequest" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Currency" EntityType="Self.Currency" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderDetails" EntityType="Self.OrderDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PurchaseType" EntityType="Self.PurchaseType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Region" EntityType="Self.Region" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ScheduledEmail" EntityType="Self.ScheduledEmail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ScheduledEmailObjectType" EntityType="Self.ScheduledEmailObjectType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ScheduledEmailStatus" EntityType="Self.ScheduledEmailStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SiteSettings" EntityType="Self.SiteSettings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Transaction" EntityType="Self.Transaction" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TransactionState" EntityType="Self.TransactionState" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserConnection" EntityType="Self.UserConnection" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Auction_AuctionStatus" Association="Self.FK_Auction_AuctionStatus">
+            <End Role="AuctionStatus" EntitySet="AuctionStatus" />
+            <End Role="Auction" EntitySet="Auction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Auction_Auto" Association="Self.FK_Auction_Auto">
+            <End Role="Auto" EntitySet="Auto" />
+            <End Role="Auction" EntitySet="Auction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Auction_Currency" Association="Self.FK_Auction_Currency">
+            <End Role="Currency" EntitySet="Currency" />
+            <End Role="Auction" EntitySet="Auction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AuctionBid_Auction" Association="Self.FK_AuctionBid_Auction">
+            <End Role="Auction" EntitySet="Auction" />
+            <End Role="AuctionBid" EntitySet="AuctionBid" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AuctionBid_User" Association="Self.FK_AuctionBid_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="AuctionBid" EntitySet="AuctionBid" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AuctionConnection_Auction" Association="Self.FK_AuctionConnection_Auction">
+            <End Role="Auction" EntitySet="Auction" />
+            <End Role="AuctionConnection" EntitySet="AuctionConnection" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AuctionConnection_User" Association="Self.FK_AuctionConnection_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="AuctionConnection" EntitySet="AuctionConnection" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AuctionFavorite_Auction" Association="Self.FK_AuctionFavorite_Auction">
+            <End Role="Auction" EntitySet="Auction" />
+            <End Role="AuctionFavorite" EntitySet="AuctionFavorite" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AuctionFavorite_User" Association="Self.FK_AuctionFavorite_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="AuctionFavorite" EntitySet="AuctionFavorite" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AuctionPhoto_Auction" Association="Self.FK_AuctionPhoto_Auction">
+            <End Role="Auction" EntitySet="Auction" />
+            <End Role="AuctionPhoto" EntitySet="AuctionPhoto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Auto_AutoBodyType" Association="Self.FK_Auto_AutoBodyType">
+            <End Role="AutoBodyType" EntitySet="AutoBodyType" />
+            <End Role="Auto" EntitySet="Auto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Auto_AutoColor" Association="Self.FK_Auto_AutoColor">
+            <End Role="AutoColor" EntitySet="AutoColor" />
+            <End Role="Auto" EntitySet="Auto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Auto_AutoDriveType" Association="Self.FK_Auto_AutoDriveType">
+            <End Role="AutoDriveType" EntitySet="AutoDriveType" />
+            <End Role="Auto" EntitySet="Auto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Auto_AutoFuelType" Association="Self.FK_Auto_AutoFuelType">
+            <End Role="AutoFuelType" EntitySet="AutoFuelType" />
+            <End Role="Auto" EntitySet="Auto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Auto_AutoMake" Association="Self.FK_Auto_AutoMake">
+            <End Role="AutoMake" EntitySet="AutoMake" />
+            <End Role="Auto" EntitySet="Auto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Auto_AutoModel" Association="Self.FK_Auto_AutoModel">
+            <End Role="AutoModel" EntitySet="AutoModel" />
+            <End Role="Auto" EntitySet="Auto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Auto_AutoStatus" Association="Self.FK_Auto_AutoStatus">
+            <End Role="AutoStatus" EntitySet="AutoStatus" />
+            <End Role="Auto" EntitySet="Auto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Auto_AutoTransmissionType" Association="Self.FK_Auto_AutoTransmissionType">
+            <End Role="AutoTransmissionType" EntitySet="AutoTransmissionType" />
+            <End Role="Auto" EntitySet="Auto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Auto_AutoTransportType" Association="Self.FK_Auto_AutoTransportType">
+            <End Role="AutoTransportType" EntitySet="AutoTransportType" />
+            <End Role="Auto" EntitySet="Auto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Auto_AutoTSRegistration" Association="Self.FK_Auto_AutoTSRegistration">
+            <End Role="AutoTSRegistration" EntitySet="AutoTSRegistration" />
+            <End Role="Auto" EntitySet="Auto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Auto_City" Association="Self.FK_Auto_City">
+            <End Role="City" EntitySet="City" />
+            <End Role="Auto" EntitySet="Auto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Auto_Currency" Association="Self.FK_Auto_Currency">
+            <End Role="Currency" EntitySet="Currency" />
+            <End Role="Auto" EntitySet="Auto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Auto_User" Association="Self.FK_Auto_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Auto" EntitySet="Auto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AutoBodyType_AutoTransportType" Association="Self.FK_AutoBodyType_AutoTransportType">
+            <End Role="AutoTransportType" EntitySet="AutoTransportType" />
+            <End Role="AutoBodyType" EntitySet="AutoBodyType" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AutoComfortManyToMany_Auto" Association="Self.FK_AutoComfortManyToMany_Auto">
+            <End Role="Auto" EntitySet="Auto" />
+            <End Role="AutoComfortManyToMany" EntitySet="AutoComfortManyToMany" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AutoComfortManyToMany_AutoComfort" Association="Self.FK_AutoComfortManyToMany_AutoComfort">
+            <End Role="AutoComfort" EntitySet="AutoComfort" />
+            <End Role="AutoComfortManyToMany" EntitySet="AutoComfortManyToMany" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AutoExchange_Currency" Association="Self.FK_AutoExchange_Currency">
+            <End Role="Currency" EntitySet="Currency" />
+            <End Role="AutoExchange" EntitySet="AutoExchange" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AutoExchange_OfferedAuto" Association="Self.FK_AutoExchange_OfferedAuto">
+            <End Role="Auto" EntitySet="Auto" />
+            <End Role="AutoExchange" EntitySet="AutoExchange" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AutoExchange_TargetAuto" Association="Self.FK_AutoExchange_TargetAuto">
+            <End Role="Auto" EntitySet="Auto" />
+            <End Role="AutoExchange" EntitySet="AutoExchange" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AutoFavorite_Auto" Association="Self.FK_AutoFavorite_Auto">
+            <End Role="Auto" EntitySet="Auto" />
+            <End Role="AutoFavorite" EntitySet="AutoFavorite" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AutoFavorite_User" Association="Self.FK_AutoFavorite_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="AutoFavorite" EntitySet="AutoFavorite" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AutoMiscManyToMany_Auto" Association="Self.FK_AutoMiscManyToMany_Auto">
+            <End Role="Auto" EntitySet="Auto" />
+            <End Role="AutoMiscManyToMany" EntitySet="AutoMiscManyToMany" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AutoMiscManyToMany_AutoMisc" Association="Self.FK_AutoMiscManyToMany_AutoMisc">
+            <End Role="AutoMisc" EntitySet="AutoMisc" />
+            <End Role="AutoMiscManyToMany" EntitySet="AutoMiscManyToMany" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AutoModel_AutoMake" Association="Self.FK_AutoModel_AutoMake">
+            <End Role="AutoMake" EntitySet="AutoMake" />
+            <End Role="AutoModel" EntitySet="AutoModel" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AutoMultimediaManyToMany_Auto" Association="Self.FK_AutoMultimediaManyToMany_Auto">
+            <End Role="Auto" EntitySet="Auto" />
+            <End Role="AutoMultimediaManyToMany" EntitySet="AutoMultimediaManyToMany" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AutoMultimediaManyToMany_AutoMultimedia" Association="Self.FK_AutoMultimediaManyToMany_AutoMultimedia">
+            <End Role="AutoMultimedia" EntitySet="AutoMultimedia" />
+            <End Role="AutoMultimediaManyToMany" EntitySet="AutoMultimediaManyToMany" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AutoPhoto_Auto" Association="Self.FK_AutoPhoto_Auto">
+            <End Role="Auto" EntitySet="Auto" />
+            <End Role="AutoPhoto" EntitySet="AutoPhoto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AutoSecurityManyToMany_Auto" Association="Self.FK_AutoSecurityManyToMany_Auto">
+            <End Role="Auto" EntitySet="Auto" />
+            <End Role="AutoSecurityManyToMany" EntitySet="AutoSecurityManyToMany" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AutoSecurityManyToMany_AutoSecurity" Association="Self.FK_AutoSecurityManyToMany_AutoSecurity">
+            <End Role="AutoSecurity" EntitySet="AutoSecurity" />
+            <End Role="AutoSecurityManyToMany" EntitySet="AutoSecurityManyToMany" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AutoStateManyToMany_Auto" Association="Self.FK_AutoStateManyToMany_Auto">
+            <End Role="Auto" EntitySet="Auto" />
+            <End Role="AutoStateManyToMany" EntitySet="AutoStateManyToMany" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AutoStateManyToMany_AutoState" Association="Self.FK_AutoStateManyToMany_AutoState">
+            <End Role="AutoState" EntitySet="AutoState" />
+            <End Role="AutoStateManyToMany" EntitySet="AutoStateManyToMany" />
+          </AssociationSet>
+          <AssociationSet Name="FK_City_Region" Association="Self.FK_City_Region">
+            <End Role="Region" EntitySet="Region" />
+            <End Role="City" EntitySet="City" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ContactsRequest_Auto" Association="Self.FK_ContactsRequest_Auto">
+            <End Role="Auto" EntitySet="Auto" />
+            <End Role="ContactsRequest" EntitySet="ContactsRequest" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ContactsRequest_User" Association="Self.FK_ContactsRequest_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="ContactsRequest" EntitySet="ContactsRequest" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_PurchaseType" Association="Self.FK_Order_PurchaseType">
+            <End Role="PurchaseType" EntitySet="PurchaseType" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_User" Association="Self.FK_Order_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderDetails_Order" Association="Self.FK_OrderDetails_Order">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="OrderDetails" EntitySet="OrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ScheduledEmail_ScheduledEmailObjectType" Association="Self.FK_ScheduledEmail_ScheduledEmailObjectType">
+            <End Role="ScheduledEmailObjectType" EntitySet="ScheduledEmailObjectType" />
+            <End Role="ScheduledEmail" EntitySet="ScheduledEmail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ScheduledEmail_ScheduledEmailStatus" Association="Self.FK_ScheduledEmail_ScheduledEmailStatus">
+            <End Role="ScheduledEmailStatus" EntitySet="ScheduledEmailStatus" />
+            <End Role="ScheduledEmail" EntitySet="ScheduledEmail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transaction_PurchaseType" Association="Self.FK_Transaction_PurchaseType">
+            <End Role="PurchaseType" EntitySet="PurchaseType" />
+            <End Role="Transaction" EntitySet="Transaction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transaction_TransactionState" Association="Self.FK_Transaction_TransactionState">
+            <End Role="TransactionState" EntitySet="TransactionState" />
+            <End Role="Transaction" EntitySet="Transaction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transaction_User" Association="Self.FK_Transaction_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Transaction" EntitySet="Transaction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_City" Association="Self.FK_User_City">
+            <End Role="City" EntitySet="City" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Region" Association="Self.FK_User_Region">
+            <End Role="Region" EntitySet="Region" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserConnection_User" Association="Self.FK_UserConnection_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserConnection" EntitySet="UserConnection" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRole_Role" Association="Self.FK_UserRole_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="UserRole" EntitySet="UserRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRole_User" Association="Self.FK_UserRole_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserRole" EntitySet="UserRole" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="XCarsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AuctionBids" EntityType="XCarsModel.AuctionBid" />
+          <EntitySet Name="AuctionConnections" EntityType="XCarsModel.AuctionConnection" />
+          <EntitySet Name="Autoes" EntityType="XCarsModel.Auto" />
+          <EntitySet Name="AutoBodyTypes" EntityType="XCarsModel.AutoBodyType" />
+          <EntitySet Name="AutoColors" EntityType="XCarsModel.AutoColor" />
+          <EntitySet Name="AutoComforts" EntityType="XCarsModel.AutoComfort" />
+          <EntitySet Name="AutoDriveTypes" EntityType="XCarsModel.AutoDriveType" />
+          <EntitySet Name="AutoExchanges" EntityType="XCarsModel.AutoExchange" />
+          <EntitySet Name="AutoFavorites" EntityType="XCarsModel.AutoFavorite" />
+          <EntitySet Name="AutoFuelTypes" EntityType="XCarsModel.AutoFuelType" />
+          <EntitySet Name="AutoMakes" EntityType="XCarsModel.AutoMake" />
+          <EntitySet Name="AutoMiscs" EntityType="XCarsModel.AutoMisc" />
+          <EntitySet Name="AutoModels" EntityType="XCarsModel.AutoModel" />
+          <EntitySet Name="AutoMultimedias" EntityType="XCarsModel.AutoMultimedia" />
+          <EntitySet Name="AutoPhotoes" EntityType="XCarsModel.AutoPhoto" />
+          <EntitySet Name="AutoSecurities" EntityType="XCarsModel.AutoSecurity" />
+          <EntitySet Name="AutoStates" EntityType="XCarsModel.AutoState" />
+          <EntitySet Name="AutoStatus" EntityType="XCarsModel.AutoStatu" />
+          <EntitySet Name="AutoTransmissionTypes" EntityType="XCarsModel.AutoTransmissionType" />
+          <EntitySet Name="AutoTransportTypes" EntityType="XCarsModel.AutoTransportType" />
+          <EntitySet Name="AutoTSRegistrations" EntityType="XCarsModel.AutoTSRegistration" />
+          <EntitySet Name="Cities" EntityType="XCarsModel.City" />
+          <EntitySet Name="ContactsRequests" EntityType="XCarsModel.ContactsRequest" />
+          <EntitySet Name="Currencies" EntityType="XCarsModel.Currency" />
+          <EntitySet Name="Orders" EntityType="XCarsModel.Order" />
+          <EntitySet Name="OrderDetails" EntityType="XCarsModel.OrderDetail" />
+          <EntitySet Name="PurchaseTypes" EntityType="XCarsModel.PurchaseType" />
+          <EntitySet Name="Regions" EntityType="XCarsModel.Region" />
+          <EntitySet Name="Roles" EntityType="XCarsModel.Role" />
+          <EntitySet Name="ScheduledEmails" EntityType="XCarsModel.ScheduledEmail" />
+          <EntitySet Name="ScheduledEmailObjectTypes" EntityType="XCarsModel.ScheduledEmailObjectType" />
+          <EntitySet Name="ScheduledEmailStatus" EntityType="XCarsModel.ScheduledEmailStatu" />
+          <EntitySet Name="SiteSettings" EntityType="XCarsModel.SiteSetting" />
+          <EntitySet Name="Transactions" EntityType="XCarsModel.Transaction" />
+          <EntitySet Name="TransactionStates" EntityType="XCarsModel.TransactionState" />
+          <EntitySet Name="Users" EntityType="XCarsModel.User" />
+          <EntitySet Name="UserConnections" EntityType="XCarsModel.UserConnection" />
+          <AssociationSet Name="FK_AuctionBid_User" Association="XCarsModel.FK_AuctionBid_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="AuctionBid" EntitySet="AuctionBids" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AuctionConnection_User" Association="XCarsModel.FK_AuctionConnection_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="AuctionConnection" EntitySet="AuctionConnections" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Auto_AutoBodyType" Association="XCarsModel.FK_Auto_AutoBodyType">
+            <End Role="AutoBodyType" EntitySet="AutoBodyTypes" />
+            <End Role="Auto" EntitySet="Autoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Auto_AutoColor" Association="XCarsModel.FK_Auto_AutoColor">
+            <End Role="AutoColor" EntitySet="AutoColors" />
+            <End Role="Auto" EntitySet="Autoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Auto_AutoDriveType" Association="XCarsModel.FK_Auto_AutoDriveType">
+            <End Role="AutoDriveType" EntitySet="AutoDriveTypes" />
+            <End Role="Auto" EntitySet="Autoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Auto_AutoFuelType" Association="XCarsModel.FK_Auto_AutoFuelType">
+            <End Role="AutoFuelType" EntitySet="AutoFuelTypes" />
+            <End Role="Auto" EntitySet="Autoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Auto_AutoMake" Association="XCarsModel.FK_Auto_AutoMake">
+            <End Role="AutoMake" EntitySet="AutoMakes" />
+            <End Role="Auto" EntitySet="Autoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Auto_AutoModel" Association="XCarsModel.FK_Auto_AutoModel">
+            <End Role="AutoModel" EntitySet="AutoModels" />
+            <End Role="Auto" EntitySet="Autoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Auto_AutoStatus" Association="XCarsModel.FK_Auto_AutoStatus">
+            <End Role="AutoStatu" EntitySet="AutoStatus" />
+            <End Role="Auto" EntitySet="Autoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Auto_AutoTransmissionType" Association="XCarsModel.FK_Auto_AutoTransmissionType">
+            <End Role="AutoTransmissionType" EntitySet="AutoTransmissionTypes" />
+            <End Role="Auto" EntitySet="Autoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Auto_AutoTransportType" Association="XCarsModel.FK_Auto_AutoTransportType">
+            <End Role="AutoTransportType" EntitySet="AutoTransportTypes" />
+            <End Role="Auto" EntitySet="Autoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Auto_AutoTSRegistration" Association="XCarsModel.FK_Auto_AutoTSRegistration">
+            <End Role="AutoTSRegistration" EntitySet="AutoTSRegistrations" />
+            <End Role="Auto" EntitySet="Autoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Auto_City" Association="XCarsModel.FK_Auto_City">
+            <End Role="City" EntitySet="Cities" />
+            <End Role="Auto" EntitySet="Autoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Auto_Currency" Association="XCarsModel.FK_Auto_Currency">
+            <End Role="Currency" EntitySet="Currencies" />
+            <End Role="Auto" EntitySet="Autoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Auto_User" Association="XCarsModel.FK_Auto_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Auto" EntitySet="Autoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AutoExchange_OfferedAuto" Association="XCarsModel.FK_AutoExchange_OfferedAuto">
+            <End Role="Auto" EntitySet="Autoes" />
+            <End Role="AutoExchange" EntitySet="AutoExchanges" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AutoExchange_TargetAuto" Association="XCarsModel.FK_AutoExchange_TargetAuto">
+            <End Role="Auto" EntitySet="Autoes" />
+            <End Role="AutoExchange" EntitySet="AutoExchanges" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AutoFavorite_Auto" Association="XCarsModel.FK_AutoFavorite_Auto">
+            <End Role="Auto" EntitySet="Autoes" />
+            <End Role="AutoFavorite" EntitySet="AutoFavorites" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AutoPhoto_Auto" Association="XCarsModel.FK_AutoPhoto_Auto">
+            <End Role="Auto" EntitySet="Autoes" />
+            <End Role="AutoPhoto" EntitySet="AutoPhotoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ContactsRequest_Auto" Association="XCarsModel.FK_ContactsRequest_Auto">
+            <End Role="Auto" EntitySet="Autoes" />
+            <End Role="ContactsRequest" EntitySet="ContactsRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AutoBodyType_AutoTransportType" Association="XCarsModel.FK_AutoBodyType_AutoTransportType">
+            <End Role="AutoTransportType" EntitySet="AutoTransportTypes" />
+            <End Role="AutoBodyType" EntitySet="AutoBodyTypes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AutoExchange_Currency" Association="XCarsModel.FK_AutoExchange_Currency">
+            <End Role="Currency" EntitySet="Currencies" />
+            <End Role="AutoExchange" EntitySet="AutoExchanges" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AutoFavorite_User" Association="XCarsModel.FK_AutoFavorite_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="AutoFavorite" EntitySet="AutoFavorites" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AutoModel_AutoMake" Association="XCarsModel.FK_AutoModel_AutoMake">
+            <End Role="AutoMake" EntitySet="AutoMakes" />
+            <End Role="AutoModel" EntitySet="AutoModels" />
+          </AssociationSet>
+          <AssociationSet Name="FK_City_Region" Association="XCarsModel.FK_City_Region">
+            <End Role="Region" EntitySet="Regions" />
+            <End Role="City" EntitySet="Cities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_City" Association="XCarsModel.FK_User_City">
+            <End Role="City" EntitySet="Cities" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ContactsRequest_User" Association="XCarsModel.FK_ContactsRequest_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="ContactsRequest" EntitySet="ContactsRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_PurchaseType" Association="XCarsModel.FK_Order_PurchaseType">
+            <End Role="PurchaseType" EntitySet="PurchaseTypes" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_User" Association="XCarsModel.FK_Order_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderDetails_Order" Association="XCarsModel.FK_OrderDetails_Order">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="OrderDetail" EntitySet="OrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transaction_PurchaseType" Association="XCarsModel.FK_Transaction_PurchaseType">
+            <End Role="PurchaseType" EntitySet="PurchaseTypes" />
+            <End Role="Transaction" EntitySet="Transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Region" Association="XCarsModel.FK_User_Region">
+            <End Role="Region" EntitySet="Regions" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ScheduledEmail_ScheduledEmailObjectType" Association="XCarsModel.FK_ScheduledEmail_ScheduledEmailObjectType">
+            <End Role="ScheduledEmailObjectType" EntitySet="ScheduledEmailObjectTypes" />
+            <End Role="ScheduledEmail" EntitySet="ScheduledEmails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ScheduledEmail_ScheduledEmailStatus" Association="XCarsModel.FK_ScheduledEmail_ScheduledEmailStatus">
+            <End Role="ScheduledEmailStatu" EntitySet="ScheduledEmailStatus" />
+            <End Role="ScheduledEmail" EntitySet="ScheduledEmails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transaction_TransactionState" Association="XCarsModel.FK_Transaction_TransactionState">
+            <End Role="TransactionState" EntitySet="TransactionStates" />
+            <End Role="Transaction" EntitySet="Transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transaction_User" Association="XCarsModel.FK_Transaction_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Transaction" EntitySet="Transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserConnection_User" Association="XCarsModel.FK_UserConnection_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserConnection" EntitySet="UserConnections" />
+          </AssociationSet>
+          <AssociationSet Name="AutoComfortManyToMany" Association="XCarsModel.AutoComfortManyToMany">
+            <End Role="Auto" EntitySet="Autoes" />
+            <End Role="AutoComfort" EntitySet="AutoComforts" />
+          </AssociationSet>
+          <AssociationSet Name="AutoMiscManyToMany" Association="XCarsModel.AutoMiscManyToMany">
+            <End Role="Auto" EntitySet="Autoes" />
+            <End Role="AutoMisc" EntitySet="AutoMiscs" />
+          </AssociationSet>
+          <AssociationSet Name="AutoMultimediaManyToMany" Association="XCarsModel.AutoMultimediaManyToMany">
+            <End Role="Auto" EntitySet="Autoes" />
+            <End Role="AutoMultimedia" EntitySet="AutoMultimedias" />
+          </AssociationSet>
+          <AssociationSet Name="AutoSecurityManyToMany" Association="XCarsModel.AutoSecurityManyToMany">
+            <End Role="Auto" EntitySet="Autoes" />
+            <End Role="AutoSecurity" EntitySet="AutoSecurities" />
+          </AssociationSet>
+          <AssociationSet Name="AutoStateManyToMany" Association="XCarsModel.AutoStateManyToMany">
+            <End Role="Auto" EntitySet="Autoes" />
+            <End Role="AutoState" EntitySet="AutoStates" />
+          </AssociationSet>
+          <AssociationSet Name="UserRole" Association="XCarsModel.UserRole">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <EntitySet Name="AuctionPhotoes" EntityType="XCarsModel.AuctionPhoto" />
+          <EntitySet Name="AuctionFavorites" EntityType="XCarsModel.AuctionFavorite" />
+          <AssociationSet Name="FK_AuctionFavorite_User" Association="XCarsModel.FK_AuctionFavorite_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="AuctionFavorite" EntitySet="AuctionFavorites" />
+          </AssociationSet>
+          <EntitySet Name="Auctions" EntityType="XCarsModel.Auction" />
+          <EntitySet Name="AuctionStatus" EntityType="XCarsModel.AuctionStatu" />
+          <AssociationSet Name="FK_Auction_AuctionStatus" Association="XCarsModel.FK_Auction_AuctionStatus">
+            <End Role="AuctionStatu" EntitySet="AuctionStatus" />
+            <End Role="Auction" EntitySet="Auctions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Auction_Auto" Association="XCarsModel.FK_Auction_Auto">
+            <End Role="Auto" EntitySet="Autoes" />
+            <End Role="Auction" EntitySet="Auctions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Auction_Currency" Association="XCarsModel.FK_Auction_Currency">
+            <End Role="Currency" EntitySet="Currencies" />
+            <End Role="Auction" EntitySet="Auctions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AuctionBid_Auction" Association="XCarsModel.FK_AuctionBid_Auction">
+            <End Role="Auction" EntitySet="Auctions" />
+            <End Role="AuctionBid" EntitySet="AuctionBids" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AuctionConnection_Auction" Association="XCarsModel.FK_AuctionConnection_Auction">
+            <End Role="Auction" EntitySet="Auctions" />
+            <End Role="AuctionConnection" EntitySet="AuctionConnections" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AuctionFavorite_Auction" Association="XCarsModel.FK_AuctionFavorite_Auction">
+            <End Role="Auction" EntitySet="Auctions" />
+            <End Role="AuctionFavorite" EntitySet="AuctionFavorites" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AuctionPhoto_Auction" Association="XCarsModel.FK_AuctionPhoto_Auction">
+            <End Role="Auction" EntitySet="Auctions" />
+            <End Role="AuctionPhoto" EntitySet="AuctionPhotoes" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="AuctionBid">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AuctionID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Amount" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="XCarsModel.FK_AuctionBid_User" FromRole="AuctionBid" ToRole="User" />
+          <NavigationProperty Name="Auction" Relationship="XCarsModel.FK_AuctionBid_Auction" FromRole="AuctionBid" ToRole="Auction" />
+        </EntityType>
+        <EntityType Name="AuctionConnection">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AuctionID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="Connection" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="User" Relationship="XCarsModel.FK_AuctionConnection_User" FromRole="AuctionConnection" ToRole="User" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Auction" Relationship="XCarsModel.FK_AuctionConnection_Auction" FromRole="AuctionConnection" ToRole="Auction" />
+        </EntityType>
+        <EntityType Name="Auto">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateUpdated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DatePublished" Type="DateTime" Precision="3" />
+          <Property Name="DateExpires" Type="DateTime" Precision="3" />
+          <Property Name="DateAppearance" Type="DateTime" Precision="3" />
+          <Property Name="StatusID" Type="Int32" Nullable="false" />
+          <Property Name="RegionID" Type="Int32" Nullable="false" />
+          <Property Name="TransportTypeID" Type="Int32" Nullable="false" />
+          <Property Name="BodyTypeID" Type="Int32" Nullable="false" />
+          <Property Name="MakeID" Type="Int32" Nullable="false" />
+          <Property Name="ModelID" Type="Int32" Nullable="false" />
+          <Property Name="YearOfIssue" Type="Int32" Nullable="false" />
+          <Property Name="Modification" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="TSRegistrationID" Type="Int32" Nullable="false" />
+          <Property Name="Probeg" Type="Int32" Nullable="false" />
+          <Property Name="CurrencyID" Type="Int32" Nullable="false" />
+          <Property Name="PriceUSD" Type="Int32" />
+          <Property Name="PriceUAH" Type="Int32" />
+          <Property Name="PriceUSDSearch" Type="Int32" Nullable="false" />
+          <Property Name="PriceUAHSearch" Type="Int32" Nullable="false" />
+          <Property Name="IsTorgAvailable" Type="Boolean" Nullable="false" />
+          <Property Name="IsExchangeAvailable" Type="Boolean" Nullable="false" />
+          <Property Name="TransmissionTypeID" Type="Int32" />
+          <Property Name="DriveTypeID" Type="Int32" />
+          <Property Name="NumberOfDoors" Type="Int32" />
+          <Property Name="NumberOfSeats" Type="Int32" />
+          <Property Name="ColorID" Type="Int32" />
+          <Property Name="IsColorMetallic" Type="Boolean" Nullable="false" />
+          <Property Name="FuelTypeID" Type="Int32" />
+          <Property Name="FuelConsumptionCity" Type="Decimal" Precision="18" Scale="1" />
+          <Property Name="FuelConsumptionHighway" Type="Decimal" Precision="18" Scale="1" />
+          <Property Name="FuelConsumptionMixed" Type="Decimal" Precision="18" Scale="1" />
+          <Property Name="EngineCapacity" Type="Decimal" Precision="18" Scale="1" />
+          <Property Name="Power" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Views" Type="Int32" Nullable="false" />
+          <Property Name="CompletionJobID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Top" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AutoBodyType" Relationship="XCarsModel.FK_Auto_AutoBodyType" FromRole="Auto" ToRole="AutoBodyType" />
+          <NavigationProperty Name="AutoColor" Relationship="XCarsModel.FK_Auto_AutoColor" FromRole="Auto" ToRole="AutoColor" />
+          <NavigationProperty Name="AutoDriveType" Relationship="XCarsModel.FK_Auto_AutoDriveType" FromRole="Auto" ToRole="AutoDriveType" />
+          <NavigationProperty Name="AutoFuelType" Relationship="XCarsModel.FK_Auto_AutoFuelType" FromRole="Auto" ToRole="AutoFuelType" />
+          <NavigationProperty Name="AutoMake" Relationship="XCarsModel.FK_Auto_AutoMake" FromRole="Auto" ToRole="AutoMake" />
+          <NavigationProperty Name="AutoModel" Relationship="XCarsModel.FK_Auto_AutoModel" FromRole="Auto" ToRole="AutoModel" />
+          <NavigationProperty Name="AutoStatu" Relationship="XCarsModel.FK_Auto_AutoStatus" FromRole="Auto" ToRole="AutoStatu" />
+          <NavigationProperty Name="AutoTransmissionType" Relationship="XCarsModel.FK_Auto_AutoTransmissionType" FromRole="Auto" ToRole="AutoTransmissionType" />
+          <NavigationProperty Name="AutoTransportType" Relationship="XCarsModel.FK_Auto_AutoTransportType" FromRole="Auto" ToRole="AutoTransportType" />
+          <NavigationProperty Name="AutoTSRegistration" Relationship="XCarsModel.FK_Auto_AutoTSRegistration" FromRole="Auto" ToRole="AutoTSRegistration" />
+          <NavigationProperty Name="City" Relationship="XCarsModel.FK_Auto_City" FromRole="Auto" ToRole="City" />
+          <NavigationProperty Name="Currency" Relationship="XCarsModel.FK_Auto_Currency" FromRole="Auto" ToRole="Currency" />
+          <NavigationProperty Name="User" Relationship="XCarsModel.FK_Auto_User" FromRole="Auto" ToRole="User" />
+          <NavigationProperty Name="AutoExchangesOutcome" Relationship="XCarsModel.FK_AutoExchange_OfferedAuto" FromRole="Auto" ToRole="AutoExchange" />
+          <NavigationProperty Name="AutoExchangesIncome" Relationship="XCarsModel.FK_AutoExchange_TargetAuto" FromRole="Auto" ToRole="AutoExchange" />
+          <NavigationProperty Name="AutoFavorites" Relationship="XCarsModel.FK_AutoFavorite_Auto" FromRole="Auto" ToRole="AutoFavorite" />
+          <NavigationProperty Name="AutoPhotoes" Relationship="XCarsModel.FK_AutoPhoto_Auto" FromRole="Auto" ToRole="AutoPhoto" />
+          <NavigationProperty Name="ContactsRequests" Relationship="XCarsModel.FK_ContactsRequest_Auto" FromRole="Auto" ToRole="ContactsRequest" />
+          <NavigationProperty Name="AutoComforts" Relationship="XCarsModel.AutoComfortManyToMany" FromRole="Auto" ToRole="AutoComfort" />
+          <NavigationProperty Name="AutoMiscs" Relationship="XCarsModel.AutoMiscManyToMany" FromRole="Auto" ToRole="AutoMisc" />
+          <NavigationProperty Name="AutoMultimedias" Relationship="XCarsModel.AutoMultimediaManyToMany" FromRole="Auto" ToRole="AutoMultimedia" />
+          <NavigationProperty Name="AutoSecurities" Relationship="XCarsModel.AutoSecurityManyToMany" FromRole="Auto" ToRole="AutoSecurity" />
+          <NavigationProperty Name="AutoStates" Relationship="XCarsModel.AutoStateManyToMany" FromRole="Auto" ToRole="AutoState" />
+          <Property Name="PlaceLat" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="PlaceLng" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Auctions" Relationship="XCarsModel.FK_Auction_Auto" FromRole="Auto" ToRole="Auction" />
+        </EntityType>
+        <EntityType Name="AutoBodyType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="TransportTypeID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Autoes" Relationship="XCarsModel.FK_Auto_AutoBodyType" FromRole="AutoBodyType" ToRole="Auto" />
+          <NavigationProperty Name="AutoTransportType" Relationship="XCarsModel.FK_AutoBodyType_AutoTransportType" FromRole="AutoBodyType" ToRole="AutoTransportType" />
+        </EntityType>
+        <EntityType Name="AutoColor">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Hex" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Autoes" Relationship="XCarsModel.FK_Auto_AutoColor" FromRole="AutoColor" ToRole="Auto" />
+        </EntityType>
+        <EntityType Name="AutoComfort">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Autoes" Relationship="XCarsModel.AutoComfortManyToMany" FromRole="AutoComfort" ToRole="Auto" />
+        </EntityType>
+        <EntityType Name="AutoDriveType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Autoes" Relationship="XCarsModel.FK_Auto_AutoDriveType" FromRole="AutoDriveType" ToRole="Auto" />
+        </EntityType>
+        <EntityType Name="AutoExchange">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TargetAutoID" Type="Int32" Nullable="false" />
+          <Property Name="OfferedAutoID" Type="Int32" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DiffPrice" Type="Int32" />
+          <Property Name="CurrencyID" Type="Int32" Nullable="false" />
+          <Property Name="DiffPriceDirection" Type="Int32" />
+          <NavigationProperty Name="AutoOffered" Relationship="XCarsModel.FK_AutoExchange_OfferedAuto" FromRole="AutoExchange" ToRole="Auto" />
+          <NavigationProperty Name="AutoTarget" Relationship="XCarsModel.FK_AutoExchange_TargetAuto" FromRole="AutoExchange" ToRole="Auto" />
+          <NavigationProperty Name="Currency" Relationship="XCarsModel.FK_AutoExchange_Currency" FromRole="AutoExchange" ToRole="Currency" />
+        </EntityType>
+        <EntityType Name="AutoFavorite">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AutoID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Auto" Relationship="XCarsModel.FK_AutoFavorite_Auto" FromRole="AutoFavorite" ToRole="Auto" />
+          <NavigationProperty Name="User" Relationship="XCarsModel.FK_AutoFavorite_User" FromRole="AutoFavorite" ToRole="User" />
+        </EntityType>
+        <EntityType Name="AutoFuelType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Autoes" Relationship="XCarsModel.FK_Auto_AutoFuelType" FromRole="AutoFuelType" ToRole="Auto" />
+        </EntityType>
+        <EntityType Name="AutoMake">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Name_ru" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Autoes" Relationship="XCarsModel.FK_Auto_AutoMake" FromRole="AutoMake" ToRole="Auto" />
+          <NavigationProperty Name="AutoModels" Relationship="XCarsModel.FK_AutoModel_AutoMake" FromRole="AutoMake" ToRole="AutoModel" />
+        </EntityType>
+        <EntityType Name="AutoMisc">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Autoes" Relationship="XCarsModel.AutoMiscManyToMany" FromRole="AutoMisc" ToRole="Auto" />
+        </EntityType>
+        <EntityType Name="AutoModel">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="MakeID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Name_ru" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Autoes" Relationship="XCarsModel.FK_Auto_AutoModel" FromRole="AutoModel" ToRole="Auto" />
+          <NavigationProperty Name="AutoMake" Relationship="XCarsModel.FK_AutoModel_AutoMake" FromRole="AutoModel" ToRole="AutoMake" />
+        </EntityType>
+        <EntityType Name="AutoMultimedia">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Autoes" Relationship="XCarsModel.AutoMultimediaManyToMany" FromRole="AutoMultimedia" ToRole="Auto" />
+        </EntityType>
+        <EntityType Name="AutoPhoto">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AutoID" Type="Int32" Nullable="false" />
+          <Property Name="IsMain" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Auto" Relationship="XCarsModel.FK_AutoPhoto_Auto" FromRole="AutoPhoto" ToRole="Auto" />
+        </EntityType>
+        <EntityType Name="AutoSecurity">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Autoes" Relationship="XCarsModel.AutoSecurityManyToMany" FromRole="AutoSecurity" ToRole="Auto" />
+        </EntityType>
+        <EntityType Name="AutoState">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Autoes" Relationship="XCarsModel.AutoStateManyToMany" FromRole="AutoState" ToRole="Auto" />
+        </EntityType>
+        <EntityType Name="AutoStatu">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Autoes" Relationship="XCarsModel.FK_Auto_AutoStatus" FromRole="AutoStatu" ToRole="Auto" />
+        </EntityType>
+        <EntityType Name="AutoTransmissionType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Autoes" Relationship="XCarsModel.FK_Auto_AutoTransmissionType" FromRole="AutoTransmissionType" ToRole="Auto" />
+        </EntityType>
+        <EntityType Name="AutoTransportType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Autoes" Relationship="XCarsModel.FK_Auto_AutoTransportType" FromRole="AutoTransportType" ToRole="Auto" />
+          <NavigationProperty Name="AutoBodyTypes" Relationship="XCarsModel.FK_AutoBodyType_AutoTransportType" FromRole="AutoTransportType" ToRole="AutoBodyType" />
+        </EntityType>
+        <EntityType Name="AutoTSRegistration">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Autoes" Relationship="XCarsModel.FK_Auto_AutoTSRegistration" FromRole="AutoTSRegistration" ToRole="Auto" />
+          <Property Name="NameFull" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="RegionID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Autoes" Relationship="XCarsModel.FK_Auto_City" FromRole="City" ToRole="Auto" />
+          <NavigationProperty Name="Region" Relationship="XCarsModel.FK_City_Region" FromRole="City" ToRole="Region" />
+          <NavigationProperty Name="Users" Relationship="XCarsModel.FK_User_City" FromRole="City" ToRole="User" />
+        </EntityType>
+        <EntityType Name="ContactsRequest">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="AutoID" Type="Int32" />
+          <NavigationProperty Name="Auto" Relationship="XCarsModel.FK_ContactsRequest_Auto" FromRole="ContactsRequest" ToRole="Auto" />
+          <NavigationProperty Name="User" Relationship="XCarsModel.FK_ContactsRequest_User" FromRole="ContactsRequest" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Currency">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Symbol" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Autoes" Relationship="XCarsModel.FK_Auto_Currency" FromRole="Currency" ToRole="Auto" />
+          <NavigationProperty Name="AutoExchanges" Relationship="XCarsModel.FK_AutoExchange_Currency" FromRole="Currency" ToRole="AutoExchange" />
+          <NavigationProperty Name="Auctions" Relationship="XCarsModel.FK_Auction_Currency" FromRole="Currency" ToRole="Auction" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="LMI_PAYMENT_NO" />
+          </Key>
+          <Property Name="LMI_PAYMENT_NO" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="LMI_PREREQUEST" Type="Int32" />
+          <Property Name="LMI_MERCHANT_ID" Type="Int32" Nullable="false" />
+          <Property Name="LMI_PAYMENT_AMOUNT" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="LMI_MODE" Type="Int32" Nullable="false" />
+          <Property Name="LMI_SYS_PAYMENT_DATE" Type="DateTime" Precision="3" />
+          <Property Name="LMI_HASH" Type="String" MaxLength="511" FixedLength="false" Unicode="true" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PurchaseTypeID" Type="Int32" />
+          <Property Name="ObjectID" Type="Int32" />
+          <Property Name="IsOpen" Type="Boolean" Nullable="false" />
+          <Property Name="UsedFromBalance" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <NavigationProperty Name="PurchaseType" Relationship="XCarsModel.FK_Order_PurchaseType" FromRole="Order" ToRole="PurchaseType" />
+          <NavigationProperty Name="User" Relationship="XCarsModel.FK_Order_User" FromRole="Order" ToRole="User" />
+          <NavigationProperty Name="OrderDetails" Relationship="XCarsModel.FK_OrderDetails_Order" FromRole="Order" ToRole="OrderDetail" />
+        </EntityType>
+        <EntityType Name="OrderDetail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderID" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Value" Type="String" Nullable="false" MaxLength="511" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Order" Relationship="XCarsModel.FK_OrderDetails_Order" FromRole="OrderDetail" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="PurchaseType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Orders" Relationship="XCarsModel.FK_Order_PurchaseType" FromRole="PurchaseType" ToRole="Order" />
+          <NavigationProperty Name="Transactions" Relationship="XCarsModel.FK_Transaction_PurchaseType" FromRole="PurchaseType" ToRole="Transaction" />
+        </EntityType>
+        <EntityType Name="Region">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Cities" Relationship="XCarsModel.FK_City_Region" FromRole="Region" ToRole="City" />
+          <NavigationProperty Name="Users" Relationship="XCarsModel.FK_User_Region" FromRole="Region" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="XCarsModel.UserRole" FromRole="Role" ToRole="User" />
+        </EntityType>
+        <EntityType Name="ScheduledEmail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DateScheduled" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateDue" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="StatusID" Type="Int32" Nullable="false" />
+          <Property Name="To" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Subject" Type="String" Nullable="false" MaxLength="511" FixedLength="false" Unicode="true" />
+          <Property Name="Body" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ObjectTypeID" Type="Int32" Nullable="false" />
+          <Property Name="ObjectID" Type="Int32" />
+          <Property Name="DateEligible" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="ScheduledEmailObjectType" Relationship="XCarsModel.FK_ScheduledEmail_ScheduledEmailObjectType" FromRole="ScheduledEmail" ToRole="ScheduledEmailObjectType" />
+          <NavigationProperty Name="ScheduledEmailStatu" Relationship="XCarsModel.FK_ScheduledEmail_ScheduledEmailStatus" FromRole="ScheduledEmail" ToRole="ScheduledEmailStatu" />
+        </EntityType>
+        <EntityType Name="ScheduledEmailObjectType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ScheduledEmails" Relationship="XCarsModel.FK_ScheduledEmail_ScheduledEmailObjectType" FromRole="ScheduledEmailObjectType" ToRole="ScheduledEmail" />
+        </EntityType>
+        <EntityType Name="ScheduledEmailStatu">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ScheduledEmails" Relationship="XCarsModel.FK_ScheduledEmail_ScheduledEmailStatus" FromRole="ScheduledEmailStatu" ToRole="ScheduledEmail" />
+        </EntityType>
+        <EntityType Name="SiteSetting">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Keyy" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Value" Type="String" Nullable="false" MaxLength="511" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Transaction">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="StateID" Type="Int32" Nullable="false" />
+          <Property Name="PurchaseTypeID" Type="Int32" />
+          <Property Name="Amount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ObjectID" Type="Int32" />
+          <Property Name="LMI_MODE" Type="Int32" Nullable="false" />
+          <Property Name="LMI_PAYMENT_SYSTEM" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="LMI_PAYMENT_DESC" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LMI_SYS_PAYMENT_ID" Type="Int32" />
+          <Property Name="LMI_SYS_PAYMENT_DATE" Type="DateTime" Precision="3" />
+          <Property Name="LMI_PAYER_IDENTIFIER" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PurchaseType" Relationship="XCarsModel.FK_Transaction_PurchaseType" FromRole="Transaction" ToRole="PurchaseType" />
+          <NavigationProperty Name="TransactionState" Relationship="XCarsModel.FK_Transaction_TransactionState" FromRole="Transaction" ToRole="TransactionState" />
+          <NavigationProperty Name="User" Relationship="XCarsModel.FK_Transaction_User" FromRole="Transaction" ToRole="User" />
+        </EntityType>
+        <EntityType Name="TransactionState">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Transactions" Relationship="XCarsModel.FK_Transaction_TransactionState" FromRole="TransactionState" ToRole="Transaction" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AspNetUserID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="DateRegistered" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Balance" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="AuctionAgreement" Type="Boolean" Nullable="false" />
+          <Property Name="LastSeen" Type="DateTime" Precision="3" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="RegionID" Type="Int32" />
+          <Property Name="CityID" Type="Int32" />
+          <Property Name="PhotoUrl" Type="String" Nullable="false" MaxLength="512" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AuctionBids" Relationship="XCarsModel.FK_AuctionBid_User" FromRole="User" ToRole="AuctionBid" />
+          <NavigationProperty Name="AuctionConnections" Relationship="XCarsModel.FK_AuctionConnection_User" FromRole="User" ToRole="AuctionConnection" />
+          <NavigationProperty Name="Autoes" Relationship="XCarsModel.FK_Auto_User" FromRole="User" ToRole="Auto" />
+          <NavigationProperty Name="AutoFavorites" Relationship="XCarsModel.FK_AutoFavorite_User" FromRole="User" ToRole="AutoFavorite" />
+          <NavigationProperty Name="City" Relationship="XCarsModel.FK_User_City" FromRole="User" ToRole="City" />
+          <NavigationProperty Name="ContactsRequests" Relationship="XCarsModel.FK_ContactsRequest_User" FromRole="User" ToRole="ContactsRequest" />
+          <NavigationProperty Name="Orders" Relationship="XCarsModel.FK_Order_User" FromRole="User" ToRole="Order" />
+          <NavigationProperty Name="Region" Relationship="XCarsModel.FK_User_Region" FromRole="User" ToRole="Region" />
+          <NavigationProperty Name="Transactions" Relationship="XCarsModel.FK_Transaction_User" FromRole="User" ToRole="Transaction" />
+          <NavigationProperty Name="UserConnections" Relationship="XCarsModel.FK_UserConnection_User" FromRole="User" ToRole="UserConnection" />
+          <NavigationProperty Name="Roles" Relationship="XCarsModel.UserRole" FromRole="User" ToRole="Role" />
+          <Property Name="FirstName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AuctionFavorites" Relationship="XCarsModel.FK_AuctionFavorite_User" FromRole="User" ToRole="AuctionFavorite" />
+        </EntityType>
+        <EntityType Name="UserConnection">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="Connection" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="User" Relationship="XCarsModel.FK_UserConnection_User" FromRole="UserConnection" ToRole="User" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <Association Name="FK_AuctionBid_User">
+          <End Type="XCarsModel.User" Role="User" Multiplicity="1" />
+          <End Type="XCarsModel.AuctionBid" Role="AuctionBid" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AuctionBid">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AuctionConnection_User">
+          <End Type="XCarsModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="XCarsModel.AuctionConnection" Role="AuctionConnection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AuctionConnection">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Auto_AutoBodyType">
+          <End Type="XCarsModel.AutoBodyType" Role="AutoBodyType" Multiplicity="1" />
+          <End Type="XCarsModel.Auto" Role="Auto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AutoBodyType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Auto">
+              <PropertyRef Name="BodyTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Auto_AutoColor">
+          <End Type="XCarsModel.AutoColor" Role="AutoColor" Multiplicity="0..1" />
+          <End Type="XCarsModel.Auto" Role="Auto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AutoColor">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Auto">
+              <PropertyRef Name="ColorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Auto_AutoDriveType">
+          <End Type="XCarsModel.AutoDriveType" Role="AutoDriveType" Multiplicity="0..1" />
+          <End Type="XCarsModel.Auto" Role="Auto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AutoDriveType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Auto">
+              <PropertyRef Name="DriveTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Auto_AutoFuelType">
+          <End Type="XCarsModel.AutoFuelType" Role="AutoFuelType" Multiplicity="0..1" />
+          <End Type="XCarsModel.Auto" Role="Auto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AutoFuelType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Auto">
+              <PropertyRef Name="FuelTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Auto_AutoMake">
+          <End Type="XCarsModel.AutoMake" Role="AutoMake" Multiplicity="1" />
+          <End Type="XCarsModel.Auto" Role="Auto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AutoMake">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Auto">
+              <PropertyRef Name="MakeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Auto_AutoModel">
+          <End Type="XCarsModel.AutoModel" Role="AutoModel" Multiplicity="1" />
+          <End Type="XCarsModel.Auto" Role="Auto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AutoModel">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Auto">
+              <PropertyRef Name="ModelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Auto_AutoStatus">
+          <End Type="XCarsModel.AutoStatu" Role="AutoStatu" Multiplicity="1" />
+          <End Type="XCarsModel.Auto" Role="Auto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AutoStatu">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Auto">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Auto_AutoTransmissionType">
+          <End Type="XCarsModel.AutoTransmissionType" Role="AutoTransmissionType" Multiplicity="0..1" />
+          <End Type="XCarsModel.Auto" Role="Auto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AutoTransmissionType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Auto">
+              <PropertyRef Name="TransmissionTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Auto_AutoTransportType">
+          <End Type="XCarsModel.AutoTransportType" Role="AutoTransportType" Multiplicity="1" />
+          <End Type="XCarsModel.Auto" Role="Auto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AutoTransportType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Auto">
+              <PropertyRef Name="TransportTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Auto_AutoTSRegistration">
+          <End Type="XCarsModel.AutoTSRegistration" Role="AutoTSRegistration" Multiplicity="1" />
+          <End Type="XCarsModel.Auto" Role="Auto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AutoTSRegistration">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Auto">
+              <PropertyRef Name="TSRegistrationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Auto_City">
+          <End Type="XCarsModel.City" Role="City" Multiplicity="1" />
+          <End Type="XCarsModel.Auto" Role="Auto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Auto">
+              <PropertyRef Name="RegionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Auto_Currency">
+          <End Type="XCarsModel.Currency" Role="Currency" Multiplicity="1" />
+          <End Type="XCarsModel.Auto" Role="Auto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Currency">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Auto">
+              <PropertyRef Name="CurrencyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Auto_User">
+          <End Type="XCarsModel.User" Role="User" Multiplicity="1" />
+          <End Type="XCarsModel.Auto" Role="Auto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Auto">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AutoExchange_OfferedAuto">
+          <End Type="XCarsModel.Auto" Role="Auto" Multiplicity="1" />
+          <End Type="XCarsModel.AutoExchange" Role="AutoExchange" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Auto">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AutoExchange">
+              <PropertyRef Name="OfferedAutoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AutoExchange_TargetAuto">
+          <End Type="XCarsModel.Auto" Role="Auto" Multiplicity="1" />
+          <End Type="XCarsModel.AutoExchange" Role="AutoExchange" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Auto">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AutoExchange">
+              <PropertyRef Name="TargetAutoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AutoFavorite_Auto">
+          <End Type="XCarsModel.Auto" Role="Auto" Multiplicity="1" />
+          <End Type="XCarsModel.AutoFavorite" Role="AutoFavorite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Auto">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AutoFavorite">
+              <PropertyRef Name="AutoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AutoPhoto_Auto">
+          <End Type="XCarsModel.Auto" Role="Auto" Multiplicity="1" />
+          <End Type="XCarsModel.AutoPhoto" Role="AutoPhoto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Auto">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AutoPhoto">
+              <PropertyRef Name="AutoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ContactsRequest_Auto">
+          <End Type="XCarsModel.Auto" Role="Auto" Multiplicity="0..1" />
+          <End Type="XCarsModel.ContactsRequest" Role="ContactsRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Auto">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ContactsRequest">
+              <PropertyRef Name="AutoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AutoBodyType_AutoTransportType">
+          <End Type="XCarsModel.AutoTransportType" Role="AutoTransportType" Multiplicity="1" />
+          <End Type="XCarsModel.AutoBodyType" Role="AutoBodyType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AutoTransportType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AutoBodyType">
+              <PropertyRef Name="TransportTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AutoExchange_Currency">
+          <End Type="XCarsModel.Currency" Role="Currency" Multiplicity="1" />
+          <End Type="XCarsModel.AutoExchange" Role="AutoExchange" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Currency">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AutoExchange">
+              <PropertyRef Name="CurrencyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AutoFavorite_User">
+          <End Type="XCarsModel.User" Role="User" Multiplicity="1" />
+          <End Type="XCarsModel.AutoFavorite" Role="AutoFavorite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AutoFavorite">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AutoModel_AutoMake">
+          <End Type="XCarsModel.AutoMake" Role="AutoMake" Multiplicity="1" />
+          <End Type="XCarsModel.AutoModel" Role="AutoModel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AutoMake">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AutoModel">
+              <PropertyRef Name="MakeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_City_Region">
+          <End Type="XCarsModel.Region" Role="Region" Multiplicity="1" />
+          <End Type="XCarsModel.City" Role="City" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Region">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="City">
+              <PropertyRef Name="RegionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_City">
+          <End Type="XCarsModel.City" Role="City" Multiplicity="0..1" />
+          <End Type="XCarsModel.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="CityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ContactsRequest_User">
+          <End Type="XCarsModel.User" Role="User" Multiplicity="1" />
+          <End Type="XCarsModel.ContactsRequest" Role="ContactsRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ContactsRequest">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_PurchaseType">
+          <End Type="XCarsModel.PurchaseType" Role="PurchaseType" Multiplicity="0..1" />
+          <End Type="XCarsModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PurchaseType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="PurchaseTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_User">
+          <End Type="XCarsModel.User" Role="User" Multiplicity="1" />
+          <End Type="XCarsModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderDetails_Order">
+          <End Type="XCarsModel.Order" Role="Order" Multiplicity="1" />
+          <End Type="XCarsModel.OrderDetail" Role="OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="LMI_PAYMENT_NO" />
+            </Principal>
+            <Dependent Role="OrderDetail">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transaction_PurchaseType">
+          <End Type="XCarsModel.PurchaseType" Role="PurchaseType" Multiplicity="0..1" />
+          <End Type="XCarsModel.Transaction" Role="Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PurchaseType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Transaction">
+              <PropertyRef Name="PurchaseTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Region">
+          <End Type="XCarsModel.Region" Role="Region" Multiplicity="0..1" />
+          <End Type="XCarsModel.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Region">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="RegionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ScheduledEmail_ScheduledEmailObjectType">
+          <End Type="XCarsModel.ScheduledEmailObjectType" Role="ScheduledEmailObjectType" Multiplicity="1" />
+          <End Type="XCarsModel.ScheduledEmail" Role="ScheduledEmail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ScheduledEmailObjectType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ScheduledEmail">
+              <PropertyRef Name="ObjectTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ScheduledEmail_ScheduledEmailStatus">
+          <End Type="XCarsModel.ScheduledEmailStatu" Role="ScheduledEmailStatu" Multiplicity="1" />
+          <End Type="XCarsModel.ScheduledEmail" Role="ScheduledEmail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ScheduledEmailStatu">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ScheduledEmail">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transaction_TransactionState">
+          <End Type="XCarsModel.TransactionState" Role="TransactionState" Multiplicity="1" />
+          <End Type="XCarsModel.Transaction" Role="Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TransactionState">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Transaction">
+              <PropertyRef Name="StateID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transaction_User">
+          <End Type="XCarsModel.User" Role="User" Multiplicity="1" />
+          <End Type="XCarsModel.Transaction" Role="Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Transaction">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserConnection_User">
+          <End Type="XCarsModel.User" Role="User" Multiplicity="1" />
+          <End Type="XCarsModel.UserConnection" Role="UserConnection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserConnection">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AutoComfortManyToMany">
+          <End Type="XCarsModel.Auto" Role="Auto" Multiplicity="*" />
+          <End Type="XCarsModel.AutoComfort" Role="AutoComfort" Multiplicity="*" />
+        </Association>
+        <Association Name="AutoMiscManyToMany">
+          <End Type="XCarsModel.Auto" Role="Auto" Multiplicity="*" />
+          <End Type="XCarsModel.AutoMisc" Role="AutoMisc" Multiplicity="*" />
+        </Association>
+        <Association Name="AutoMultimediaManyToMany">
+          <End Type="XCarsModel.Auto" Role="Auto" Multiplicity="*" />
+          <End Type="XCarsModel.AutoMultimedia" Role="AutoMultimedia" Multiplicity="*" />
+        </Association>
+        <Association Name="AutoSecurityManyToMany">
+          <End Type="XCarsModel.Auto" Role="Auto" Multiplicity="*" />
+          <End Type="XCarsModel.AutoSecurity" Role="AutoSecurity" Multiplicity="*" />
+        </Association>
+        <Association Name="AutoStateManyToMany">
+          <End Type="XCarsModel.Auto" Role="Auto" Multiplicity="*" />
+          <End Type="XCarsModel.AutoState" Role="AutoState" Multiplicity="*" />
+        </Association>
+        <Association Name="UserRole">
+          <End Type="XCarsModel.Role" Role="Role" Multiplicity="*" />
+          <End Type="XCarsModel.User" Role="User" Multiplicity="*" />
+        </Association>
+        <EntityType Name="AuctionPhoto">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AuctionID" Type="Int32" Nullable="false" />
+          <Property Name="IsMain" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Auction" Relationship="XCarsModel.FK_AuctionPhoto_Auction" FromRole="AuctionPhoto" ToRole="Auction" />
+        </EntityType>
+        <EntityType Name="AuctionFavorite">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AuctionID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="XCarsModel.FK_AuctionFavorite_User" FromRole="AuctionFavorite" ToRole="User" />
+          <NavigationProperty Name="Auction" Relationship="XCarsModel.FK_AuctionFavorite_Auction" FromRole="AuctionFavorite" ToRole="Auction" />
+        </EntityType>
+        <Association Name="FK_AuctionFavorite_User">
+          <End Type="XCarsModel.User" Role="User" Multiplicity="1" />
+          <End Type="XCarsModel.AuctionFavorite" Role="AuctionFavorite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AuctionFavorite">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Auction">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AutoID" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="StartPrice" Type="Int32" Nullable="false" />
+          <Property Name="CurrentPrice" Type="Int32" Nullable="false" />
+          <Property Name="PriceUSDSearch" Type="Int32" Nullable="false" />
+          <Property Name="PriceUAHSearch" Type="Int32" Nullable="false" />
+          <Property Name="CurrencyID" Type="Int32" Nullable="false" />
+          <Property Name="DateStopped" Type="DateTime" Precision="3" />
+          <Property Name="Deadline" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CompletionJobID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DeletionJobID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Views" Type="Int32" Nullable="false" />
+          <Property Name="StatusID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AuctionStatu" Relationship="XCarsModel.FK_Auction_AuctionStatus" FromRole="Auction" ToRole="AuctionStatu" />
+          <NavigationProperty Name="Auto" Relationship="XCarsModel.FK_Auction_Auto" FromRole="Auction" ToRole="Auto" />
+          <NavigationProperty Name="Currency" Relationship="XCarsModel.FK_Auction_Currency" FromRole="Auction" ToRole="Currency" />
+          <NavigationProperty Name="AuctionBids" Relationship="XCarsModel.FK_AuctionBid_Auction" FromRole="Auction" ToRole="AuctionBid" />
+          <NavigationProperty Name="AuctionConnections" Relationship="XCarsModel.FK_AuctionConnection_Auction" FromRole="Auction" ToRole="AuctionConnection" />
+          <NavigationProperty Name="AuctionFavorites" Relationship="XCarsModel.FK_AuctionFavorite_Auction" FromRole="Auction" ToRole="AuctionFavorite" />
+          <NavigationProperty Name="AuctionPhotoes" Relationship="XCarsModel.FK_AuctionPhoto_Auction" FromRole="Auction" ToRole="AuctionPhoto" />
+        </EntityType>
+        <EntityType Name="AuctionStatu">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Auctions" Relationship="XCarsModel.FK_Auction_AuctionStatus" FromRole="AuctionStatu" ToRole="Auction" />
+        </EntityType>
+        <Association Name="FK_Auction_AuctionStatus">
+          <End Type="XCarsModel.AuctionStatu" Role="AuctionStatu" Multiplicity="1" />
+          <End Type="XCarsModel.Auction" Role="Auction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AuctionStatu">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Auction">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Auction_Auto">
+          <End Type="XCarsModel.Auto" Role="Auto" Multiplicity="1" />
+          <End Type="XCarsModel.Auction" Role="Auction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Auto">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Auction">
+              <PropertyRef Name="AutoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Auction_Currency">
+          <End Type="XCarsModel.Currency" Role="Currency" Multiplicity="1" />
+          <End Type="XCarsModel.Auction" Role="Auction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Currency">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Auction">
+              <PropertyRef Name="CurrencyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AuctionBid_Auction">
+          <End Type="XCarsModel.Auction" Role="Auction" Multiplicity="1" />
+          <End Type="XCarsModel.AuctionBid" Role="AuctionBid" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Auction">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AuctionBid">
+              <PropertyRef Name="AuctionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AuctionConnection_Auction">
+          <End Type="XCarsModel.Auction" Role="Auction" Multiplicity="1" />
+          <End Type="XCarsModel.AuctionConnection" Role="AuctionConnection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Auction">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AuctionConnection">
+              <PropertyRef Name="AuctionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AuctionFavorite_Auction">
+          <End Type="XCarsModel.Auction" Role="Auction" Multiplicity="1" />
+          <End Type="XCarsModel.AuctionFavorite" Role="AuctionFavorite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Auction">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AuctionFavorite">
+              <PropertyRef Name="AuctionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AuctionPhoto_Auction">
+          <End Type="XCarsModel.Auction" Role="Auction" Multiplicity="1" />
+          <End Type="XCarsModel.AuctionPhoto" Role="AuctionPhoto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Auction">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AuctionPhoto">
+              <PropertyRef Name="AuctionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="XCarsModelStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="AuctionBids">
+            <EntityTypeMapping TypeName="XCarsModel.AuctionBid">
+              <MappingFragment StoreEntitySet="AuctionBid">
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="AuctionID" ColumnName="AuctionID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AuctionConnections">
+            <EntityTypeMapping TypeName="XCarsModel.AuctionConnection">
+              <MappingFragment StoreEntitySet="AuctionConnection">
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="Connection" ColumnName="Connection" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="AuctionID" ColumnName="AuctionID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Autoes">
+            <EntityTypeMapping TypeName="XCarsModel.Auto">
+              <MappingFragment StoreEntitySet="Auto">
+                <ScalarProperty Name="PlaceLng" ColumnName="PlaceLng" />
+                <ScalarProperty Name="PlaceLat" ColumnName="PlaceLat" />
+                <ScalarProperty Name="Top" ColumnName="Top" />
+                <ScalarProperty Name="CompletionJobID" ColumnName="CompletionJobID" />
+                <ScalarProperty Name="Views" ColumnName="Views" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Power" ColumnName="Power" />
+                <ScalarProperty Name="EngineCapacity" ColumnName="EngineCapacity" />
+                <ScalarProperty Name="FuelConsumptionMixed" ColumnName="FuelConsumptionMixed" />
+                <ScalarProperty Name="FuelConsumptionHighway" ColumnName="FuelConsumptionHighway" />
+                <ScalarProperty Name="FuelConsumptionCity" ColumnName="FuelConsumptionCity" />
+                <ScalarProperty Name="FuelTypeID" ColumnName="FuelTypeID" />
+                <ScalarProperty Name="IsColorMetallic" ColumnName="IsColorMetallic" />
+                <ScalarProperty Name="ColorID" ColumnName="ColorID" />
+                <ScalarProperty Name="NumberOfSeats" ColumnName="NumberOfSeats" />
+                <ScalarProperty Name="NumberOfDoors" ColumnName="NumberOfDoors" />
+                <ScalarProperty Name="DriveTypeID" ColumnName="DriveTypeID" />
+                <ScalarProperty Name="TransmissionTypeID" ColumnName="TransmissionTypeID" />
+                <ScalarProperty Name="IsExchangeAvailable" ColumnName="IsExchangeAvailable" />
+                <ScalarProperty Name="IsTorgAvailable" ColumnName="IsTorgAvailable" />
+                <ScalarProperty Name="PriceUAHSearch" ColumnName="PriceUAHSearch" />
+                <ScalarProperty Name="PriceUSDSearch" ColumnName="PriceUSDSearch" />
+                <ScalarProperty Name="PriceUAH" ColumnName="PriceUAH" />
+                <ScalarProperty Name="PriceUSD" ColumnName="PriceUSD" />
+                <ScalarProperty Name="CurrencyID" ColumnName="CurrencyID" />
+                <ScalarProperty Name="Probeg" ColumnName="Probeg" />
+                <ScalarProperty Name="TSRegistrationID" ColumnName="TSRegistrationID" />
+                <ScalarProperty Name="Modification" ColumnName="Modification" />
+                <ScalarProperty Name="YearOfIssue" ColumnName="YearOfIssue" />
+                <ScalarProperty Name="ModelID" ColumnName="ModelID" />
+                <ScalarProperty Name="MakeID" ColumnName="MakeID" />
+                <ScalarProperty Name="BodyTypeID" ColumnName="BodyTypeID" />
+                <ScalarProperty Name="TransportTypeID" ColumnName="TransportTypeID" />
+                <ScalarProperty Name="RegionID" ColumnName="RegionID" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="DateAppearance" ColumnName="DateAppearance" />
+                <ScalarProperty Name="DateExpires" ColumnName="DateExpires" />
+                <ScalarProperty Name="DatePublished" ColumnName="DatePublished" />
+                <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AutoBodyTypes">
+            <EntityTypeMapping TypeName="XCarsModel.AutoBodyType">
+              <MappingFragment StoreEntitySet="AutoBodyType">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="TransportTypeID" ColumnName="TransportTypeID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AutoColors">
+            <EntityTypeMapping TypeName="XCarsModel.AutoColor">
+              <MappingFragment StoreEntitySet="AutoColor">
+                <ScalarProperty Name="Hex" ColumnName="Hex" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AutoComforts">
+            <EntityTypeMapping TypeName="XCarsModel.AutoComfort">
+              <MappingFragment StoreEntitySet="AutoComfort">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AutoDriveTypes">
+            <EntityTypeMapping TypeName="XCarsModel.AutoDriveType">
+              <MappingFragment StoreEntitySet="AutoDriveType">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AutoExchanges">
+            <EntityTypeMapping TypeName="XCarsModel.AutoExchange">
+              <MappingFragment StoreEntitySet="AutoExchange">
+                <ScalarProperty Name="DiffPriceDirection" ColumnName="DiffPriceDirection" />
+                <ScalarProperty Name="CurrencyID" ColumnName="CurrencyID" />
+                <ScalarProperty Name="DiffPrice" ColumnName="DiffPrice" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="OfferedAutoID" ColumnName="OfferedAutoID" />
+                <ScalarProperty Name="TargetAutoID" ColumnName="TargetAutoID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AutoFavorites">
+            <EntityTypeMapping TypeName="XCarsModel.AutoFavorite">
+              <MappingFragment StoreEntitySet="AutoFavorite">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="AutoID" ColumnName="AutoID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AutoFuelTypes">
+            <EntityTypeMapping TypeName="XCarsModel.AutoFuelType">
+              <MappingFragment StoreEntitySet="AutoFuelType">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AutoMakes">
+            <EntityTypeMapping TypeName="XCarsModel.AutoMake">
+              <MappingFragment StoreEntitySet="AutoMake">
+                <ScalarProperty Name="Name_ru" ColumnName="Name_ru" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AutoMiscs">
+            <EntityTypeMapping TypeName="XCarsModel.AutoMisc">
+              <MappingFragment StoreEntitySet="AutoMisc">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AutoModels">
+            <EntityTypeMapping TypeName="XCarsModel.AutoModel">
+              <MappingFragment StoreEntitySet="AutoModel">
+                <ScalarProperty Name="Name_ru" ColumnName="Name_ru" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="MakeID" ColumnName="MakeID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AutoMultimedias">
+            <EntityTypeMapping TypeName="XCarsModel.AutoMultimedia">
+              <MappingFragment StoreEntitySet="AutoMultimedia">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AutoPhotoes">
+            <EntityTypeMapping TypeName="XCarsModel.AutoPhoto">
+              <MappingFragment StoreEntitySet="AutoPhoto">
+                <ScalarProperty Name="IsMain" ColumnName="IsMain" />
+                <ScalarProperty Name="AutoID" ColumnName="AutoID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AutoSecurities">
+            <EntityTypeMapping TypeName="XCarsModel.AutoSecurity">
+              <MappingFragment StoreEntitySet="AutoSecurity">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AutoStates">
+            <EntityTypeMapping TypeName="XCarsModel.AutoState">
+              <MappingFragment StoreEntitySet="AutoState">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AutoStatus">
+            <EntityTypeMapping TypeName="XCarsModel.AutoStatu">
+              <MappingFragment StoreEntitySet="AutoStatus">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AutoTransmissionTypes">
+            <EntityTypeMapping TypeName="XCarsModel.AutoTransmissionType">
+              <MappingFragment StoreEntitySet="AutoTransmissionType">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AutoTransportTypes">
+            <EntityTypeMapping TypeName="XCarsModel.AutoTransportType">
+              <MappingFragment StoreEntitySet="AutoTransportType">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AutoTSRegistrations">
+            <EntityTypeMapping TypeName="XCarsModel.AutoTSRegistration">
+              <MappingFragment StoreEntitySet="AutoTSRegistration">
+                <ScalarProperty Name="NameFull" ColumnName="NameFull" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cities">
+            <EntityTypeMapping TypeName="XCarsModel.City">
+              <MappingFragment StoreEntitySet="City">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="RegionID" ColumnName="RegionID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ContactsRequests">
+            <EntityTypeMapping TypeName="XCarsModel.ContactsRequest">
+              <MappingFragment StoreEntitySet="ContactsRequest">
+                <ScalarProperty Name="AutoID" ColumnName="AutoID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Currencies">
+            <EntityTypeMapping TypeName="XCarsModel.Currency">
+              <MappingFragment StoreEntitySet="Currency">
+                <ScalarProperty Name="Symbol" ColumnName="Symbol" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="XCarsModel.Order">
+              <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="UsedFromBalance" ColumnName="UsedFromBalance" />
+                <ScalarProperty Name="IsOpen" ColumnName="IsOpen" />
+                <ScalarProperty Name="ObjectID" ColumnName="ObjectID" />
+                <ScalarProperty Name="PurchaseTypeID" ColumnName="PurchaseTypeID" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="LMI_HASH" ColumnName="LMI_HASH" />
+                <ScalarProperty Name="LMI_SYS_PAYMENT_DATE" ColumnName="LMI_SYS_PAYMENT_DATE" />
+                <ScalarProperty Name="LMI_MODE" ColumnName="LMI_MODE" />
+                <ScalarProperty Name="LMI_PAYMENT_AMOUNT" ColumnName="LMI_PAYMENT_AMOUNT" />
+                <ScalarProperty Name="LMI_MERCHANT_ID" ColumnName="LMI_MERCHANT_ID" />
+                <ScalarProperty Name="LMI_PREREQUEST" ColumnName="LMI_PREREQUEST" />
+                <ScalarProperty Name="LMI_PAYMENT_NO" ColumnName="LMI_PAYMENT_NO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderDetails">
+            <EntityTypeMapping TypeName="XCarsModel.OrderDetail">
+              <MappingFragment StoreEntitySet="OrderDetails">
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PurchaseTypes">
+            <EntityTypeMapping TypeName="XCarsModel.PurchaseType">
+              <MappingFragment StoreEntitySet="PurchaseType">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Regions">
+            <EntityTypeMapping TypeName="XCarsModel.Region">
+              <MappingFragment StoreEntitySet="Region">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="XCarsModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ScheduledEmails">
+            <EntityTypeMapping TypeName="XCarsModel.ScheduledEmail">
+              <MappingFragment StoreEntitySet="ScheduledEmail">
+                <ScalarProperty Name="DateEligible" ColumnName="DateEligible" />
+                <ScalarProperty Name="ObjectID" ColumnName="ObjectID" />
+                <ScalarProperty Name="ObjectTypeID" ColumnName="ObjectTypeID" />
+                <ScalarProperty Name="Body" ColumnName="Body" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="To" ColumnName="To" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="DateDue" ColumnName="DateDue" />
+                <ScalarProperty Name="DateScheduled" ColumnName="DateScheduled" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ScheduledEmailObjectTypes">
+            <EntityTypeMapping TypeName="XCarsModel.ScheduledEmailObjectType">
+              <MappingFragment StoreEntitySet="ScheduledEmailObjectType">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ScheduledEmailStatus">
+            <EntityTypeMapping TypeName="XCarsModel.ScheduledEmailStatu">
+              <MappingFragment StoreEntitySet="ScheduledEmailStatus">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SiteSettings">
+            <EntityTypeMapping TypeName="XCarsModel.SiteSetting">
+              <MappingFragment StoreEntitySet="SiteSettings">
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Keyy" ColumnName="Keyy" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Transactions">
+            <EntityTypeMapping TypeName="XCarsModel.Transaction">
+              <MappingFragment StoreEntitySet="Transaction">
+                <ScalarProperty Name="LMI_PAYER_IDENTIFIER" ColumnName="LMI_PAYER_IDENTIFIER" />
+                <ScalarProperty Name="LMI_SYS_PAYMENT_DATE" ColumnName="LMI_SYS_PAYMENT_DATE" />
+                <ScalarProperty Name="LMI_SYS_PAYMENT_ID" ColumnName="LMI_SYS_PAYMENT_ID" />
+                <ScalarProperty Name="LMI_PAYMENT_DESC" ColumnName="LMI_PAYMENT_DESC" />
+                <ScalarProperty Name="LMI_PAYMENT_SYSTEM" ColumnName="LMI_PAYMENT_SYSTEM" />
+                <ScalarProperty Name="LMI_MODE" ColumnName="LMI_MODE" />
+                <ScalarProperty Name="ObjectID" ColumnName="ObjectID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="PurchaseTypeID" ColumnName="PurchaseTypeID" />
+                <ScalarProperty Name="StateID" ColumnName="StateID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TransactionStates">
+            <EntityTypeMapping TypeName="XCarsModel.TransactionState">
+              <MappingFragment StoreEntitySet="TransactionState">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="XCarsModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="PhotoUrl" ColumnName="PhotoUrl" />
+                <ScalarProperty Name="CityID" ColumnName="CityID" />
+                <ScalarProperty Name="RegionID" ColumnName="RegionID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="LastSeen" ColumnName="LastSeen" />
+                <ScalarProperty Name="AuctionAgreement" ColumnName="AuctionAgreement" />
+                <ScalarProperty Name="Balance" ColumnName="Balance" />
+                <ScalarProperty Name="DateRegistered" ColumnName="DateRegistered" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="AspNetUserID" ColumnName="AspNetUserID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserConnections">
+            <EntityTypeMapping TypeName="XCarsModel.UserConnection">
+              <MappingFragment StoreEntitySet="UserConnection">
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="Connection" ColumnName="Connection" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AutoComfortManyToMany" TypeName="XCarsModel.AutoComfortManyToMany" StoreEntitySet="AutoComfortManyToMany">
+            <EndProperty Name="AutoComfort">
+              <ScalarProperty Name="ID" ColumnName="AutoComfortID" />
+            </EndProperty>
+            <EndProperty Name="Auto">
+              <ScalarProperty Name="ID" ColumnName="AutoID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="AutoMiscManyToMany" TypeName="XCarsModel.AutoMiscManyToMany" StoreEntitySet="AutoMiscManyToMany">
+            <EndProperty Name="AutoMisc">
+              <ScalarProperty Name="ID" ColumnName="AutoMiscID" />
+            </EndProperty>
+            <EndProperty Name="Auto">
+              <ScalarProperty Name="ID" ColumnName="AutoID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="AutoMultimediaManyToMany" TypeName="XCarsModel.AutoMultimediaManyToMany" StoreEntitySet="AutoMultimediaManyToMany">
+            <EndProperty Name="AutoMultimedia">
+              <ScalarProperty Name="ID" ColumnName="AutoMultimediaID" />
+            </EndProperty>
+            <EndProperty Name="Auto">
+              <ScalarProperty Name="ID" ColumnName="AutoID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="AutoSecurityManyToMany" TypeName="XCarsModel.AutoSecurityManyToMany" StoreEntitySet="AutoSecurityManyToMany">
+            <EndProperty Name="AutoSecurity">
+              <ScalarProperty Name="ID" ColumnName="AutoSecurityID" />
+            </EndProperty>
+            <EndProperty Name="Auto">
+              <ScalarProperty Name="ID" ColumnName="AutoID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="AutoStateManyToMany" TypeName="XCarsModel.AutoStateManyToMany" StoreEntitySet="AutoStateManyToMany">
+            <EndProperty Name="AutoState">
+              <ScalarProperty Name="ID" ColumnName="AutoStateID" />
+            </EndProperty>
+            <EndProperty Name="Auto">
+              <ScalarProperty Name="ID" ColumnName="AutoID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="UserRole" TypeName="XCarsModel.UserRole" StoreEntitySet="UserRole">
+            <EndProperty Name="User">
+              <ScalarProperty Name="ID" ColumnName="UserID" />
+            </EndProperty>
+            <EndProperty Name="Role">
+              <ScalarProperty Name="ID" ColumnName="RoleID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="AuctionPhotoes">
+            <EntityTypeMapping TypeName="XCarsModel.AuctionPhoto">
+              <MappingFragment StoreEntitySet="AuctionPhoto">
+                <ScalarProperty Name="IsMain" ColumnName="IsMain" />
+                <ScalarProperty Name="AuctionID" ColumnName="AuctionID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AuctionFavorites">
+            <EntityTypeMapping TypeName="XCarsModel.AuctionFavorite">
+              <MappingFragment StoreEntitySet="AuctionFavorite">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="AuctionID" ColumnName="AuctionID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Auctions">
+            <EntityTypeMapping TypeName="XCarsModel.Auction">
+              <MappingFragment StoreEntitySet="Auction">
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="Views" ColumnName="Views" />
+                <ScalarProperty Name="DeletionJobID" ColumnName="DeletionJobID" />
+                <ScalarProperty Name="CompletionJobID" ColumnName="CompletionJobID" />
+                <ScalarProperty Name="Deadline" ColumnName="Deadline" />
+                <ScalarProperty Name="DateStopped" ColumnName="DateStopped" />
+                <ScalarProperty Name="CurrencyID" ColumnName="CurrencyID" />
+                <ScalarProperty Name="PriceUAHSearch" ColumnName="PriceUAHSearch" />
+                <ScalarProperty Name="PriceUSDSearch" ColumnName="PriceUSDSearch" />
+                <ScalarProperty Name="CurrentPrice" ColumnName="CurrentPrice" />
+                <ScalarProperty Name="StartPrice" ColumnName="StartPrice" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="AutoID" ColumnName="AutoID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AuctionStatus">
+            <EntityTypeMapping TypeName="XCarsModel.AuctionStatu">
+              <MappingFragment StoreEntitySet="AuctionStatus">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

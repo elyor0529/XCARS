@@ -1,0 +1,229 @@
+﻿@model IEnumerable<XCars.Model.Auto>
+@using XCars.Resourses
+@using XCars.Helpers
+
+@{
+    ViewBag.Title = Resource.Advertisements;
+}
+
+@Html.Breadcrumbs(ViewBag.breadcrumbs as Dictionary<string, string>)
+
+<h2>@ViewBag.Title</h2>
+
+<div class="row">
+    <div class="col-sm-12">
+        @foreach (var item in Model)
+        {
+            <a href="/Auto/Details/@item.ID">@item.AutoMake.Name @item.AutoModel.Name, @item.YearOfIssue</a><br />
+        }
+    </div>
+</div>
+
+@*<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UserID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateCreated)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateUpdated)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateExpires)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StatusID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RegionID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TransportTypeID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BodyTypeID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MakeID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ModelID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.YearOfIssue)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Modification)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VINCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Probeg)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PriceUSD)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PriceUAH)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsExchangeAvailable)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsRastamojed)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TransmissionTypeID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DriveTypeID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NumberOfDoors)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NumberOfSeats)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ColorID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsColorMetallic)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FuelTypeID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FuelConsumptionCity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FuelConsumptionHighway)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FuelConsumptionMixed)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EngineCapacity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Power)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Views)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateCreated)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateUpdated)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateExpires)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StatusID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RegionID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TransportTypeID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BodyTypeID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MakeID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ModelID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.YearOfIssue)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Modification)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VINCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Probeg)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PriceUSD)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PriceUAH)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsExchangeAvailable)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsRastamojed)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TransmissionTypeID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DriveTypeID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NumberOfDoors)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NumberOfSeats)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ColorID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsColorMetallic)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FuelTypeID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FuelConsumptionCity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FuelConsumptionHighway)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FuelConsumptionMixed)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EngineCapacity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Power)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Views)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>*@

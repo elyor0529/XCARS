@@ -1,0 +1,6 @@
+﻿@model IEnumerable <XCars.ViewModels.AuctionShortInfoVM>
+
+@foreach (var item in Model)
+{
+    @Html.Partial("~/Views/AuctionCardPartial/_AuctionCardRelated.cshtml", item)
+}

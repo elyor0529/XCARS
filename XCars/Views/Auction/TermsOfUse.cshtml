@@ -1,0 +1,18 @@
+﻿@model XCars.ViewModels.ApplyTermOfUseOfAuctionVM
+
+@{
+    ViewBag.Title = "Terms of Use of Auction";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>Here will be some text.</p>
+
+@using (Html.BeginForm(null, null, new { id = ViewBag.auctionID }, FormMethod.Post))
+{
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    @Html.HiddenFor(model => model.AuctionID, new { @Value = ViewBag.auctionID })
+    @Html.CheckBoxFor(model => model.Agree)
+    <button type="submit" class="btn btn-primary">Принять</button>
+}

@@ -1,0 +1,178 @@
+﻿@model XCars.ViewModels.PersonalDataVM
+@using XCars.Resourses
+@using XCars.Helpers
+@using XCars.Common
+
+@{
+    ViewBag.Title = Resource.EditProfile;
+}
+
+@Html.Breadcrumbs(ViewBag.breadcrumbs as Dictionary<string, string>)
+
+<h2>@ViewBag.Title</h2>
+<hr />
+
+@if (ViewBag.success == true)
+{
+    <div class="alert alert-success alert-dismissable">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        @Resource.DataSaved
+    </div>
+}
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { @id = "personalDataForm", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ID)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PhotoSrc, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-2">
+                <input type="file" id="photoInput" name="photo" />
+                <img id="photoPreview" src="@XCars.Common.XCarsConfiguration.ClearGif" finalSrc="@Model.PhotoSrc" class="img-responsive img-thumbnail async"/>
+                <button type="button" id="deletePhotoBtn" class="btn btn-danger">@Resource.DeletePhoto</button>
+            </div>
+        </div>
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.RegionID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select class="form-control" id="RegionID" name="RegionID"></select>
+                @*@Html.DropDownListFor(model => model.RegionID, ViewBag.regions as List<SelectListItem>, Resource.Select, new { @class = "form-control" })*@
+                @Html.ValidationMessageFor(model => model.RegionID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CityID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*@if (Model.RegionID != 0)
+                {
+                    @Html.DropDownListFor(model => model.CityID, ViewBag.cities as List<SelectListItem>, Resource.Select, new { @class = "form-control" })
+                }
+                else
+                {
+                    @Html.DropDownListFor(model => model.CityID, new List<SelectListItem>(), Resource.Select, new { @class = "form-control" })
+                }*@
+                
+                <select class="form-control" id="CityID" name="CityID"></select>
+                @Html.ValidationMessageFor(model => model.CityID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*@{ 
+                    string phoneNumber = Model?.PhoneNumber ?? "";
+                    if (ViewBag.phoneNumber != null)
+                    { phoneNumber = ViewBag.phoneNumber; }
+                }*@
+                @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit" class="btn btn-default">@Resource.Save</button>
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink(Resource.Back, "Index", "MyAuto")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    
+    <script>
+        var selectStr = "@Resource.Select";
+
+        var personalDataVM = @Html.Raw(Json.Encode(Model));
+        console.log(personalDataVM);
+
+        $(document).ready(function () {
+            MakeAjaxGetRequest("/Region/GetAllAsSelectList", { selected: personalDataVM.RegionID }, "#RegionID");
+            if (personalDataVM.RegionID > 0)
+                MakeAjaxGetRequest("/City/GetAsSelectList", { regionID: personalDataVM.RegionID, selected: personalDataVM.CityID }, "#CityID");
+
+
+
+            //alert("asdf");
+            $("#photoInput").change(function () {
+                readURL(this, "#photoPreview");
+                //$("#deletePhotoBtn").css("display", "block");
+                PhotoChanged();
+            });
+
+            $("#deletePhotoBtn").click(function () {
+                $("#photoInput").val("");
+                $("#photoPreview").attr("src", "");
+                $("#photoPreview").attr("src", "/@XCarsConfiguration.UserNoPhotoUrl");
+                //$("#photoPreview").attr("src", "https://dic.academic.ru/pictures/wiki/files/77/Mitrohin_1914.jpg");
+                //$("#deletePhotoBtn").css("display", "none");
+                PhotoChanged();
+            });
+
+            $("select#RegionID").change(function () {
+                var targetSelector = "#CityID";
+                $(targetSelector).attr("disabled", "disabled");
+                var data = { regionID: $("#RegionID").val()};
+
+                if (data.regionID == "")
+                    $(targetSelector).html("");
+                else
+                    MakeAjaxGetRequest("/City/GetAsSelectList", data, targetSelector);
+            });
+        });
+
+        function readURL(input, previewContainerID) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $(previewContainerID).attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function PhotoChanged()
+        {
+            var html = "<input name='photoChanged' type='hidden' value='1' />";
+            $("form#personalDataForm").append(html);
+        }
+    </script>
+<script src="~/Scripts/custom/MakeAjaxGetRequest.js"></script>
+}

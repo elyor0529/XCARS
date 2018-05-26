@@ -1,0 +1,573 @@
+﻿@model XCars.ViewModels.ExtendedSearchVM
+@using XCars.Resourses
+@using XCars.ViewModels
+@using XCars.Helpers
+
+@{
+    ViewBag.Title = Resource.MyAdvertisements;
+    //Model.UserID = ViewBag.userID;
+    ExtendedSearchVM auctionSearchVM = ViewBag.auctionSearchVM as ExtendedSearchVM;
+}
+
+@Html.Partial("_BreadcrumbsPartial", ViewBag.breadcrumbs as Dictionary<string, string>)
+
+<div class="account_inner">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="account_choose_spec_acc">
+                    <button class="but_white but">@Resource.PrivatePerson</button>
+                    <button class="but_white but">@Resource.AutoDealer</button>
+                    <button class="but_white but">@Resource.AutoSalon</button>
+                    <button data-toggle="modal" data-target="#Modal_acc_newauto" class="but_lgreen pull-right but">@Resource.CreateAuto</button>
+                    <div class="clearfix"></div>
+                </div>
+
+                <div class="account_in_tabs">
+                    @Html.Partial("_CabinetTabs")
+
+                    <div class="tab-content">
+                        <div id="acc_myAds" class="tab-pane fade in active">
+                            <div class="account_filter">
+                                @using (Html.BeginForm())
+                                {
+                                    string active = "";
+                                    if (ViewBag.selectedStatusID == 0)
+                                    { active = "active"; }
+
+                                    @*<a class="status @active" data-statusID="" href="#">@Resource.All <strong>0</strong></a>*@
+                                    foreach (var item in ViewBag.statuses as List<SelectListItem>)
+                                    {
+                                        active = "";
+                                        if (int.Parse(item.Value) == ViewBag.selectedStatusID)
+                                        { active = "active"; }
+
+                                        <a class="status @active" data-statusID="@item.Value" href="#">@item.Text <strong>0</strong></a>
+                                    }
+                                    <div class="account_filter_search">
+                                        @*<form action="" method="post" class="account_search">*@
+                                        @Html.TextBoxFor(model => model.SearchText, new { @class = "input", placeholder = Resource.EnterSearchText })
+                                        <input type="submit" name="" value="" class="submit" />
+                                        @*</form>*@
+                                    </div>
+                                }
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="account_filter_more">
+                                <span class="choose_number_adds dropdown">
+                                    @Resource.Sort:
+                                    <a class="dropdown-toggle sortDropdown" data-toggle="dropdown" href="#" aria-expanded="false">
+                                        @Resource.SortUsual
+                                        <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="javascript:void(0);" value="0" onclick="SetTopFilter('acc_myAds SortID', 0, '#acc_myAds .sortDropdown', '@Resource.SortUsual')">@Resource.SortUsual</a></li>
+                                        <li><a href="javascript:void(0);" value="1" onclick="SetTopFilter('acc_myAds SortID', 1, '#acc_myAds .sortDropdown', '@Resource.SortChEx')">@Resource.SortChEx</a></li>
+                                        <li><a href="javascript:void(0);" value="2" onclick="SetTopFilter('acc_myAds SortID', 2, '#acc_myAds .sortDropdown', '@Resource.SortExCh')">@Resource.SortExCh</a></li>
+                                    </ul>
+                                </span>
+                                <span class="choose_number_adds dropdown">
+                                    @Resource.SortByMake:
+                                    <a class="dropdown-toggle makeSortDropdown" data-toggle="dropdown" href="#" aria-expanded="false">
+                                        @Resource.All
+                                        <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="javascript:void(0);" value="0" onclick="SetTopFilter('acc_myAds MakeSortID', 0, '#acc_myAds .makeSortDropdown', '@Resource.All')">@Resource.All</a></li>
+                                        <li><a href="javascript:void(0);" value="1" onclick="SetTopFilter('acc_myAds MakeSortID', 1, '#acc_myAds .makeSortDropdown', '@Resource.SortAZ')">@Resource.SortAZ</a></li>
+                                        <li><a href="javascript:void(0);" value="2" onclick="SetTopFilter('acc_myAds MakeSortID', 2, '#acc_myAds .makeSortDropdown', '@Resource.SortZA')">@Resource.SortZA</a></li>
+                                    </ul>
+                                </span>
+                                <span class="choose_number_adds dropdown">
+                                    @Resource.SortByModel:
+                                    <a class="dropdown-toggle modelSortDropdown" data-toggle="dropdown" href="#" aria-expanded="false">
+                                        @Resource.All
+                                        <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="javascript:void(0);" value="0" onclick="SetTopFilter('acc_myAds ModelSortID', 0, '#acc_myAds .modelSortDropdown', '@Resource.All')">@Resource.All</a></li>
+                                        <li><a href="javascript:void(0);" value="1" onclick="SetTopFilter('acc_myAds ModelSortID', 1, '#acc_myAds .modelSortDropdown', '@Resource.SortAZ')">@Resource.SortAZ</a></li>
+                                        <li><a href="javascript:void(0);" value="2" onclick="SetTopFilter('acc_myAds ModelSortID', 2, '#acc_myAds .modelSortDropdown', '@Resource.SortZA')">@Resource.SortZA</a></li>
+                                    </ul>
+                                </span>
+                                <span class="choose_number_adds low_width dropdown">
+                                    @Resource.Year:
+                                    <a class="dropdown-toggle yearSortDropdown" data-toggle="dropdown" href="#" aria-expanded="false">
+                                        @Resource.All
+                                        <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="javascript:void(0);" value="0" onclick="SetTopFilter('acc_myAds YearSortID', 0, '#acc_myAds .yearSortDropdown', '@Resource.All')">@Resource.All</a></li>
+                                        <li><a href="javascript:void(0);" value="1" onclick="SetTopFilter('acc_myAds YearSortID', 1, '#acc_myAds .yearSortDropdown', '@Resource.SortAscending')">@Resource.SortAscending</a></li>
+                                        <li><a href="javascript:void(0);" value="2" onclick="SetTopFilter('acc_myAds YearSortID', 2, '#acc_myAds .yearSortDropdown', '@Resource.SortDescending')">@Resource.SortDescending</a></li>
+                                    </ul>
+                                </span>
+                                <span class="choose_number_adds low_width dropdown">
+                                    @Resource.AdsNumber:
+                                    <a class="dropdown-toggle lengthDropdown" data-toggle="dropdown" href="#">
+                                        10
+                                        <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="javascript:void(0);" value="10" onclick="SetTopFilter('acc_myAds length', 10, '#acc_myAds .lengthDropdown', '10')">10</a></li>
+                                        <li><a href="javascript:void(0);" value="20" onclick="SetTopFilter('acc_myAds length', 20, '#acc_myAds .lengthDropdown', '20')">20</a></li>
+                                        <li><a href="javascript:void(0);" value="50" onclick="SetTopFilter('acc_myAds length', 50, '#acc_myAds .lengthDropdown', '50')">50</a></li>
+                                        <li><a href="javascript:void(0);" value="100" onclick="SetTopFilter('acc_myAds length', 100, '#acc_myAds .lengthDropdown', '100')">100</a></li>
+                                    </ul>
+                                </span>
+                            </div>
+                            <table id="autosList" style="width: 100%">
+                                <thead><tr><th class="col-xs-12"></th></tr></thead>
+                            </table>
+                        </div>
+                        <div id="acc_myAuc" class="tab-pane fade">
+                            <div class="account_filter">
+                                @using (Html.BeginForm())
+                                {
+                                    int i = 0;
+                                    foreach (var item in ViewBag.auctionStatuses as List<SelectListItem>)
+                                    {
+                                        string active = "";
+                                        if (i == 0)
+                                        { active = "active"; }
+
+                                        <a class="status @active" data-statusID="@item.Value" href="#">@item.Text <strong>0</strong></a>
+
+                                        i++;
+                                    }
+                                    <div class="account_filter_search">
+                                        <input type="text" id="SearchText" name="SearchText" class="input" placeholder="@Resource.EnterSearchText" />
+                                        <input type="submit" name="" value="" class="submit" />
+                                    </div>
+                                }
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="account_filter_more">
+                                <span class="choose_number_adds dropdown">
+                                    @Resource.Sort:
+                                    <a class="dropdown-toggle sortDropdown" data-toggle="dropdown" href="#" aria-expanded="false">
+                                        @Resource.SortUsual
+                                        <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="javascript:void(0);" value="0" onclick="SetTopFilter('acc_myAuc SortID', 0, '#acc_myAuc .sortDropdown', '@Resource.SortUsual')">@Resource.SortUsual</a></li>
+                                        <li><a href="javascript:void(0);" value="1" onclick="SetTopFilter('acc_myAuc SortID', 1, '#acc_myAuc .sortDropdown', '@Resource.SortChEx')">@Resource.SortChEx</a></li>
+                                        <li><a href="javascript:void(0);" value="2" onclick="SetTopFilter('acc_myAuc SortID', 2, '#acc_myAuc .sortDropdown', '@Resource.SortExCh')">@Resource.SortExCh</a></li>
+                                    </ul>
+                                </span>
+                                <span class="choose_number_adds dropdown">
+                                    @Resource.SortByMake:
+                                    <a class="dropdown-toggle makeSortDropdown" data-toggle="dropdown" href="#" aria-expanded="false">
+                                        @Resource.All
+                                        <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="javascript:void(0);" value="0" onclick="SetTopFilter('acc_myAuc MakeSortID', 0, '#acc_myAuc .makeSortDropdown', '@Resource.All')">@Resource.All</a></li>
+                                        <li><a href="javascript:void(0);" value="1" onclick="SetTopFilter('acc_myAuc MakeSortID', 1, '#acc_myAuc .makeSortDropdown', '@Resource.SortAZ')">@Resource.SortAZ</a></li>
+                                        <li><a href="javascript:void(0);" value="2" onclick="SetTopFilter('acc_myAuc MakeSortID', 2, '#acc_myAuc .makeSortDropdown', '@Resource.SortZA')">@Resource.SortZA</a></li>
+                                    </ul>
+                                </span>
+                                <span class="choose_number_adds dropdown">
+                                    @Resource.SortByModel:
+                                    <a class="dropdown-toggle modelSortDropdown" data-toggle="dropdown" href="#" aria-expanded="false">
+                                        @Resource.All
+                                        <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="javascript:void(0);" value="0" onclick="SetTopFilter('acc_myAuc ModelSortID', 0, '#acc_myAuc .modelSortDropdown', '@Resource.All')">@Resource.All</a></li>
+                                        <li><a href="javascript:void(0);" value="1" onclick="SetTopFilter('acc_myAuc ModelSortID', 1, '#acc_myAuc .modelSortDropdown', '@Resource.SortAZ')">@Resource.SortAZ</a></li>
+                                        <li><a href="javascript:void(0);" value="2" onclick="SetTopFilter('acc_myAuc ModelSortID', 2, '#acc_myAuc .modelSortDropdown', '@Resource.SortZA')">@Resource.SortZA</a></li>
+                                    </ul>
+                                </span>
+                                <span class="choose_number_adds low_width dropdown">
+                                    @Resource.Year:
+                                    <a class="dropdown-toggle yearSortDropdown" data-toggle="dropdown" href="#" aria-expanded="false">
+                                        @Resource.All
+                                        <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="javascript:void(0);" value="0" onclick="SetTopFilter('acc_myAuc YearSortID', 0, '#acc_myAuc .yearSortDropdown', '@Resource.All')">@Resource.All</a></li>
+                                        <li><a href="javascript:void(0);" value="1" onclick="SetTopFilter('acc_myAuc YearSortID', 1, '#acc_myAuc .yearSortDropdown', '@Resource.SortAscending')">@Resource.SortAscending</a></li>
+                                        <li><a href="javascript:void(0);" value="2" onclick="SetTopFilter('acc_myAuc YearSortID', 2, '#acc_myAuc .yearSortDropdown', '@Resource.SortDescending')">@Resource.SortDescending</a></li>
+                                    </ul>
+                                </span>
+                                <span class="choose_number_adds low_width dropdown">
+                                    @Resource.AdsNumber:
+                                    <a class="dropdown-toggle lengthDropdown" data-toggle="dropdown" href="#">
+                                        10
+                                        <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="javascript:void(0);" value="10" onclick="SetTopFilter('acc_myAuc length', 10, '#acc_myAuc .lengthDropdown', '10')">10</a></li>
+                                        <li><a href="javascript:void(0);" value="20" onclick="SetTopFilter('acc_myAuc length', 20, '#acc_myAuc .lengthDropdown', '20')">20</a></li>
+                                        <li><a href="javascript:void(0);" value="50" onclick="SetTopFilter('acc_myAuc length', 50, '#acc_myAuc .lengthDropdown', '50')">50</a></li>
+                                        <li><a href="javascript:void(0);" value="100" onclick="SetTopFilter('acc_myAuc length', 100, '#acc_myAuc .lengthDropdown', '100')">100</a></li>
+                                    </ul>
+                                </span>
+                            </div>
+                            <table id="auctionsList" style="width: 100%">
+                                <thead><tr><th class="col-xs-12"></th></tr></thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                @Html.Partial("_CabinetUserInfoSidebar", ViewBag.userVM as XCars.ViewModels.UserShortVM)
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="Modal_acc_newauto" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">@Resource.CreateAdvertisement</h4>
+                <a class="but_purple but" href="/MyAuto/AddMainInfo">@Resource.CreateNewAuto</a> <a class="but_purple but" href="/MyAuto/AddMainInfo">@Resource.CreateOldAuto</a>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<link href="~/Scripts/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />*@
+@section Scripts {
+    <script src="~/Scripts/DataTables/datatables.min.js"></script>
+    <link href="~/Scripts/DataTables/datatables.min.css" rel="stylesheet" />
+
+    @*<script src="~/Scripts/bootstrap-datetimepicker/js/moment-with-locales.min.js"></script>
+    <script src="~/Scripts/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>*@
+
+    <script>
+        //autos
+        var searchVM = @Html.Raw(Json.Encode(Model));
+        var tableAutos;
+
+        $(document).ready(function () {
+            $("form").submit(function () {
+                return false;
+            });
+
+            //console.log(searchVM);
+            tableAutos = $('#autosList').DataTable({
+                searching: false,
+                ordering: false,
+                processing: true,
+                serverSide: true,
+                lengthChange: false,
+                pagingType: "simple_numbers",
+                language: {
+                    infoFiltered: " ",
+                    info: " ",
+                    processing: "@Resource.Loading...",
+                    zeroRecords: " ",
+                    infoEmpty: " ",
+                    paginate: {
+                        previous: " ",
+                        next: " ",
+                    }
+                },
+                ajax:
+                {
+                    url: "/SearchAuto/GetAutosFromElastic",
+                    type: "POST",
+                    contentType: "application/json",
+                    data: function (d) {
+                        //console.log(searchVM);
+                        d.modelVM = searchVM;
+                        return JSON.stringify(d);
+                    },
+                    complete: function () {
+                        $('.acc_edit_ads').hover(function(){     
+                            $( this ).parents('.account_single_ads').addClass('edit_hover');    
+                        },     
+			            function(){    
+			                $(this).parents('.account_single_ads').removeClass('edit_hover');     
+			            });
+
+                        StartLoadingImagesAsync();
+                    }
+                },
+                "lengthMenu": [[5, 50, 100], [5, 50, 100]]
+            });
+
+            $('#autosList').on( 'draw.dt', function () {
+                //alert( 'Table redrawn' );
+                RestylePaginationAutos();
+            });
+
+            $("#acc_myAds .status").click(function () {
+                //alert($(this).data("statusid"));
+                if ($(this).hasClass("active"))
+                    return;
+
+                $("#acc_myAds .status").removeClass("active");
+                $(this).addClass("active");
+                searchVM.StatusID = $(this).data("statusid");
+
+                tableAutos.draw();
+                return false;
+            });
+
+            $("#acc_myAds #SearchText").keyup(function (e) {
+                if (e.which == 32)
+                    return;
+
+                searchVM.SearchText = $(this).val();
+                tableAutos.draw();
+            });
+
+            //after page loaded, get number of autos for each status
+            $.ajax({
+                type: "GET",
+                url: "/AutoStatistics/GetUserAutosNumberGroupedByStatus",
+                //data:
+                contentType: "application/json; charset=utf-8",
+                //dataType: "json",
+                success: function (data) {
+                    //console.log(data);
+                    var statuses = data.result;
+                    var sum = 0;
+                    for (var i = 0; i < statuses.length; i++) {
+                        $("#acc_myAds a[data-statusID=" + statuses[i].StatusID + "]").children("strong").text(statuses[i].AutosNumber);
+                        sum += statuses[i].AutosNumber;
+                    }
+                    //$("a[data-statusID='']").children("strong").text(sum);
+                },
+                error: function (data) {
+                    //alert("Error: " + data);
+                }
+            });
+        });
+
+        function RestylePaginationAutos()
+        {
+            $("#acc_myAds ul.pagination").parent().parent().css("display", "inherit");
+
+            $("#auctionsList").parent().parent().next().children(".col-sm-5").remove();
+            $("#auctionsList").parent().parent().next().children(".col-sm-7").removeClass("col-sm-7").addClass("col-sm-12");
+            $("#acc_myAds .pagination").parent().addClass("pag_wrap");
+            $("#acc_myAds .pagination > .previous").addClass("pag_prev").children().text("");
+            $("#acc_myAds .pagination > .next").addClass("pag_next").children().text("");
+            $("#acc_myAds li[id *= ellipsis]").addClass("pag_more");
+
+            if ($("#acc_myAds ul.pagination").children().length <= 3)
+                $("#acc_myAds ul.pagination").parent().parent().css("display", "none");
+        }
+    </script>
+
+    <style>
+        div.dataTables_wrapper div.dataTables_paginate
+        {
+            text-align: center;
+            margin: 0 auto;
+        }
+    </style>
+
+    <script>
+        //auctions
+        var auctionSearchVM = @Html.Raw(Json.Encode(auctionSearchVM));
+        var tableAuctions;
+
+        $(document).ready(function () {
+            //$("form").submit(function () {
+            //    return false;
+            //});
+
+            //console.log(auctionSearchVM);
+            tableAuctions = $('#auctionsList').DataTable({
+                searching: false,
+                ordering: false,
+                processing: true,
+                serverSide: true,
+                lengthChange: false,
+                pagingType: "simple_numbers",
+                language: {
+                    infoFiltered: " ",
+                    info: " ",
+                    processing: "@Resource.Loading...",
+                    zeroRecords: " ",
+                    infoEmpty: " ",
+                    paginate: {
+                        previous: " ",
+                        next: " ",
+                    }
+                },
+                ajax:
+                {
+                    //url: "/SearchAuction/GetAuctionsFromElastic",
+                    url: "/SearchAuto/GetAutosFromElastic",
+                    type: "POST",
+                    contentType: "application/json",
+                    data: function (d) {
+                        //console.log(auctionSearchVM);
+                        d.modelVM = auctionSearchVM;
+                        return JSON.stringify(d);
+                    },
+                    complete: function () {
+                        $('.acc_edit_ads').hover(function(){
+                            $( this ).parents('.account_single_ads').addClass('edit_hover');
+                        },
+			            function(){
+			                $(this).parents('.account_single_ads').removeClass('edit_hover');
+			            });
+
+                        StartLoadingImagesAsync();
+                    }
+                },
+                "lengthMenu": [[5, 50, 100], [5, 50, 100]]
+            });
+
+            $('#auctionsList').on( 'draw.dt', function () {
+                //alert( 'Table redrawn' );
+                RestylePaginationAuctions();
+            });
+
+
+
+            $("#acc_myAuc .status").click(function () {
+                if ($(this).hasClass("active"))
+                    return;
+
+                $("#acc_myAuc .status").removeClass("active");
+                $(this).addClass("active");
+                auctionSearchVM.StatusID = $(this).data("statusid");
+
+                tableAuctions.draw();
+                return false;
+            });
+
+            $("#acc_myAuc #SearchText").keyup(function (e) {
+                if (e.which == 32)
+                    return;
+
+                auctionSearchVM.SearchText = $(this).val();
+                tableAuctions.draw();
+            });
+
+            //after page loaded, get number of auctions for each status
+            $.ajax({
+                type: "GET",
+                url: "/AuctionStatistics/GetUserAuctionsNumberGroupedByStatus",
+                //data:
+                contentType: "application/json; charset=utf-8",
+                //dataType: "json",
+                success: function (data) {
+                    //console.log(data);
+                    var statuses = data.result;
+                    var sum = 0;
+                    for (var i = 0; i < statuses.length; i++) {
+                        $("#acc_myAuc a[data-statusID=" + statuses[i].StatusID + "]").children("strong").text(statuses[i].AuctionsNumber);
+                        sum += statuses[i].AuctionsNumber;
+                    }
+                },
+                error: function (data) {
+                    //alert("Error: " + data);
+                }
+            });
+
+            $("#finishAuctionBtn").click(function () {
+
+            });
+        });
+
+        function RestylePaginationAuctions()
+        {
+            $("#acc_myAuc ul.pagination").parent().parent().css("display", "inherit");
+
+            $("#auctionsList").parent().parent().next().children(".col-sm-5").remove();
+            $("#auctionsList").parent().parent().next().children(".col-sm-7").removeClass("col-sm-7").addClass("col-sm-12");
+            $("#acc_myAuc .pagination").parent().addClass("pag_wrap");
+            $("#acc_myAuc .pagination > .previous").addClass("pag_prev").children().text("");
+            $("#acc_myAuc .pagination > .next").addClass("pag_next").children().text("");
+            $("#acc_myAuc li[id *= ellipsis]").addClass("pag_more");
+
+            if ($("#acc_myAuc ul.pagination").children().length <= 3)
+                $("#acc_myAuc ul.pagination").parent().parent().css("display", "none");
+        }
+
+        //AUCTION_HUB
+        var auction = $.connection.auctionHub;
+
+        function FinishAuctionManually(auctionID)
+        {
+            $("#finishAuctionBtn_" + auctionID).addClass("disabled").text("@Resource.Finished");
+
+            auction.server.finishAuction(@ViewBag.userID, auctionID);
+
+            $.ajax({
+                type: "POST",
+                url: "/MyAuction/FinishManually",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({
+                    id: auctionID
+                }),
+                //dataType: "json",
+                success: function (data) {
+                    //console.log(data);
+                },
+                error: function (data) {
+                    //alert("error: " + data);
+                }
+            });
+        }
+    </script>
+
+    <script>
+        function SetTopFilter(targetInput, value, targetDropdown, text)//'#SortID', 0, '#sortDropdown', 'Обычная'
+        {
+            console.log(searchVM);
+            console.log(targetInput, value, targetDropdown);
+            $(targetDropdown).html(text + "<span class='caret'></span>");
+            var targetInput = targetInput.split(' ')[1];
+            if (targetInput == "SortID")
+            {
+                if (targetDropdown.indexOf("acc_myAds") !== -1)
+                    searchVM.SortID = value;
+                else
+                    auctionSearchVM.SortID = value;
+            }
+            else if (targetInput == "MakeSortID")
+            {
+                if (targetDropdown.indexOf("acc_myAds") !== -1)
+                    searchVM.MakeSortID = value;
+                else
+                    auctionSearchVM.MakeSortID = value;
+            }
+            else if (targetInput == "ModelSortID")
+            {
+                if (targetDropdown.indexOf("acc_myAds") !== -1)
+                    searchVM.ModelSortID = value;
+                else
+                    auctionSearchVM.ModelSortID = value;
+            }
+            else if (targetInput == "YearSortID")
+            {
+                if (targetDropdown.indexOf("acc_myAds") !== -1)
+                    searchVM.YearSortID = value;
+                else
+                    auctionSearchVM.YearSortID = value;
+            }
+            else if (targetInput.indexOf("length") !== -1)
+            {
+                if (targetDropdown.indexOf("acc_myAds") !== -1)
+                    tableAutos.page.len(value);
+                else
+                    tableAuctions.page.len(value);
+            }
+
+            console.log(searchVM);
+            
+            if (targetDropdown.indexOf("acc_myAds") !== -1)
+                tableAutos.draw();
+            else
+                tableAuctions.draw();
+        }
+    </script>
+
+    <script src="~/Scripts/custom/MakeAjaxGetRequest.js"></script>
+}

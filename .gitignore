@@ -1,0 +1,12 @@
+obj
+bin
+*.userprefs
+*.user
+*.jfm
+*.pubxml
+.vs/config/applicationhost.config
+.vs/XCars/v14/.suo
+packages/
+XCARS/XCars/App_Data/
+*.log
+*.*.dbmdl

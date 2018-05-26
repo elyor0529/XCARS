@@ -1,0 +1,95 @@
+﻿@using XCars.Resourses
+@using XCars.ViewModels
+
+@{
+    ViewBag.Title = "Ошибка 404";
+    ExtendedSearchVM searchVM = new ExtendedSearchVM();
+    ExtendedSearchVM auctionSearchVM = new ExtendedSearchVM() { Type = "auction" };
+}
+
+<div class="error_page">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5">
+                <div class="error_page_left">
+                    <span class="very_big">404</span>
+                    <span>@Resource.PageNotFound</span>
+                </div>
+            </div>
+            <div class="col-md-7">
+                <div class="error_page_right">
+                    <b>@Resource.PossibleReasons</b><br />
+                    @Resource.WrongURLCheckIt<br />
+                    @Resource.PageNotExist<br />
+                    @Resource.PageIsDeleted<br /><br />
+                    @Resource.YouMayGoTo<a href="/">@Resource.ToMainPage</a> или <a href="/wsearch">@Resource.UseSearch</a>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="horizontal-adv">
+                    <a href="#">
+                        <img src="~/Content/images/samples/ads.jpg" alt="XCars">
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-12">
+
+                <h2>Популярные объявления</h2><a href="/Auto">Все объявления </a>
+                                              <div class="home_ads_in_others ads_in_four_per_row">
+                                                  <div class="home_ads_in_others2" id="more_top_ads"></div>
+
+                                              </div>
+                    </div>
+
+
+
+
+
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script>
+        
+
+
+
+        $(document).ready(function () {
+           
+            //load TOP autos
+            var searchVM = @Html.Raw(Json.Encode(searchVM));
+            $.ajax({
+                type: "POST",
+                url: "/SearchAuto/GetAutosFromElastic",
+                data: JSON.stringify({
+                    draw: 1,
+                    start: 0,
+                    length: 4,
+                    modelVM: searchVM,
+                    forErrorPage: true
+                }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    
+                    if (data.data.length > 0)
+                    {
+                                               
+                        $("#more_top_ads").append(data.data[0]);
+                       
+                        StartLoadingImagesAsync();
+                        
+                    }
+                },
+                error: function (data) {
+                    //alert("Error: " + data);
+                }
+            });
+        });
+
+    </script>
+    <script src="~/Scripts/custom/SimplifiedSearchFormScript.js"></script>
+    <script src="~/Scripts/custom/MakeAjaxGetRequest.js"></script>
+}

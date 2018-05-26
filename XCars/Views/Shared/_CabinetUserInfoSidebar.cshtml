@@ -1,0 +1,65 @@
+﻿@model XCars.ViewModels.UserShortVM
+@using XCars.Resourses
+@*@using XCars.Common
+
+@{
+    string photoSrc = XCarsConfiguration.BucketEndpoint + XCarsConfiguration.BucketName + "/" + XCarsConfiguration.UserPhotosUploadUrl + (Model.Photo.ID != 0 ? (Model.Photo.ID + "_272x179") : XCarsConfiguration.AutoNoPhotoName) + XCarsConfiguration.PhotoExtension;
+}*@
+
+<div class="acc_personal_inf">
+    @*<img width="200" class="img-circle async" title="@Model.Name" alt="@Model.Name" src="@XCars.Common.XCarsConfiguration.ClearGif" finalSrc="@Model.PhotoSrc">*@
+    <img width="200" class="img-circle" title="@Model.Name" alt="@Model.Name" src="@Model.PhotoSrc">
+    <span class="acc_name">@Model.Name</span>
+    <span class="acc_balance">@Resource.Balance:  <strong>@Model.Balance @Resource.uah</strong></span> <span class="acc_gam"><a href="#">+</a></span>
+</div>
+<div class="acc_personal_more_inf">
+    <span>@Html.DisplayNameFor(model => model.Email): </span><strong>@Html.DisplayFor(model => model.Email)</strong>
+    <span>@Html.DisplayNameFor(model => model.DateRegistered): </span><strong>@Html.DisplayFor(model => model.DateRegistered)</strong>
+    @if (!string.IsNullOrWhiteSpace(Model.Region))
+    {
+        <span>@Html.DisplayNameFor(model => model.Region): </span><strong>@Html.DisplayFor(model => model.Region)</strong>
+    }
+    @if (!string.IsNullOrWhiteSpace(Model.Contacts))
+    {
+        <span>@Html.DisplayNameFor(model => model.Contacts): </span><strong>@Html.DisplayFor(model => model.Contacts)</strong>
+    }
+    
+    <a href="/MyProfile/Edit">@Resource.EditProfile</a>
+</div>
+
+<div class="acc_personal_more_create">
+    <h5>@Resource.EmCarServices</h5>
+    <div class="acc_personal_more_create_single autobuy">
+        <a href="#">
+            <i></i>
+            @Html.Raw(Server.HtmlDecode(Resource.CreateAutoBuyback))
+        </a>
+    </div>
+    <div class="acc_personal_more_create_single autodil">
+        <a href="#">
+            <i></i>
+            @Html.Raw(Server.HtmlDecode(Resource.CreateAutoDealer))
+        </a>
+    </div>
+    <div class="acc_personal_more_create_single autosto">
+        <a href="#">
+            <i></i>
+            @Html.Raw(Server.HtmlDecode(Resource.CreateServiceStation))
+        </a>
+    </div>
+    <div class="acc_personal_more_create_single autowash">
+        <a href="#">
+            <i></i>
+            @Html.Raw(Server.HtmlDecode(Resource.CreateAutoWashService))
+        </a>
+    </div>
+    <div class="clearfix"></div>
+</div>
+
+<div class="have_questions">
+    <p>
+        @Resource.AnyQuestions<br />
+        @Resource.ContactHelpDesk
+    </p>
+    <a class="but_purple but" href="#">@Resource.AskAQuestion</a>
+</div>

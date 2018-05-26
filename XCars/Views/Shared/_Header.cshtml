@@ -1,0 +1,92 @@
+﻿@using Microsoft.AspNet.Identity
+@using XCars.Model
+@using XCars.Resourses
+@using XCars.ViewModels
+@using XCars.Resourses
+@using XCars.Helpers
+@using XCars.Service.Interfaces
+@using XCars.Common
+@{
+    IUserService userService = DependencyResolver.Current.GetService<IUserService>();
+    var currentUser = userService.GetCurrentUser();
+    UserShortVM userVM;
+    if (User.Identity.IsAuthenticated)
+    { userVM = currentUser; }
+    else
+    { userVM = null; }
+}
+<header>
+    <div class="container">
+        <div class="row">
+            <nav class="navbar">
+                <div class="container-fluid">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="/"></a>
+                    </div>
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>@Html.ActionLink(Resource.Autos, "Index", "Auto")</li>
+                            <li>@Html.ActionLink(Resource.Auctions, "Index", "Auction")</li>
+                            <li>@Html.ActionLink(Resource.News, "Index", "Home")</li>
+                            <li>@Html.ActionLink(Resource.AboutUs, "About", "Home")</li>
+                            <li>@Html.ActionLink(Resource.Contacts, "Contact", "Home")</li>
+
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <li><a class="but_lgreen but" href="/MyAuto/AddMainInfo">@Resource.AddAdvertisement</a></li>
+                            }
+                            else
+                            {
+                                <li><a class="but_lgreen but" data-toggle="modal" data-target="#Modal_login" href="#">@Resource.AddAdvertisement</a></li>
+                            }
+
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                @*<li>
+                                   
+                                    <a class="but_purple but" href="javascript:document.getElementById('logoutForm').submit()">@Resource.LogOut</a>
+                                </li>*@
+                                <li class="dropdown"><a class="dropdown-toggle login_user" data-toggle="dropdown" href="#">
+                                    @*@{ 
+                                        string imgSrc = $"{XCarsConfiguration.BucketEndpoint}" + $"{XCarsConfiguration.BucketName}/" + currentUser.PhotoUrl;
+                                    }
+                                    <img width="35" class="img-circle pull-left" title="@currentUser.Name" alt="@currentUser.Name" src="@imgSrc">*@
+                                    <img width="35" class="img-circle pull-left" title="@userVM.Name" alt="@userVM.Name" src="@userVM.PhotoSrc">
+                                    <div class="saller_name"><span>@userVM.FirstName</span></div>
+                                        <ul class="dropdown-menu">
+                                            <li>@Html.ActionLink(Resource.MyCabinet, "Index", "MyAuto")<a href="#"></a></li>
+                                            <li>
+                                                @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm"}))
+                                                {
+                                                    @Html.AntiForgeryToken()
+                                                }
+                                                <a href="javascript:document.getElementById('logoutForm').submit()">@Resource.LogOut</a>
+                                            </li>
+                                        </ul>
+							
+                                    </a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li><a class="but_purple but mod_to_login" data-toggle="modal" data-target="#Modal_login" href="#">@Resource.LogIn</a></li>
+                            }
+                        </ul>
+                    </div><!-- /.navbar-collapse -->
+                </div><!-- /.container-fluid -->
+            </nav>
+        </div>
+    </div>
+</header>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

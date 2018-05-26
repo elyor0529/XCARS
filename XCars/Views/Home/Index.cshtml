@@ -1,0 +1,304 @@
+﻿@using XCars.Resourses
+@using XCars.ViewModels
+
+@{
+    ViewBag.Title = "Home Page";
+    ExtendedSearchVM searchVM = new ExtendedSearchVM();
+    ExtendedSearchVM auctionSearchVM = new ExtendedSearchVM() { Type = "auction" };
+}
+
+<div id="home_after_head">
+    <div class="container darkblue">
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <h1>@Resource.HomePageSlogan</h1>
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <div class="home_af au">
+                    <a href="#">
+                        <span>+95</span>
+                        <span>@Resource.NewAuctionsCount</span>
+                    </a>
+                </div>
+                <div class="home_af">
+                    <a href="#">
+                        <span>+@ViewBag.autosCountAddedToday</span>
+                        <span>@Resource.NewAdvertisementsCount</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="home_search_form_wrap">
+                @Html.Partial("~/Views/SearchAuto/_SimplifiedSearchFormPartial.cshtml")
+                <div class="home_search_form_baner">
+                    <img height="250" width="300" src="~/Content/images/samples/ads-squere.jpg" alt="XCars">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 home_auctions topAuctions">
+            <h2>@Resource.TopAuctions</h2><a href="/Auction">@Resource.AllAuctions</a>
+            <div class="home_ads_in">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 home_auctions">
+            <div class="horizontal-adv">
+                <a href="#">
+                    <img src="~/Content/images/samples/ads.jpg" alt="XCars">
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 home_auctions home_ads topAutos">
+            <h2>@Resource.TopAutos</h2><a href="#">@Resource.AllAutos</a>
+            <div class="home_ads_in">
+            </div>
+        </div>
+    </div>
+</div>
+<div id="home_news">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>@Resource.News</h2><a href="#">@Resource.AllNews</a>
+            </div>
+        </div>
+        <div class="row news_in">
+            <div class="col-md-3 col-sm-6">
+                <a href="#">
+                    <img height="193" title="" src="~/Content/images/samples/main_news1.jpg">
+                    <time>29.11.2017</time>
+                    <p>Официально: водительские права на 2 года и до двух нарушений. Кабмин изменил законодательство.</p>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <a href="#">
+                    <img height="193" title="" src="~/Content/images/samples/main_news2.jpg">
+                    <time>29.11.2017</time>
+                    <p>Компания Opel провела испытания нового поколения компактного внедорожного автомобиля Mokka X.</p>
+                </a>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <ul>
+                    <li><a href="#"><time>29.11.2017</time>Видеорегистратор может стать обязательным атрибутом автомобиля</a></li>
+                    <li><a href="#"><time>29.11.2017</time>Наиболее миниатюрный автомобиль Jaguar показал лучший результат на Нюрбургринге</a></li>
+                    <li><a href="#"><time>29.11.2017</time>Дебютировал внедорожный флагман Subaru Ascent</a></li>
+                    <li><a href="#"><time>29.11.2017</time>Добро пожаловать в салон нового Mercedes-Benz A-Class</a></li>
+                    <li><a href="#"><time>29.11.2017</time>В Лос-Анджелесе показали самый большой Subaru в истории</a></li>
+                    <li><a href="#"><time>29.11.2017</time>20-летнюю Волгу оценили как новый Renault Duster</a></li>
+                    <li><a href="#"><time>29.11.2017</time>Fiat Cronos рассекретился раньше времени</a></li>
+                    <li><a href="#"><time>29.11.2017</time>Subaru представила преемника Tribeca</a></li>
+                    <li><a href="#"><time>29.11.2017</time>«Фалькон-Авто» раскрывает стоимость новой версии субкомпактного кроссовера Kia Stonic</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="home_autofilter">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<h2>@Resource.CatalogOfAllAutos</h2>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="primary-catalog auto-catalog">
+					<ul>
+						<li>
+							<a class="ads-label" href="#"><span class="line">@Resource.ViewAllMakes </span>
+							<span class="count">200 330</span></a>
+						</li>
+						<li>
+							<a class="ads-label" href="#"><span class="line">@Resource.ViewAllYears </span>
+							<span class="count">200 330</span></a>
+						</li>
+						<li>
+							<a class="ads-label" href="#"><span class="line">@Resource.CatalogOfMotorAutos </span>
+							<span class="count">200 330</span></a>
+						</li>
+						<li>
+							<a class="ads-label" href="#"><span class="line">@Resource.CatalogOfMotorAutos </span>
+							<span class="count">200 330</span></a>
+						</li>
+						<li>
+							<a class="ads-label" href="#"><span class="line">@Resource.CatalogOfWaterAutos</span>
+							<span class="count">200 330</span></a>
+						</li>
+						<li>
+							<a class="ads-label" href="#"><span class="line">@Resource.CatalogOfSpecialAutos </span>
+							<span class="count">200 330</span></a>
+						</li>
+						<li>
+							<a class="ads-label" href="#"><span class="line">@Resource.CatalogOfBusAutos </span>
+							<span class="count">200 330</span></a>
+						</li>
+						<li>
+							<a class="ads-label" href="#"><span class="line">@Resource.CatalogOfTruckAutos </span>
+							<span class="count">200 330</span></a>
+						</li>
+						<li>
+							<a class="ads-label" href="#"><span class="line">@Resource.CatalogOfTrailerAutos </span>
+							<span class="count">200 330</span></a>
+						</li>
+						<li>
+							<a class="ads-label" href="#"><span class="line">@Resource.CatalogOfAutodomAutos </span>
+							<span class="count">200 330</span></a>
+						</li>
+						<li>
+							<a class="ads-label" href="#"><span class="line">@Resource.CatalogOfAirAutos </span>
+							<span class="count">200 330</span></a>
+						</li>							
+					</ul>
+				</div>
+				<div class="auto-catalog">
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+@section Scripts {
+    <script>
+        var Resource = {
+            From: "@Resource.From",
+            To: "@Resource.To",
+            AnyM: "@Resource.AnyM",
+            AnyFem: "@Resource.AnyFem",
+            AnyN: "@Resource.AnyN",
+            Loading: "@Resource.Loading",
+            SortUsual: "@Resource.SortUsual",
+            All: '@Resource.All'
+        };
+
+
+
+        $(document).ready(function () {
+            $("form").submit(function () {
+                var html = "";
+                html += "<input type='hidden' name='MakeAndModels[0].MakeID' value='" + $("#MakeID").val() + "'>";
+                html += "<input type='hidden' name='MakeAndModels[0].ModelID' value='" + $("#ModelID").val() + "'>";
+                $("form").append(html);
+
+                html += "<input type='hidden' name='RegionAndCities[0].RegionID' value='" + $("#RegionID > option[value='" + $("#RegionID").val() + "']").attr("parentid") + "'>";
+                html += "<input type='hidden' name='RegionAndCities[0].CityID' value='" + $("#RegionID").val() + "'>";
+                $("form").append(html);
+
+                return true;
+            });
+
+            //load statistics
+            $.ajax({
+                type: "GET",
+                url: "/AutoStatistics/GetNumberOfAutosGroupedByMake",
+                contentType: "application/json; charset=utf-8",
+                //dataType: "json",
+                success: function (data) {
+                    //console.log(data.result);
+                    var makes = data.result;
+                    var html = "<ul>";
+                    for (var i = 0; i < makes.length; i++) {
+                        html += "<li>";
+                        //html += "<a class='ads-label' href='/SearchAuto/Index?MakeID=" + makes[i].MakeID + "'>";
+                        html += "<a class='ads-label' href='#'>";
+                        html += "<span class='line'>" + makes[i].MakeName + " </span>";
+                        html += "<span class='count'>" + makes[i].AutosNumber + "</span>";
+                        html += "</a>";
+                        html += "</li>"
+
+                        if (i % 10 == 0 && i > 0 && i < makes.length - 1)
+                            html += "</ul><ul>";
+                    }
+                    html += "</ul>";
+
+                    $(".auto-catalog").last().append(html);
+                },
+                error: function (data) {
+                    //alert("Error: " + data);
+                }
+            });
+
+            //load top auctions
+            var auctionSearchVM = @Html.Raw(Json.Encode(auctionSearchVM));
+            $.ajax({
+                type: "POST",
+                //url: "/SearchAuction/GetAuctionsFromElastic",
+                url: "/SearchAuto/GetAutosFromElastic",
+                data: JSON.stringify({
+                    draw: 1,
+                    start: 0,
+                    length: 3,
+                    modelVM: auctionSearchVM,
+                    forHomePage: true
+                }),
+                contentType: "application/json; charset=utf-8",
+                //dataType: "json",
+                success: function (data) {
+                    //console.log(data);
+                    if (data.data.length > 0)
+                    {
+                        $(".topAuctions > .home_ads_in").html(data.data[0]);
+                        StartLoadingImagesAsync();
+                    }
+                },
+                error: function (data) {
+                    //alert("Error: " + data);
+                }
+            });
+
+            //load TOP autos
+            var searchVM = @Html.Raw(Json.Encode(searchVM));
+            $.ajax({
+                type: "POST",
+                url: "/SearchAuto/GetAutosFromElastic",
+                data: JSON.stringify({
+                    draw: 1,
+                    start: 0,
+                    length: 3,
+                    modelVM: searchVM,
+                    forHomePage: true
+                }),
+                contentType: "application/json; charset=utf-8",
+                //dataType: "json",
+                success: function (data) {
+                    //console.log(data);
+                    if (data.data.length > 0)
+                    {
+                        $(".topAutos > .home_ads_in").html(data.data[0]);
+                        StartLoadingImagesAsync();
+                    }
+                },
+                error: function (data) {
+                    //alert("Error: " + data);
+                }
+            });
+        });
+
+        function UpdateModelList(makeID, i) {
+            var data = { makeID: makeID };
+            MakeAjaxGetRequest("/AutoModel/GetAsSelectList", data, "select[name='MakeAndModels[" + i + "].ModelID']")
+        }
+    </script>
+    <script src="~/Scripts/custom/SimplifiedSearchFormScript.js"></script>
+    <script src="~/Scripts/custom/MakeAjaxGetRequest.js"></script>
+}

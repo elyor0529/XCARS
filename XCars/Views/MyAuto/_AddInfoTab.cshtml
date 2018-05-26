@@ -1,0 +1,48 @@
+﻿@using XCars.Resourses
+
+@*<a class="active disabled" href="/add_cars.html">Шаг 1: Основная информация </a><a class="" href="/add_cars2.html">Шаг 2:  Дополнительная информация</a><a class="disabled" href="/add_cars3.html">Шаг 3:  Публикация</a>*@
+
+<div class="add_cars_steps">
+    @{
+        string autoID = "";
+        if (ViewBag.autoID != null)
+        { autoID = "/" + ViewBag.autoID; }
+        string active = "";
+        string disabled = "";
+        if (ViewBag.activeTab == "AddMainInfo")
+        {
+            active = "active";
+            disabled = "disabled";
+        }
+        string url = "/MyAuto/AddMainInfo" + autoID;
+        <a class="@active @disabled" href="@url">@Resource.Step 1: @Resource.MainInfo</a>
+
+        active = "";
+        disabled = "";
+        if (ViewBag.activeTab == "AddExtraInfo")
+        {
+            active = "active";
+            disabled = "disabled";
+        }
+        url = "#";
+        if (autoID != "")
+        { url = "/MyAuto/AddExtraInfo" + autoID; }
+        else
+        { disabled = "disabled"; }
+        <a class="@active @disabled" href="@url">@Resource.Step 2: @Resource.ExtraInfo</a>
+
+        active = "";
+        disabled = "";
+        if (ViewBag.activeTab == "Preview")
+        {
+            active = "active";
+            disabled = "disabled";
+        }
+        url = "#";
+        if (autoID != "")
+        { url = "/MyAuto/Preview" + autoID; }
+        else
+        { disabled = "disabled"; }
+        <a class="@active @disabled" href="@url">@Resource.Step 3: @Resource.Publication</a>
+    }
+</div>

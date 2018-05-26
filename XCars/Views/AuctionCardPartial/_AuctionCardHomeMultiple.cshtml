@@ -1,0 +1,30 @@
+﻿@model IEnumerable <XCars.ViewModels.AuctionShortInfoVM>
+@using XCars.Resourses
+
+@{
+    if (Model != null)
+    {
+        List<XCars.ViewModels.AuctionShortInfoVM> auctions = Model.ToList();
+        if (auctions.Count > 0)
+        {
+            @Html.Partial("~/Views/AuctionCardPartial/_AuctionCardHomeVIP.cshtml", auctions[0])
+
+            <div class="home_ads_in_others">
+                <div class="home_ads_in_others2">
+                    @for (int i = 1; i < auctions.Count; i++)
+                    {
+                        @Html.Partial("~/Views/AuctionCardPartial/_AuctionCardHome.cshtml", auctions[i])
+                        if (i % 3 == 0)
+                        {
+                            <div class="clearfix"></div>
+                        }
+                    }
+                </div>
+            </div>
+        }
+        else
+        {
+            <span>@Resource.NoDataToDisplay</span>
+        }
+    }
+}

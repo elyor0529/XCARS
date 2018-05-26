@@ -1,0 +1,769 @@
+﻿@model XCars.ViewModels.ExtendedSearchVM
+    @using XCars.ViewModels
+@using XCars.Resourses
+
+@{
+    ViewBag.Title = Resource.SearchExtended;
+}
+
+<div id="home_after_head">
+    <div class="container darkblue">
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <h1>@Resource.HomePageSlogan</h1>
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <div class="home_af au">
+                    <a href="#">
+                        <span>+95</span>
+                        <span>@Resource.NewAuctionsCount</span>
+                    </a>
+                </div>
+                <div class="home_af">
+                    <a href="#">
+                        <span>+@ViewBag.autosCountAddedToday</span>
+                        <span>@Resource.NewAdvertisementsCount</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="bigest_filter_wrap">
+                <div class="home_search_form">
+                    <div class="bigest_filter_inn">
+                        @using (Html.BeginForm("SearchResult", "SearchAuto", FormMethod.Post))
+                        {
+                            <div class="bigest_filter_top">
+                                <h5>@Resource.TransportType</h5>
+                                <div class="col-md-6 nopadding">
+                                    <label>@Resource.AutoType:</label>
+                                    <select class="search_sel" id="TransportTypeID" name="TransportTypeID"></select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>@Html.DisplayNameFor(model => model.BodyTypeID):</label>
+                                    <select id="BodyTypeID" name="BodyTypeID" class="selectpicker w_search_sel" title="" multiple></select>
+                                </div>
+                                <div class="clearfix"></div>
+
+                                <h5>@Html.DisplayNameFor(model => model.MakeAndModels)</h5>
+                                <div class="col-md-6 nopadding">
+                                    <label>@Html.DisplayNameFor(model => model.MakeID):</label>
+                                    <select id="MakeID" name="MakeID" class="selectpicker w_search_sel" title="" multiple></select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>@Html.DisplayNameFor(model => model.ModelID):</label>
+                                    <select id="ModelID" name="ModelID" class="selectpicker w_search_sel" title="" multiple></select>
+                                </div>
+                                <div class="clearfix"></div>
+
+                                <h5>@Resource.MainData</h5>
+                                <div class="col-md-5 nopadding">
+                                    <label>@Html.DisplayNameFor(model => model.YearOfIssue):</label>
+                                    <select id="YearOfIssue" name="YearOfIssue" class="selectpicker w_search_sel w177" title="" multiple></select>
+                                    <div class="br_line"></div>
+                                    <label class="w74">@Html.DisplayNameFor(model => model.PriceFrom):</label>
+                                    <input class="search_sel w74" placeholder="@Resource.From" id="PriceFrom" name="PriceFrom">
+                                    -
+                                    <input class="search_sel w74" placeholder="@Resource.To" id="PriceTo" name="PriceTo">
+                                    <select class="search_sel w68" id="CurrencyID" name="CurrencyID"></select>
+                                </div>
+                                <div class="col-md-7">
+                                    <label class="w55">@Html.DisplayNameFor(model => model.ProbegFrom):</label>
+                                    <input class="search_sel w74" placeholder="@Resource.From" id="ProbegFrom" name="ProbegFrom">
+                                    -
+                                    <input class="search_sel w74" placeholder="@Resource.To" id="ProbegTo" name="ProbegTo">
+                                    <label>@Resource.DistanceShort.</label>
+                                    <div class="br_line"></div>
+                                    <label class="w55">@Html.DisplayNameFor(model => model.RegionID):</label>
+                                    <select class="selectpicker w_search_sel w149" title="" id="RegionID" name="RegionID" multiple></select>
+
+                                    <label class="w55">@Html.DisplayNameFor(model => model.CityID):</label>
+                                    <select class="selectpicker w_search_sel w149" title="" id="CityID" name="CityID" multiple></select>
+                                </div>
+                                <div class="clearfix"></div>
+
+                                <h5>@Resource.TechnicalCharacteristics</h5>
+                                <div class="col-md-5 nopadding">
+                                    <label>@Html.DisplayNameFor(model => model.TransmissionTypeID):</label>
+                                    <select id="TransmissionTypeID" name="TransmissionTypeID" class="selectpicker w_search_sel w160" title="" multiple></select>
+                                    <div class="br_line"></div>
+                                    <label>@Html.DisplayNameFor(model => model.DriveTypeID):</label>
+                                    <select id="DriveTypeID" name="DriveTypeID" class="selectpicker w_search_sel w160" title="" multiple></select>
+                                    <div class="br_line"></div>
+                                    <label>@Html.DisplayNameFor(model => model.EngineCapacityFrom):</label>
+                                    <input id="EngineCapacityFrom" name="EngineCapacityFrom" class="search_sel w74" placeholder="@Resource.From">
+                                    -
+                                    <input id="EngineCapacityTo" name="EngineCapacityTo" class="search_sel w74" placeholder="@Resource.To">
+                                    <div class="br_line"></div>
+                                    <label>@Html.DisplayNameFor(model => model.FuelTypeID):</label>
+                                    <select id="FuelTypeID" name="FuelTypeID" class="selectpicker w_search_sel w160" title="" multiple></select>
+                                    <div class="br_line"></div>
+                                    <label>@Html.DisplayNameFor(model => model.FuelConsumptionFrom)</label>
+                                    <input id="FuelConsumptionFrom" name="FuelConsumptionFrom" class="search_sel w74" placeholder="@Resource.From">
+                                    -
+                                    <input id="FuelConsumptionTo" name="FuelConsumptionTo" class="search_sel w74" placeholder="@Resource.To">
+                                    <div class="br_line"></div>
+                                    @*<label>@Html.DisplayNameFor(model => model.PowerFrom):</label>
+                                    <input id="PowerFrom" name="PowerFrom" class="search_sel w74" placeholder="@Resource.From">
+                                    -
+                                    <input id="PowerTo" name="PowerTo" class="search_sel w74" placeholder="@Resource.To">
+                                    <div class="br_line"></div>*@
+                                    <label>@Html.DisplayNameFor(model => model.TSRegistrationID):</label>
+                                    <select id="TSRegistrationID" name="TSRegistrationID" class="selectpicker w_search_sel w160" title="" multiple></select>
+                                    <div class="br_line"></div>
+                                    <label>@Html.DisplayNameFor(model => model.NumberOfDoors):</label>
+                                    <select id="NumberOfDoors" name="NumberOfDoors" class="selectpicker w_search_sel w160" title="" multiple>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                    <div class="br_line"></div>
+                                    <label>@Html.DisplayNameFor(model => model.ColorID):</label>
+                                    <select id="ColorID" name="ColorID" class="selectpicker w_search_sel w160" title="" multiple></select>
+                                    <br />
+                                    <label></label>
+                                    @Html.EditorFor(model => model.IsColorMetallic)
+                                    @Html.LabelFor(model => model.IsColorMetallic, new { @class = "vert_al" })
+                                </div>
+                                <div class="col-md-7 nopadding" id="states">
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="hide_cont_wrap">
+                                <a href="#securitiesCollapse" class="hide_cont_href_boot collapsed" data-toggle="collapse">@Html.DisplayNameFor(model => model.Securities)</a>
+                                <div id="securitiesCollapse" class="collapse hide_cont_sel fade">
+
+                                </div>
+                            </div>
+                            <div class="hide_cont_wrap">
+                                <a href="#comfortsCollapse" class="hide_cont_href_boot collapsed" data-toggle="collapse">@Html.DisplayNameFor(model => model.Comforts)</a>
+                                <div id="comfortsCollapse" class="collapse hide_cont_sel">
+                                </div>
+                            </div>
+                            <div class="hide_cont_wrap">
+                                <a href="#multimediasCollapse" class="hide_cont_href_boot collapsed" data-toggle="collapse">@Html.DisplayNameFor(model => model.Multimedias)</a>
+                                <div id="multimediasCollapse" class="collapse hide_cont_sel">
+                                </div>
+                            </div>
+                            <div class="hide_cont_wrap">
+                                <a href="#miscsCollapse" class="hide_cont_href_boot collapsed" data-toggle="collapse">@Html.DisplayNameFor(model => model.Miscs)</a>
+                                <div id="miscsCollapse" class="collapse hide_cont_sel">
+                                </div>
+                            </div>
+
+                            <div class="bigest_filter_chek_bot">
+                                <h5>@Resource.Misc</h5>
+                                <span>
+                                    @Html.EditorFor(model => model.IsExchangeAvailable)
+                                    @Html.LabelFor(model => model.IsExchangeAvailable)
+                                </span>
+                                <span>
+                                    @Html.EditorFor(model => model.IsTorgAvailable)
+                                    @Html.LabelFor(model => model.IsTorgAvailable)
+                                </span>
+                            </div>
+                            <h5>@Resource.SearchResult</h5>
+                            <div class="hide_cont_sel bigest_filter_top">
+                                <label>@Html.DisplayNameFor(model => model.SortID):</label>
+                                <select class="search_sel" id="SortID" name="SortID">
+                                    <option value="0" selected>@Resource.SortUsual</option>
+                                    <option value="1">@Resource.SortChEx</option>
+                                    <option value="2">@Resource.SortExCh</option>
+                                </select>
+                                <div class="br_line"></div>
+                                <label>@Html.DisplayNameFor(model => model.PeriodID):</label>
+                                <select class="search_sel" id="PeriodID" name="PeriodID">
+                                    <option value="0">@Resource.All</option>
+                                    <option value="1">@Resource.ForLastHour</option>
+                                    <option value="2">@Resource.For6Hours</option>
+                                    <option value="3">@Resource.ForLastDay</option>
+                                    <option value="4">@Resource.For24Hours</option>
+                                    <option value="5">@Resource.ForLastWeek</option>
+                                    <option value="6">@Resource.ForLastMonth</option>
+                                </select>
+                            </div>
+                            <button class="but_purple but pull-right" type="submit">@Resource.Search</button>
+                            <div class="clearfix"></div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="home_search_form_baner">
+                <img height="250" width="300" src="~/Content/images/samples/ads-squere.jpg" alt="XCars"><br /><br />
+                <img height="250" width="300" src="~/Content/images/samples/ads-squere.jpg" alt="XCars"><br /><br />
+                <img height="250" width="300" src="~/Content/images/samples/ads-squere.jpg" alt="XCars"><br /><br />
+                <img height="250" width="300" src="~/Content/images/samples/ads-squere.jpg" alt="XCars">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/bootstrap-select.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            MakeAjaxGetRequest("/AutoTransportType/GetAllAsSelectList", null, "#TransportTypeID", "select", null, null);
+            MakeAjaxGetRequest("/AutoMake/GetAsSelectList", null, "#MakeID", "select", null, null, true);
+            MakeAjaxGetRequest("/Year/GetAllAsSelectList", null, "#YearOfIssue", "select", null, null, true);
+            MakeAjaxGetRequest("/Currency/GetAllAsSelectList", null, "#CurrencyID");
+            MakeAjaxGetRequest("/Region/GetAllAsSelectList", null, "#RegionID", "select", null, null, true);
+
+            MakeAjaxGetRequest("/AutoTransmissionType/GetAllAsSelectList", null, "#TransmissionTypeID", "select", null, null, true);
+            MakeAjaxGetRequest("/AutoDriveType/GetAllAsSelectList", null, "#DriveTypeID", "select", null, null, true);
+            MakeAjaxGetRequest("/AutoFuelType/GetAllAsSelectList", null, "#FuelTypeID", "select", null, null, true);
+            MakeAjaxGetRequest("/AutoTSRegistration/GetAllAsSelectList", null, "#TSRegistrationID", "select", null, null, true);
+            MakeAjaxGetRequest("/AutoColor/GetAllAsSelectList", null, "#ColorID", "select", null, null, true);
+
+            MakeAjaxGetRequest("/AutoState/GetAllAsSelectList", null, "#states", "checkboxForStatesInSearchForm", "States");
+            MakeAjaxGetRequest("/AutoSecurity/GetAllAsSelectList", null, "#securitiesCollapse", "checkboxForOthersInSearchForm", "Securities");
+            MakeAjaxGetRequest("/AutoComfort/GetAllAsSelectList", null, "#comfortsCollapse", "checkboxForOthersInSearchForm", "Comforts");
+            MakeAjaxGetRequest("/AutoMultimedia/GetAllAsSelectList", null, "#multimediasCollapse", "checkboxForOthersInSearchForm", "Multimedias");
+            MakeAjaxGetRequest("/AutoMisc/GetAllAsSelectList", null, "#miscsCollapse", "checkboxForOthersInSearchForm", "Miscs");
+
+
+            //$("select#TransportTypeID").change(function () {
+            //    //console.log($("#TransportTypeID").val().length);
+            //    var targetSelector = "#BodyTypeID";
+            //    //$(targetSelector).attr("disabled", "disabled");
+            //    var data = { transportTypeID: $("#TransportTypeID").val() };
+            //    if (data.transportTypeID.length == 0)
+            //    {
+            //        $(targetSelector).html("");
+            //        $(targetSelector).selectpicker('refresh');
+            //    }
+            //    else
+            //        MakeAjaxGetRequest("/AutoBodyType/GetAsSelectListMultiple", data, targetSelector, "select", null, null, true);
+            //});
+
+            $("select#TransportTypeID").change(function () {
+                var targetSelector = "#BodyTypeID";
+                //$(targetSelector).attr("disabled", "disabled");
+                var data = { transportTypeID: $("#TransportTypeID").val() };
+
+                if (data.transportTypeID == "")
+                    $(targetSelector).html("");
+                else
+                    MakeAjaxGetRequest("/AutoBodyType/GetAsSelectListMultiple", data, targetSelector, "select", null, null, true);
+            });
+
+            $("select#MakeID").change(function () {
+                //console.log($("#TransportTypeID").val().length);
+                var targetSelector = "#ModelID";
+                //$(targetSelector).attr("disabled", "disabled");
+                var data = { makeID: $("#MakeID").val(), selected: $(targetSelector).val() };
+                if (data.makeID.length == 0) {
+                    $(targetSelector).html("");
+                    $(targetSelector).selectpicker('refresh');
+                }
+                else
+                    MakeAjaxGetRequest("/AutoModel/GetAsSelectListWithParentIDMultiple", data, targetSelector, "select", null, null, true);
+            });
+
+            $("select#RegionID").change(function () {
+                //console.log($("#TransportTypeID").val().length);
+                var targetSelector = "#CityID";
+                //$(targetSelector).attr("disabled", "disabled");
+                var data = { regionID: $("#RegionID").val() };
+                if (data.regionID.length == 0) {
+                    $(targetSelector).html("");
+                    $(targetSelector).selectpicker('refresh');
+                }
+                else
+                    MakeAjaxGetRequest("/City/GetAsSelectListMultiple", data, targetSelector, "select", null, null, true);
+            });
+
+            $("form").submit(function () {
+                var html = "";
+                var selectedModels = $("#ModelID > option:selected").toArray();
+                for (var i = 0; i < selectedModels.length; i++)
+                {
+                    html += "<input type='hidden' name='MakeAndModels[" + i + "].MakeID' value='" + $(selectedModels[i]).attr("parentid") + "'>";
+                    html += "<input type='hidden' name='MakeAndModels[" + i + "].ModelID' value='" + $(selectedModels[i]).val() + "'>";
+                }
+                $("form").append(html);
+
+                return true;
+            });
+        });
+    </script>
+    <script src="~/Scripts/custom/MakeAjaxGetRequest.js"></script>
+}
+
+
+
+
+
+
+
+
+@*<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm("SearchResult", "SearchAuto", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TransportTypeID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select class="form-control" id="TransportTypeID" name="TransportTypeID"></select>
+                @Html.ValidationMessageFor(model => model.TransportTypeID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.BodyTypeID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select class="form-control" id="BodyTypeID" name="BodyTypeID"></select>
+                @Html.ValidationMessageFor(model => model.BodyTypeID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <table class="table" id="mmTable">
+            @{
+                
+                List<MakeAndModelVM> mmVMs = new List<MakeAndModelVM>();
+            }
+            <thead>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </thead>
+            @if (Model == null || Model != null && Model.MakeAndModels.Count == 0)
+            {   mmVMs.Add(mmVM); }
+            else
+            {   mmVMs = Model.MakeAndModels.ToList(); }
+            <tbody>
+                @for (int i = 0; i < mmVMs.Count; i++)
+                {
+                    <tr id="mm_@i">
+                        <td>
+                            <span>@Html.DisplayNameFor(m => mmVM.MakeID)</span>
+                            <select name="MakeAndModels[@i].MakeID" class="form-control make" onchange="UpdateModelList(this.value, @i)"></select>
+                        </td>
+                        <td>
+                            <span>@Html.DisplayNameFor(m => mmVM.ModelID)</span>
+                            <select name="MakeAndModels[@i].ModelID" class="form-control model"></select>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-success" onclick="RemoveElement('tr#mm_@i')">X</button>
+                        </td>
+                        <td>
+                            <input type="checkbox" name="MakeAndModels[@i].ModelToBeExcluded" value="true"/> <span>@Html.DisplayNameFor(m => mmVM.ModelToBeExcluded)</span>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <button type="button" id="addMMBtn" class="btn btn-success">Add more</button>
+        <br />
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.YearOfIssueFrom, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select class="form-control" id="YearOfIssueFrom" name="YearOfIssueFrom"></select>
+                @Html.ValidationMessageFor(model => model.YearOfIssueFrom, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.YearOfIssueTo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select class="form-control" id="YearOfIssueTo" name="YearOfIssueTo"></select>
+                @Html.ValidationMessageFor(model => model.YearOfIssueTo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PriceFrom, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PriceFrom, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PriceFrom, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PriceTo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PriceTo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PriceTo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CurrencyID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select class="form-control" id="CurrencyID" name="CurrencyID"></select>
+                @Html.ValidationMessageFor(model => model.CurrencyID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ProbegFrom, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ProbegFrom, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ProbegFrom, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ProbegTo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ProbegTo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ProbegTo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.RegionID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select class="form-control" id="RegionID" name="RegionID" onchange="MakeAjaxGetRequest('/City/GetByRegionIDAsSelectList', { regionID: (this.value != '') ? this.value : 0 }, 'select[name=\'CityID\']');"></select>
+                @Html.ValidationMessageFor(model => model.RegionID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CityID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select class="form-control" id="CityID" name="CityID"></select>
+                @Html.ValidationMessageFor(model => model.CityID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TransmissionTypeID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select class="form-control" id="TransmissionTypeID" name="TransmissionTypeID"></select>
+                @Html.ValidationMessageFor(model => model.TransmissionTypeID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DriveTypeID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select class="form-control" id="DriveTypeID" name="DriveTypeID"></select>
+                @Html.ValidationMessageFor(model => model.DriveTypeID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EngineCapacityFrom, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select class="form-control" id="EngineCapacityFrom" name="EngineCapacityFrom"></select>
+                @Html.ValidationMessageFor(model => model.EngineCapacityFrom, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EngineCapacityTo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select class="form-control" id="EngineCapacityTo" name="EngineCapacityTo"></select>
+                @Html.ValidationMessageFor(model => model.EngineCapacityTo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FuelTypeID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select class="form-control" id="FuelTypeID" name="FuelTypeID"></select>
+                @Html.ValidationMessageFor(model => model.FuelTypeID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FuelConsumption, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select class="form-control" id="FuelConsumption" name="FuelConsumption"></select>
+                @Html.ValidationMessageFor(model => model.FuelConsumption, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Power, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select class="form-control" id="Power" name="Power"></select>
+                @Html.ValidationMessageFor(model => model.Power, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NumberOfDoors, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NumberOfDoors, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NumberOfDoors, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ColorID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select class="form-control" id="ColorID" name="ColorID"></select>
+                @Html.ValidationMessageFor(model => model.ColorID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IsColorMetallic, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.IsColorMetallic)
+                    @Html.ValidationMessageFor(model => model.IsColorMetallic, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TSRegistrationID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select class="form-control" id="TSRegistrationID" name="TSRegistrationID"></select>
+                @Html.ValidationMessageFor(model => model.TSRegistrationID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.States, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select class="form-control" id="States" name="States" multiple></select>
+                @Html.ValidationMessageFor(model => model.States, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="panel-group" id="complectation">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#complectation" href="#securitiesCollapse">
+                            @Html.DisplayNameFor(model => model.Securities)
+                        </a>
+                    </h4>
+                </div>
+                <div id="securitiesCollapse" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#complectation" href="#comfortsCollapse">
+                            @Html.DisplayNameFor(model => model.Comforts)
+                        </a>
+                    </h4>
+                </div>
+                <div id="comfortsCollapse" class="panel-collapse collapse">
+                    <div class="panel-body">
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#complectation" href="#multimediasCollapse">
+                            @Html.DisplayNameFor(model => model.Multimedias)
+                        </a>
+                    </h4>
+                </div>
+                <div id="multimediasCollapse" class="panel-collapse collapse">
+                    <div class="panel-body">
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#complectation" href="#miscsCollapse">
+                            @Html.DisplayNameFor(model => model.Miscs)
+                        </a>
+                    </h4>
+                </div>
+                <div id="miscsCollapse" class="panel-collapse collapse">
+                    <div class="panel-body">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IsExchangeAvailable, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.IsExchangeAvailable)
+                    @Html.ValidationMessageFor(model => model.IsExchangeAvailable, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IsTorgAvailable, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.IsTorgAvailable)
+                    @Html.ValidationMessageFor(model => model.IsTorgAvailable, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SortID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select class="form-control" id="SortID" name="SortID">
+                    <option value="0" selected>@Resource.SortUsual</option>
+                    <option value="1">@Resource.SortChEx</option>
+                    <option value="2">@Resource.SortExCh</option>
+                </select>
+                @Html.ValidationMessageFor(model => model.SortID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PeriodID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select class="form-control" id="PeriodID" name="PeriodID">
+                    <option value="0">@Resource.All</option>
+                    <option value="1">@Resource.ForLastHour</option>
+                    <option value="2">@Resource.For6Hours</option>
+                    <option value="3">@Resource.ForLastDay</option>
+                    <option value="4">@Resource.For24Hours</option>
+                    <option value="5">@Resource.ForLastWeek</option>
+                    <option value="6">@Resource.ForLastMonth</option>
+                </select>
+                @Html.ValidationMessageFor(model => model.PeriodID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="@Resource.Search" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}*@
+
+
+@*@section Scripts {
+        
+
+        <script>
+            var mmCnt = 100;
+
+            $(document).ready(function () {
+                MakeAjaxGetRequest("/AutoTransportType/GetAllAsSelectList", null, "#TransportTypeID");
+                MakeAjaxGetRequest("/AutoMake/GetAsSelectList", null, "select[name='MakeAndModels[0].MakeID']");
+                MakeAjaxGetRequest("/Year/GetAllAsSelectList", null, "#YearOfIssueFrom");
+                MakeAjaxGetRequest("/Year/GetAllAsSelectList", null, "#YearOfIssueTo");
+                MakeAjaxGetRequest("/Currency/GetAllAsSelectList", null, "#CurrencyID");
+                MakeAjaxGetRequest("/Region/GetAllAsSelectList", null, "#RegionID");
+                MakeAjaxGetRequest("/AutoTransmissionType/GetAllAsSelectList", null, "#TransmissionTypeID");
+                MakeAjaxGetRequest("/AutoDriveType/GetAllAsSelectList", null, "#DriveTypeID");
+                MakeAjaxGetRequest("/AutoEngineCapacity/GetAllAsSelectList", null, "#EngineCapacityFrom");
+                MakeAjaxGetRequest("/AutoEngineCapacity/GetAllAsSelectList", null, "#EngineCapacityTo");
+                MakeAjaxGetRequest("/AutoFuelType/GetAllAsSelectList", null, "#FuelTypeID");
+                MakeAjaxGetRequest("/AutoFuelConsumption/GetAllAsSelectList", null, "#FuelConsumption");
+                MakeAjaxGetRequest("/AutoPower/GetAllAsSelectList", null, "#Power");
+                MakeAjaxGetRequest("/AutoColor/GetAllAsSelectList", null, "#ColorID");
+                MakeAjaxGetRequest("/AutoTSRegistration/GetAllAsSelectList", null, "#TSRegistrationID");
+                MakeAjaxGetRequest("/AutoState/GetAllAsSelectList", null, "select[name='States']");
+
+                MakeAjaxGetRequest("/AutoSecurity/GetAllAsSelectList", null, "#securitiesCollapse > div", "checkbox", "Securities");
+                MakeAjaxGetRequest("/AutoComfort/GetAllAsSelectList", null, "#comfortsCollapse > div", "checkbox", "Comforts");
+                MakeAjaxGetRequest("/AutoMultimedia/GetAllAsSelectList", null, "#multimediasCollapse > div", "checkbox", "Multimedias");
+                MakeAjaxGetRequest("/AutoMisc/GetAllAsSelectList", null, "#miscsCollapse > div", "checkbox", "Miscs");
+
+                $("#addMMBtn").click(function () {
+                    var html = '<tr id="mm_' + mmCnt + '">';
+                    html += '<td>';
+                    html += '<span>' + '@Html.DisplayNameFor(m => mmVM.MakeID)' + '</span>';
+                    html += '<select name="MakeAndModels[' + mmCnt + '].MakeID" class="form-control make" onchange="UpdateModelList(this.value, ' + mmCnt + ')" ></select>';
+                    html += '</td>';
+                    html += '<td>';
+                    html += '<span>' + '@Html.DisplayNameFor(m => mmVM.ModelID)' + '</span>';
+                    html += '<select name="MakeAndModels[' + mmCnt + '].ModelID" class="form-control model"></select>';
+                    html += '</td>';
+                    html += '<td>';
+                    html += '<button type="button" class="btn btn-success" onclick="RemoveElement(\'tr#mm_' + mmCnt + '\')">X</button>';
+                    html += '</td>';
+                    html += '<td>';
+                    html += '<input type="checkbox" name="MakeAndModels[' + mmCnt + '].ModelToBeExcluded" value="true"/> <span>' + '@Html.DisplayNameFor(m => mmVM.ModelToBeExcluded)' + '</span>';
+                    html += '</td>';
+                    html += '</tr>';
+
+                    $("#mmTable tbody").append(html);
+                    MakeAjaxGetRequest("/AutoMake/GetAsSelectList", null, "select[name='MakeAndModels[" + mmCnt + "].MakeID']");
+
+                    mmCnt++;
+                });
+
+                $("form").submit(function () {
+                    RenumberMMRows();
+                    return true;
+                });
+
+                $("select#TransportTypeID").change(function () {
+                    var targetSelector = "#BodyTypeID";
+                    $(targetSelector).attr("disabled", "disabled");
+                    var data = { transportTypeID: $("#TransportTypeID").val() };
+
+                    if (data.transportTypeID == "")
+                        $(targetSelector).html("");
+                    else
+                        MakeAjaxGetRequest("/AutoBodyType/GetAsSelectList", data, targetSelector);
+                });
+
+                //$("select#BodyTypeID").change(function () {
+                //    var data = {
+                //        transportTypeID: $("#TransportTypeID").val(),
+                //        bodyTypeID: $("#BodyTypeID").val()
+                //    };
+
+                //    if (data.transportTypeID == "" && data.bodyTypeID == "")
+                //    {
+                //        $("select.make").html("");
+                //    }
+                //    else
+                //        MakeAjaxGetRequest("/AutoMake/GetAsSelectList", data, "select.make");
+
+                //    $("select.model").html("");
+                //});
+            });
+
+            function UpdateModelList(makeID, i)
+            {
+                var data = { makeID: makeID };
+                MakeAjaxGetRequest("/AutoModel/GetAsSelectList", data, "select[name='MakeAndModels[" + i + "].ModelID']")
+            }
+
+            function RemoveElement(selector)
+            {
+                $(selector).remove();
+            }
+
+            function RenumberMMRows()
+            {
+                var tr = $("#mmTable tbody").children("tr");
+                for (var i = 0; i < tr.length; i++)
+                {
+                    var td = $(tr[i]).children("td");
+                    $(td[0]).children("select").attr("name", 'MakeAndModels[' + i + '].MakeID')
+                    $(td[1]).children("select").attr("name", 'MakeAndModels[' + i + '].ModelID')
+                    $(td[3]).children("input").attr("name", 'MakeAndModels[' + i + '].ModelToBeExcluded')
+                }
+            }
+        </script>
+        <script src="~/Scripts/custom/MakeAjaxGetRequest.js"></script>
+    }*@

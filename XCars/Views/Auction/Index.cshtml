@@ -1,0 +1,40 @@
+﻿@model IEnumerable<XCars.Model.Auction>
+@using XCars.Resourses
+@using XCars.Helpers
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@Html.Breadcrumbs(ViewBag.breadcrumbs as Dictionary<string, string>)
+
+<h2>@Resource.Auctions</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @*Инфо*@
+        </th>
+        <th>
+            @*Статус*@
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @if (item.StateID == 1 && item.Deadline > DateTime.Now || item.Auto.UserID == ViewBag.userID)
+            {
+                <a href="/Auction/Details/@item.ID">@item.Auto.AutoMake.Name @item.Auto.AutoModel.Name, @item.Auto.YearOfIssue</a>
+            }
+            else
+            {
+                <span>@item.Auto.AutoMake.Name @item.Auto.AutoModel.Name, @item.Auto.YearOfIssue</span>
+            }
+        </td>
+        <td>
+            @item.AuctionState.Name
+        </td>
+    </tr>
+}
+</table>

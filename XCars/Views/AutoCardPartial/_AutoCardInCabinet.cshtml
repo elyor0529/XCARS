@@ -1,0 +1,84 @@
+﻿@model XCars.ViewModels.AutoShortInfoVM
+@using XCars.Resourses
+@using XCars.Common
+
+@{
+    string photoSrc = XCarsConfiguration.BucketEndpoint + XCarsConfiguration.BucketName + "/" + XCarsConfiguration.AutoPhotosUploadUrl + (Model.Photo.ID != 0 ? (Model.Photo.ID + "_272x179") : XCarsConfiguration.AutoNoPhotoName) + XCarsConfiguration.PhotoExtension;
+    string autoName = Model.Make + " " + Model.Model + (!string.IsNullOrWhiteSpace(Model.Modification) ? " " + Model.Modification : "")/* + " " + Model.YearOfIssue*/;
+}
+
+<div class="account_single_ads">
+    <div class="account_single_ads_foto">
+        <a class="acc_edit_ads" href="/Auto/Details/@Model.ID">
+            <img class="async" width="250" title="@autoName" alt="@autoName" finalSrc="@photoSrc" src="@XCars.Common.XCarsConfiguration.ClearGif">
+        </a>
+    </div>
+    <div class="account_single_ads_desc">
+        <div class="more_des_price_name">
+            <span class="name"><a class="acc_edit_ads" href="/Auto/Details/@Model.ID">@autoName</a></span>
+            <span class="green">@Model.PriceUSDStr</span><span class="price_grn">/ @Model.PriceUAHStr</span>
+        </div>
+        <div class="more_des">
+            <span><i class="icon-race"></i>@Model.Probeg @Resource.DistanceShort</span>@if (!string.IsNullOrWhiteSpace(Model.TransmissionType)){<span><i class="icon-transmission"></i>@Model.TransmissionType</span>}@if (!string.IsNullOrWhiteSpace(Model.FuelType) && Model.EngineCapacity != null){<span><i class="icon-fuel"></i>@Model.FuelType, @Model.EngineCapacity @Resource.LitresShort</span>}<span><i class="icon-year"></i>@Model.YearOfIssue</span>
+        </div>
+        <div class="more_des_status">
+            <span>@Resource.Status: <strong>@Model.Status</strong></span>
+            <span>@Resource.ViewsShort: <strong>@Model.Views </strong></span><span>@Resource.InFavorites: <strong>@Model.CountOfFavorites</strong></span>
+        </div>
+    </div>
+    <div class="home_aut_but">
+        @if (Model.StatusID == 1 || Model.StatusID == 3)
+        { <button onclick="location.href = '/MyAuto/Checkout/@Model.ID'" type="button" class="but_lgreen but">@Resource.Publish</button> }
+        else
+        { <button onclick="location.href = '/MyAuto/Checkout/@Model.ID'" type="button" class="but_lgreen but">@Resource.Refresh</button> }
+        
+
+        @if (Model.StatusID == 2)
+        {
+            <button onclick="location.href = '/MyAuction/Create/@Model.ID'" type="button" class="but_lgreen but">@Resource.CreateAuction</button>
+            <button onclick="location.href = '/MyAuto/MakeTop/@Model.ID'" type="button" class="but_lgreen but">@Resource.MakeTop</button>
+        }
+        else
+        {
+            <button type="button" class="but_lgreen but disabled">@Resource.CreateAuction</button>
+            <button type="button" class="but_lgreen but disabled">@Resource.MakeTop</button>
+        }
+
+        @if (Model.StatusID == 1 || Model.StatusID == 2)
+        { <button onclick="javascript:document.getElementById('moveToArchives_@Model.ID').submit()" class="but_purple but">@Resource.MoveToArchives</button> }
+        else
+        { <button class="but_purple but disabled">@Resource.MoveToArchives</button> }
+        @*@if (Model.StatusID == 3)
+        {
+            <form action="/MyAuto/Delete/@Model.ID" method="post">
+                <button type="submit" class="btn btn-danger btn-sm">@Resource.Delete</button>
+            </form>
+        }*@
+
+        @{
+            string shareButtonDisabled = "disabled";
+            if (Model.StatusID == 2)
+            { shareButtonDisabled = ""; }
+
+            string url = "http://emcar.quadevs.com/Auto/Details/" + Model.ID;
+            string urlEncoded = System.Web.HttpUtility.UrlEncode(url);
+            string fbSharerUrl = "https://www.facebook.com/sharer/sharer.php?u=" + urlEncoded + "%2F&amp;src=sdkpreparse";
+
+            <span class="fb-share-button" data-href="@url" data-layout="button_count" data-size="large" data-mobile-iframe="false">
+                <button class="but_purple but @shareButtonDisabled" target="_blank" onclick="window.open('@fbSharerUrl', '_blank');">@Resource.Share</button>
+            </span>
+        }
+
+        <button class="but_purple but acc_edit_but" type="button" onclick="location.href = '/MyAuto/AddMainInfo/@Model.ID'">@Resource.Edit</button>
+
+        @*<button class="but_lgreen but">опубликовать</button>
+        <button class="but_lgreen but">в аукцион</button>
+        <button class="but_lgreen but">поднять в топ</button>
+        <button class="but_purple but">в архив</button>
+        <button class="but_purple but">поделиться</button>
+        <button class="but_purple but acc_edit_but">редактировать</button>*@
+    </div>
+    <form action="/MyAuto/MoveToArchives/@Model.ID" method="post" id="moveToArchives_@Model.ID">
+    </form>
+    <div class="clearfix"></div>
+</div>

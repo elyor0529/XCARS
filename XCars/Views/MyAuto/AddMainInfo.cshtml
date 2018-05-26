@@ -1,0 +1,256 @@
+﻿@model XCars.ViewModels.AutoMainInfoVM
+@using XCars.Resourses
+@using XCars.Helpers
+
+@{
+    ViewBag.Title = Resource.MainInfo;
+}
+
+@Html.Partial("_BreadcrumbsPartial", ViewBag.breadcrumbs as Dictionary<string, string>)
+
+<div class="add_cars">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="add_cars_in step1">
+                    @Html.Partial("_AddInfoTab")
+                    <h2>@Resource.MainInfo</h2>
+
+                    @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "addMainInfoForm" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.AutoID)
+
+                        <div class="add_cars_rows add_cars_rows1">
+                            <div class="">
+                                <div class="label">@Html.DisplayNameFor(model => model.TransportTypeID):<span>*</span></div>
+                                @Html.DropDownListFor(model => model.TransportTypeID, new List<SelectListItem>(), new { @class = "search_sel" })
+                                @Html.ValidationMessageFor(model => model.TransportTypeID, "", new { @class = "text-danger" })
+                                <br />
+                                <div class="label">@Html.DisplayNameFor(model => model.BodyTypeID):<span>*</span></div>
+                                @Html.DropDownListFor(model => model.BodyTypeID, new List<SelectListItem>(), new { @class = "search_sel" })
+                                @Html.ValidationMessageFor(model => model.BodyTypeID, "", new { @class = "text-danger" })
+                                <br />
+                                <div class="label">@Html.DisplayNameFor(model => model.MakeID):<span>*</span></div>
+                                @Html.DropDownListFor(model => model.MakeID, new List<SelectListItem>(), new { @class = "search_sel" })
+                                @Html.ValidationMessageFor(model => model.MakeID, "", new { @class = "text-danger" })
+                                <br />
+                                <div class="label">@Html.DisplayNameFor(model => model.ModelID):<span>*</span></div>
+                                @Html.DropDownListFor(model => model.ModelID, new List<SelectListItem>(), new { @class = "search_sel" })
+                                @Html.ValidationMessageFor(model => model.ModelID, "", new { @class = "text-danger" })
+                                <br />
+                                <div class="label">@Html.DisplayNameFor(model => model.NumberOfDoors):</div>
+                                <select class="search_sel" id="NumberOfDoors" name="NumberOfDoors"></select>
+                                @Html.ValidationMessageFor(model => model.NumberOfDoors, "", new { @class = "text-danger" })
+                                <br />
+                                <div class="label">@Html.DisplayNameFor(model => model.NumberOfSeats):</div>
+                                @Html.TextBoxFor(model => model.NumberOfSeats, new { @class = "search_sel" })
+                                @Html.ValidationMessageFor(model => model.NumberOfSeats, "", new { @class = "text-danger" })
+                                <br />
+                            </div>
+                        </div>
+                        <div class="add_cars_rows add_cars_rows2">
+                            <div class="add_cars_rows2_inn">
+                                <div class="label">@Html.DisplayNameFor(model => model.RegionID):<span>*</span></div>
+                                @Html.DropDownListFor(model => model.RegionID, new List<SelectListItem>(), new { @class = "search_sel" })
+                                @Html.ValidationMessageFor(model => model.RegionID, "", new { @class = "text-danger" })
+                                <br />
+                                <div class="label">@Html.DisplayNameFor(model => model.CityID):<span>*</span></div>
+                                @Html.DropDownListFor(model => model.CityID, new List<SelectListItem>(), new { @class = "search_sel" })
+                                @Html.ValidationMessageFor(model => model.CityID, "", new { @class = "text-danger" })
+                                <br />
+                                <div class="label">@Html.DisplayNameFor(model => model.YearOfIssue):<span>*</span></div>
+                                @Html.DropDownListFor(model => model.YearOfIssue, new List<SelectListItem>(), new { @class = "search_sel" })
+                                @Html.ValidationMessageFor(model => model.YearOfIssue, "", new { @class = "text-danger" })
+                                <br />
+                                <div class="label">@Html.DisplayNameFor(model => model.TSRegistrationID):<span>*</span></div>
+                                @Html.DropDownListFor(model => model.TSRegistrationID, new List<SelectListItem>(), new { @class = "search_sel" })
+                                <br />
+                                @Html.ValidationMessageFor(model => model.TSRegistrationID, "", new { @class = "text-danger" })
+                                <div class="label">@Html.DisplayNameFor(model => model.Modification):</div>
+                                @Html.EditorFor(model => model.Modification, new { htmlAttributes = new { @class = "search_sel" } })
+                                <br />
+                                <div class="label">@Html.DisplayNameFor(model => model.ColorID):<span>*</span></div>
+                                <select class="search_sel" id="ColorID" name="ColorID"></select>
+                                @Html.ValidationMessageFor(model => model.ColorID, "", new { @class = "text-danger" })
+                                <span class="special_color_wrap">
+                                    @Html.CheckBoxFor(model => model.IsColorMetallic, new { @class = "search_sel metallic__addcars" })
+                                    @Html.LabelFor(model => model.IsColorMetallic, new { @class = "special_color" })
+                                </span>
+                            </div>
+                        </div>
+                        <div class="add_cars_rows add_cars_rows3">
+                            <div class="add_cars_rows2_inn">
+                                <div class="label">@Html.DisplayNameFor(model => model.TransmissionTypeID):<span>*</span></div>
+                                @Html.DropDownListFor(model => model.TransmissionTypeID, new List<SelectListItem>(), new { @class = "search_sel" })
+                                @Html.ValidationMessageFor(model => model.TransmissionTypeID, "", new { @class = "text-danger" })
+                                <br />
+                                @{ Html.EnableClientValidation(false); }
+                                <div class="label">@Html.DisplayNameFor(model => model.EngineCapacity):<span>*</span></div>
+                                @Html.TextBoxFor(model => model.EngineCapacity, new { @class = "search_sel less_sel" }) @Resource.LitresShort.
+                                @Html.ValidationMessageFor(model => model.EngineCapacity, "", new { @class = "text-danger" })
+                                @{ Html.EnableClientValidation(true); }
+                                <br />
+                                <div class="label">@Html.DisplayNameFor(model => model.Probeg):<span>*</span></div>
+                                @Html.TextBoxFor(model => model.Probeg, new { @class = "search_sel less_sel" }) @Resource.DistanceShort
+                                <br />
+                                <div class="label">@Html.DisplayNameFor(model => model.FuelTypeID):<span>*</span></div>
+                                <select class="search_sel" id="FuelTypeID" name="FuelTypeID"></select>
+                                @Html.ValidationMessageFor(model => model.FuelTypeID, "", new { @class = "text-danger" })
+                                <br />
+                                <div class="label">@Html.DisplayNameFor(model => model.DriveTypeID):<span>*</span></div>
+                                <select class="search_sel" id="DriveTypeID" name="DriveTypeID"></select>
+                                @Html.ValidationMessageFor(model => model.DriveTypeID, "", new { @class = "text-danger" })
+                                <br />
+                                <div class="label">@Resource.Price:<span>*</span></div>
+                                <div class="price_choose_cur">
+                                    @if (Model.PriceUSD == null && Model.PriceUAH == null)
+                                    {
+                                        <input type="text" id="PriceUSD" name="PriceUSD" onchange="PriceInputChanged()" class="search_sel price priceInput" />
+                                    }
+                                    else
+                                    {
+                                        string priceName = "PriceUSD";
+                                        if (Model.PriceUSD == null && Model.PriceUAH != null)
+                                        { priceName = "PriceUAH"; }
+                                        int price = Model.PriceUSD != null ? (int)Model.PriceUSD : (Model.PriceUAH != null ? (int)Model.PriceUAH : 0);
+
+
+                                        <input type="text" id="@priceName" name="@priceName" value="@price" onchange="PriceInputChanged()" class="search_sel price priceInput" />
+                                    }
+                                    <select class="search_sel currency" id="CurrencyID" name="CurrencyID"></select>
+                                    @Html.ValidationMessageFor(model => model.CurrencyID, "", new { @class = "text-danger" })    
+                                </div>
+                                <span id="priceErrorMsg" class="text-danger field-validation-error" style="display: none;">@Resource.PriceError</span>
+                                <div class="note">Цена в объявлении также будет указана в гривнах, согласно закону <a href="#">"О рекламе"</a></div>
+                            </div>
+
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="add_cars_last_row">
+                            <span>
+                                @Html.CheckBoxFor(model => model.IsTorgAvailable, new { @class = "search_sel" }) @Html.LabelFor(model => model.IsTorgAvailable)
+                                @*<input type="checkbox" value="1" id="add_cars_1" name="" class="search_sel"><label for="add_cars_1">Возможен торг	</label>*@
+                            </span>
+                            <span>
+                                @Html.CheckBoxFor(model => model.IsExchangeAvailable, new { @class = "search_sel" }) @Html.LabelFor(model => model.IsExchangeAvailable)
+                                @*<input type="checkbox" value="1" id="add_cars_2" name="" class="search_sel"><label for="add_cars_2">Возможен обмен на автомобиль</label>*@
+                            </span>
+                        </div>
+                        <div class="add_cars_foot step1">
+                            <button type="submit" class="but_purple but">@Resource.Next</button>
+                            <div class="clearfix"></div>
+                        </div>
+                    }
+                    
+                    <div class="note note_right">@Resource.AddAutoMainInfoPageBottomNote</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        var autoMainInfoVM = @Html.Raw(Json.Encode(Model));
+        //console.log(autoMainInfoVM);
+
+        $(document).ready(function () {
+            MakeAjaxGetRequest("/Region/GetAllAsSelectList", { selected: autoMainInfoVM.RegionID }, "#RegionID");
+            if (autoMainInfoVM.RegionID > 0)
+                MakeAjaxGetRequest("/City/GetAsSelectList", { regionID: autoMainInfoVM.RegionID, selected: autoMainInfoVM.CityID }, "#CityID");
+            MakeAjaxGetRequest("/AutoTSRegistration/GetAllAsSelectList", { selected: autoMainInfoVM.TSRegistrationID }, "#TSRegistrationID");
+            MakeAjaxGetRequest("/AutoTransportType/GetAllAsSelectList", { selected: autoMainInfoVM.TransportTypeID }, "#TransportTypeID");
+            if (autoMainInfoVM.TransportTypeID > 0)
+                MakeAjaxGetRequest("/AutoBodyType/GetAsSelectList", { transportTypeID: autoMainInfoVM.TransportTypeID, selected: autoMainInfoVM.BodyTypeID }, "#BodyTypeID");
+            MakeAjaxGetRequest("/AutoMake/GetAsSelectList", { selected: autoMainInfoVM.MakeID }, "#MakeID");
+            if (autoMainInfoVM.MakeID > 0)
+                MakeAjaxGetRequest("/AutoModel/GetAsSelectList", { makeID: autoMainInfoVM.MakeID, selected: autoMainInfoVM.ModelID }, "#ModelID")
+            MakeAjaxGetRequest("/AutoColor/GetAllAsSelectList", { selected: autoMainInfoVM.ColorID }, "#ColorID");
+            MakeAjaxGetRequest("/AutoDoor/GetAsSelectList", { selected: autoMainInfoVM.NumberOfDoors }, "#NumberOfDoors");
+            MakeAjaxGetRequest("/AutoTransmissionType/GetAllAsSelectList", { selected: autoMainInfoVM.TransmissionTypeID }, "#TransmissionTypeID");
+            MakeAjaxGetRequest("/AutoDriveType/GetAllAsSelectList", { selected: autoMainInfoVM.DriveTypeID }, "#DriveTypeID");
+            MakeAjaxGetRequest("/Year/GetAllAsSelectList", { selected: autoMainInfoVM.YearOfIssue }, "#YearOfIssue");
+            MakeAjaxGetRequest("/Currency/GetAllAsSelectList", { selected: autoMainInfoVM.CurrencyID }, "#CurrencyID");
+            MakeAjaxGetRequest("/AutoFuelType/GetAllAsSelectList", { selected: autoMainInfoVM.FuelTypeID }, "#FuelTypeID");
+            MakeAjaxGetRequest("/AutoDriveType/GetAllAsSelectList", { selected: autoMainInfoVM.DriveTypeID }, "#DriveTypeID");
+
+            $("select#RegionID").change(function () {
+                var targetSelector = "#CityID";
+                $(targetSelector).attr("disabled", "disabled");
+                var data = { regionID: $("#RegionID").val()};
+
+                if (data.regionID == "")
+                    $(targetSelector).html("");
+                else
+                    MakeAjaxGetRequest("/City/GetAsSelectList", data, targetSelector);
+            });
+
+            $("select#TransportTypeID").change(function () {
+                var targetSelector = "#BodyTypeID";
+                $(targetSelector).attr("disabled", "disabled");
+                var data = { transportTypeID: $("#TransportTypeID").val()};
+
+                if (data.transportTypeID == "")
+                    $(targetSelector).html("");
+                else
+                    MakeAjaxGetRequest("/AutoBodyType/GetAsSelectList", data, targetSelector);
+            });
+
+            $("select#MakeID").change(function () {
+                var targetSelector = "#ModelID";
+                $(targetSelector).attr("disabled", "disabled");
+                var data = { makeID: $("#MakeID").val()};
+
+                if (data.makeID == "")
+                    $(targetSelector).html("");
+                else
+                    MakeAjaxGetRequest("/AutoModel/GetAsSelectList", data, targetSelector);
+            });
+
+
+            $("form#addMainInfoForm").submit(function () {
+                //alert("submittion began");
+                $("#priceErrorMsg").css("display", "none");
+                if ($("input.priceInput").val() == "")
+                {
+                    $("#priceErrorMsg").css("display", "block");
+                    return false;
+                }
+                //alert("submittion after price validation");
+                var EngineCapacity = $("#EngineCapacity").val();
+                EngineCapacity = EngineCapacity.replace(',', '.');
+                $("#EngineCapacity").val(EngineCapacity);
+
+                var form = $("form#addMainInfoForm");
+                form.validate();
+                //alert(form.valid())
+                if (form.valid())
+                    return true;
+                else
+                    return false;
+            });
+
+            $("select#CurrencyID").change(function () {
+                $("input.priceInput").removeAttr("id");
+                $("input.priceInput").removeAttr("name");
+
+                var val = $(this).val();
+                var newIDAndName = "PriceUSD";
+                if (val == 2)
+                    newIDAndName = "PriceUAH";
+
+                $("input.priceInput").attr("id", newIDAndName);
+                $("input.priceInput").attr("name", newIDAndName);
+            });
+        });
+
+        function PriceInputChanged()
+        {
+            $("#priceErrorMsg").css("display", "none");
+        }
+    </script>
+    <script src="~/Scripts/custom/MakeAjaxGetRequest.js"></script>
+}

@@ -1,0 +1,8 @@
+﻿img.async
+{
+    /*width: 600px;
+    height: 450px;*/
+    background: url("/Content/images/loading.gif") 50% no-repeat;
+    /*border: 1px solid black;
+    border-radius: 5px;*/
+}
